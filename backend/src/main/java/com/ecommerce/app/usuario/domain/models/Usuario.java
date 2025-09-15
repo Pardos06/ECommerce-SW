@@ -1,49 +1,60 @@
 package com.ecommerce.app.usuario.domain.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "usuarios")
-public class Usuarios {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "UsuarioID")
-    private Integer usuarioId;
+    private int id;
 
-    @Column(name = "Nombre", nullable = false, length = 100)
+    @NotNull
+    @Size(max = 100)
+    @Column(nullable = false, length = 100)
     private String nombre;
 
-    @Column(name = "Email", nullable = false, unique = true, length = 100)
+    @NotNull
+    @Size(max = 100)
+    @Column(nullable = false, unique = true, length = 100)
     private String email;
 
-    @Column(name = "PasswordHash", nullable = false, length = 256)
+    @NotNull
+    @Size(max = 256)
+    @Column(nullable = false, length = 256)
     private String passwordHash;
 
-    @Column(name = "Estado", nullable = false, length = 50)
+    @NotNull
+    @Size(max = 50)
+    @Column(nullable = false, length = 50)
     private String estado = "Activo";
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "RolID", nullable = false)
-    private Roles rol;
+    @JoinColumn(nullable = false)
+    private Rol rol;
 
-    public Usuarios() {}
+    public Usuario() {}
     
-    public Usuarios(Integer usuarioId, String nombre, String email, String passwordHash, String estado, Roles rol) {
-        super();
-        this.usuarioId = usuarioId;
+    public Usuario(int id, String nombre, String email, String passwordHash, String estado, Rol rol) {
+        this.id = id;
         this.nombre = nombre;
         this.email = email;
         this.passwordHash = passwordHash;
         this.estado = estado;
         this.rol = rol;
     }
-    public Integer getUsuarioId() {
-        return usuarioId;
+
+    public int getId() {
+        return id;
     }
-    public void setUsuarioId(Integer usuarioId) {
-        this.usuarioId = usuarioId;
+
+    public void setId(int id) {
+        this.id = id;
     }
+
     public String getNombre() {
         return nombre;
     }
@@ -68,10 +79,10 @@ public class Usuarios {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    public Roles getRol() {
+    public Rol getRol() {
         return rol;
     }
-    public void setRol(Roles rol) {
+    public void setRol(Rol rol) {
         this.rol = rol;
     }
 

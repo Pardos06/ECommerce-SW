@@ -1,44 +1,52 @@
 package com.ecommerce.app.usuario.domain.models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "empleados")
 public class Empleado {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "EmpleadoID")
-    private Integer empleadoId;
+    private int id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "UsuarioID", nullable = false, unique = true)
-    private Usuarios usuario;
+    @JoinColumn(nullable = false, unique = true)
+    private Usuario usuario;
 
-    @Column(name = "Area", length = 100)
+    @Size(max = 100)
+    @Column(length = 100)
     private String area;
 
-    @Column(name = "Cargo", length = 100)
+    @Size(max = 100)
+    @Column(length = 100)
     private String cargo;
 
     public Empleado() {}
-    public Empleado(Integer empleadoId, Usuarios usuario, String area, String cargo) {
-        super();
-        this.empleadoId = empleadoId;
+    public Empleado(int id, Usuario usuario, String area, String cargo) {
+        this.id = id;
         this.usuario = usuario;
         this.area = area;
         this.cargo = cargo;
     }
-    public Integer getEmpleadoId() {
-        return empleadoId;
+
+    public int getId() {
+        return id;
     }
-    public void setEmpleadoId(Integer empleadoId) {
-        this.empleadoId = empleadoId;
+    public void setId(int id) {
+        this.id = id;
     }
-    public Usuarios getUsuario() {
+    public Usuario getUsuario() {
         return usuario;
     }
-    public void setUsuario(Usuarios usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
     public String getArea() {

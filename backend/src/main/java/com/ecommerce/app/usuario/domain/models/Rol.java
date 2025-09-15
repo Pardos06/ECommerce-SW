@@ -1,37 +1,41 @@
 package com.ecommerce.app.usuario.domain.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "roles")
-public class Roles {
+public class Rol {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "RolID")
-    private Integer rolId;
+    private int id;
 
-    @Column(name = "NombreRol", nullable = false, length = 100)
-    private String nombreRol;
+    @NotNull
+    @Size(max = 100)
+    @Column(nullable = false, length = 100)
+    private String nombre;
 
-    public Roles() {}
+    public Rol() {}
 
-    public Roles(Integer rolId, String nombreRol) {
-        super();
-        this.rolId = rolId;
-        this.nombreRol = nombreRol;
+    public Rol(int id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
     }
 
-    public Integer getRolId() {
-        return rolId;
+    public int getId() {
+        return id;
     }
-    public void setRolId(Integer rolId) {
-        this.rolId = rolId;
+
+    public void setId(int id) {
+        this.id = id;
     }
-    public String getNombreRol() {
-        return nombreRol;
+
+    public String getNombre() {
+        return nombre;
     }
-    public void setNombreRol(String nombreRol) {
-        this.nombreRol = nombreRol;
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }

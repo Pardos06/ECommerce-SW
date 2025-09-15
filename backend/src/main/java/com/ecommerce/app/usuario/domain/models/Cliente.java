@@ -1,45 +1,46 @@
 package com.ecommerce.app.usuario.domain.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "clientes")
 public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ClienteID")
-    private Integer clienteId;
+    private int id;
 
+    @NotNull
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "UsuarioID", nullable = false, unique = true)
-    private Usuarios usuario;
+    @JoinColumn(nullable = false, unique = true)
+    private Usuario usuario;
 
-    @Column(name = "Telefono", length = 20)
+    @Column(length = 20)
     private String telefono;
 
-    @Column(name = "Direccion", length = 200)
+    @Size(max = 200)
+    @Column(length = 200)
     private String direccion;
 
     public Cliente() {}
 
-    public Cliente(Integer clienteId, Usuarios usuario, String telefono, String direccion) {
-        super();
-        this.clienteId = clienteId;
+    public Cliente(int id, Usuario usuario, String telefono, String direccion) {
+        this.id = id;
         this.usuario = usuario;
         this.telefono = telefono;
         this.direccion = direccion;
     }
-    public Integer getClienteId() {
-        return clienteId;
+    public int getId() {
+        return id;
     }
-    public void setClienteId(Integer clienteId) {
-        this.clienteId = clienteId;
+    public void setId(int id) {
+        this.id = id;
     }
-    public Usuarios getUsuario() {
+    public Usuario getUsuario() {
         return usuario;
     }
-    public void setUsuario(Usuarios usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
     public String getTelefono() {
