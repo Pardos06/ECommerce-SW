@@ -1,5 +1,5 @@
 package com.ecommerce.app.compra.domain.repository;
 
-public class ProveedorRepository {
+public interface ProveedorRepository {
     
 }
