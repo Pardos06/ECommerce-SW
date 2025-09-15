@@ -3,9 +3,7 @@ package com.ecommerce.app.compra.domain.models;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
-import com.ecommerce.app.compra.domain.repository.CompraDetailsRepository;
 import com.ecommerce.app.pago.domain.models.MetodoPago;
 import com.ecommerce.app.usuario.domain.models.Empleado;
 import jakarta.validation.constraints.NotNull;
@@ -47,7 +45,7 @@ public class Compra {
 
     public Compra() {}
     public Compra(int id, LocalDateTime fechaCompra, String estado, MetodoPago metodoPago,
-            Proveedor proveedor, Empleado empleado, List<CompraDetailsRepository> detalles) {
+            Proveedor proveedor, Empleado empleado) {
         this.id = id;
         this.fechaCompra = fechaCompra;
         this.estado = estado;
