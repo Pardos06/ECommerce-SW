@@ -10,6 +10,7 @@ public class MetodoPago {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @NotNull
     @Size(max = 50)
     @Column(length = 50, nullable = false)
