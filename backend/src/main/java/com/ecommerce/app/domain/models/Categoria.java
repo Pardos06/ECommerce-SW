@@ -1,12 +1,11 @@
-package com.ecommerce.app.pago.domain.models;
+package com.ecommerce.app.domain.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
-public class MetodoPago {
-
+public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -16,10 +15,10 @@ public class MetodoPago {
     @Column(length = 50, nullable = false)
     private String nombre;
 
-    public MetodoPago() {
+    public Categoria() {
     }
 
-    public MetodoPago(int id, String nombre) {
+    public Categoria(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }

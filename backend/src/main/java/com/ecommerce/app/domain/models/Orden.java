@@ -1,9 +1,6 @@
-package com.ecommerce.app.orden.domain.models;
+package com.ecommerce.app.domain.models;
 
 import java.time.LocalDateTime;
-
-import com.ecommerce.app.pago.domain.models.MetodoPago;
-import com.ecommerce.app.usuario.domain.models.Cliente;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

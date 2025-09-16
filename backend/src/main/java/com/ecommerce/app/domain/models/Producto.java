@@ -1,4 +1,4 @@
-package com.ecommerce.app.catalogo.domain.models;
+package com.ecommerce.app.domain.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;

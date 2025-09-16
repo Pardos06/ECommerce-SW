@@ -1,26 +1,24 @@
-package com.ecommerce.app.catalogo.domain.models;
+package com.ecommerce.app.domain.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
-public class Categoria {
+public class Rol {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotNull
-    @Size(max = 50)
-    @Column(length = 50, nullable = false)
+    @Size(max = 100)
+    @Column(nullable = false, length = 100)
     private String nombre;
 
+    public Rol() {}
 
-
-    public Categoria() {
-    }
-
-    public Categoria(int id, String nombre) {
+    public Rol(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }

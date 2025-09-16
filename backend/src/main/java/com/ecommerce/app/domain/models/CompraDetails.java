@@ -1,9 +1,8 @@
-package com.ecommerce.app.compra.domain.models;
+package com.ecommerce.app.domain.models;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
-import com.ecommerce.app.catalogo.domain.models.Producto;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;

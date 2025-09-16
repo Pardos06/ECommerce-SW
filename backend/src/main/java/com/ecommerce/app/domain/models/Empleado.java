@@ -1,4 +1,4 @@
-package com.ecommerce.app.usuario.domain.models;
+package com.ecommerce.app.domain.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

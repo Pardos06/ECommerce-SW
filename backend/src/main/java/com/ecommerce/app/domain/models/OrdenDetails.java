@@ -1,9 +1,8 @@
-package com.ecommerce.app.orden.domain.models;
+package com.ecommerce.app.domain.models;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
-import com.ecommerce.app.catalogo.domain.models.Producto;
 import jakarta.validation.constraints.*;
 
 @Entity
