@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ecommerce.app.application.dto.request.CategoriaRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.ecommerce.app.application.dto.response.CategoriaResponse;
@@ -52,6 +53,7 @@ public class CategoriaController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('Administrador')")
     @Operation(summary = "Eliminar una categoría", description = "Elimina una categoría no relacionada con productos")
     public ResponseEntity<Void> eliminarCategoria(@PathVariable int id) {
         categoriaService.eliminarCategoria(id);
