@@ -1,16 +1,10 @@
 package com.ecommerce.app.domain.models;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
@@ -46,6 +40,9 @@ public class  Orden {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, foreignKey = @ForeignKey(name = "fk_orden_metodo_pago"))
     private MetodoPago metodoPago;
+
+    @OneToMany(mappedBy = "orden", fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<OrdenDetails> details = new ArrayList<>();
 
     public Orden() {}
 
@@ -104,5 +101,13 @@ public class  Orden {
 
     public void setMetodoPago(MetodoPago metodoPago) {
         this.metodoPago = metodoPago;
+    }
+
+    public List<OrdenDetails> getDetails() {
+        return details;
+    }
+
+    public void setDetails(List<OrdenDetails> details) {
+        this.details = details;
     }
 }
