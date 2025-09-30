@@ -31,19 +31,29 @@ public class Usuario {
     @Column(nullable = false, length = 50)
     private String estado = "Activo";
 
+    @ManyToOne
+    @JoinColumn
+    private Cliente cliente;
+
+    @ManyToOne
+    @JoinColumn
+    private Empleado empleado;
+
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private Rol rol;
 
     public Usuario() {}
-    
-    public Usuario(int id, String nombre, String email, String passwordHash, String estado, Rol rol) {
+
+    public Usuario(int id, String nombre, String email, String passwordHash, String estado, Cliente cliente, Empleado empleado, Rol rol) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
         this.passwordHash = passwordHash;
         this.estado = estado;
+        this.cliente = cliente;
+        this.empleado = empleado;
         this.rol = rol;
     }
 
@@ -86,4 +96,19 @@ public class Usuario {
         this.rol = rol;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
+    }
 }
