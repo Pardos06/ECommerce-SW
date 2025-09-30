@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Producto {
@@ -41,6 +43,12 @@ public class Producto {
     @ManyToOne
     @JoinColumn(nullable = false, foreignKey = @ForeignKey(name = "fk_producto_categoria"))
     private Categoria categoria;
+
+    @OneToMany(mappedBy = "producto", fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Compra> compras = new ArrayList<>();
+
+    @OneToMany(mappedBy = "producto", fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Orden> ordenes = new ArrayList<>();
 
     public Producto() {
     }
@@ -118,5 +126,21 @@ public class Producto {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public List<Compra> getCompras() {
+        return compras;
+    }
+
+    public void setCompras(List<Compra> compras) {
+        this.compras = compras;
+    }
+
+    public List<Orden> getOrdenes() {
+        return ordenes;
+    }
+
+    public void setOrdenes(List<Orden> ordenes) {
+        this.ordenes = ordenes;
     }
 }
