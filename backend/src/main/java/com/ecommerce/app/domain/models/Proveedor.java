@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Proveedor {
 
@@ -31,6 +34,9 @@ public class Proveedor {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, foreignKey = @ForeignKey(name = "fk_proveedor_tipo_proveedor"))
     private TipoProveedor tipoProveedor;
+
+    @OneToMany(mappedBy = "proveedor", fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Compra> compras = new ArrayList<>();
 
     public Proveedor() {}
     public Proveedor(int id, String nombre, int telefono, String email, String direccion,
@@ -90,5 +96,13 @@ public class Proveedor {
 
     public void setTipoProveedor(TipoProveedor tipoProveedor) {
         this.tipoProveedor = tipoProveedor;
+    }
+
+    public List<Compra> getCompras() {
+        return compras;
+    }
+
+    public void setCompras(List<Compra> compras) {
+        this.compras = compras;
     }
 }
