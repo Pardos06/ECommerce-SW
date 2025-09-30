@@ -23,7 +23,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
-import java.util.Objects;
 
 @Configuration
 @EnableWebSecurity
@@ -37,10 +36,10 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return nombreUsuario -> {
-            Usuario usuario = usuarioRepository.findByEmail(nombreUsuario)
+        return username -> {
+            Usuario usuario = usuarioRepository.findByEmailWithRol(username)
                     .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado."));
-            if (usuario == null || Objects.equals(usuario.getEstado(), "Desactivado")) {
+            if ("Desactivado".equalsIgnoreCase(usuario.getEstado())) {
                 throw new UsernameNotFoundException("Usuario no encontrado.");
             }
 
