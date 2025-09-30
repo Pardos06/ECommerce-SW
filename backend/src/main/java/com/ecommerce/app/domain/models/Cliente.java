@@ -1,8 +1,12 @@
 package com.ecommerce.app.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Cliente {
@@ -14,14 +18,19 @@ public class Cliente {
     @NotNull
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, unique = true)
+    @JsonBackReference
     private Usuario usuario;
 
+    @Size(max = 20)
     @Column(length = 20)
     private String telefono;
 
     @Size(max = 200)
     @Column(length = 200)
     private String direccion;
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Orden> ordenes = new ArrayList<>();
 
     public Cliente() {}
 
@@ -56,4 +65,11 @@ public class Cliente {
         this.direccion = direccion;
     }
 
+    public List<Orden> getOrdenes() {
+        return ordenes;
+    }
+
+    public void setOrdenes(List<Orden> ordenes) {
+        this.ordenes = ordenes;
+    }
 }
