@@ -2,7 +2,10 @@ package com.ecommerce.app.domain.models;
 
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
@@ -39,6 +42,9 @@ public class Compra {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, foreignKey = @ForeignKey(name = "fk_compra_empleado"))
     private Empleado empleado;
+
+    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CompraDetails> details = new ArrayList<>();
 
 
     public Compra() {}
@@ -98,5 +104,13 @@ public class Compra {
 
     public void setEmpleado(Empleado empleado) {
         this.empleado = empleado;
+    }
+
+    public List<CompraDetails> getDetails() {
+        return details;
+    }
+
+    public void setDetails(List<CompraDetails> details) {
+        this.details = details;
     }
 }
