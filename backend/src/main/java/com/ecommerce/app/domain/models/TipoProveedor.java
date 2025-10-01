@@ -19,7 +19,7 @@ public class TipoProveedor {
     @Column(nullable = false, length = 50)
     private String nombre;
 
-    @OneToMany(mappedBy = "tipo_proveedor", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "tipoProveedor", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Proveedor> proveedores = new ArrayList<>();
 
     public TipoProveedor() {}
