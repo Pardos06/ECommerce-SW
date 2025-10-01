@@ -51,11 +51,4 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
     }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiErrorResponse> handleGeneric(Exception ex) {
-        ApiErrorResponse error = new ApiErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Error interno del servidor");
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
-    }
-
 }
