@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Categoria {
     @Id
@@ -14,6 +17,9 @@ public class Categoria {
     @Size(max = 50)
     @Column(length = 50, nullable = false)
     private String nombre;
+
+    @OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Producto> productos = new ArrayList<>();
 
     public Categoria() {
     }
@@ -37,5 +43,13 @@ public class Categoria {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
     }
 }

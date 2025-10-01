@@ -64,6 +64,10 @@ public class CategoriaService {
         Categoria categoria = categoriaRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException("Categoría no encontrada"));
 
+        if (categoria.getProductos() != null || !categoria.getProductos().isEmpty()) {
+            throw new IllegalStateException("No se puede eliminar una categoría asociada a un producto.");
+        }
+
         categoriaRepository.delete(categoria);
     }
 }
