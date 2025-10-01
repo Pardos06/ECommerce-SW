@@ -32,16 +32,16 @@ public class Usuario {
     private String estado = "Activo";
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_usuario_cliente"))
     private Cliente cliente;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_usuario_empleado"))
     private Empleado empleado;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = false, foreignKey = @ForeignKey(name = "fk_usuario_rol"))
     private Rol rol;
 
     public Usuario() {}

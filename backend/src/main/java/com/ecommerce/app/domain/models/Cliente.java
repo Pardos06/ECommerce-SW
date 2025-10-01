@@ -1,6 +1,5 @@
 package com.ecommerce.app.domain.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -17,8 +16,7 @@ public class Cliente {
 
     @NotNull
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, unique = true)
-    @JsonBackReference
+    @JoinColumn(nullable = false, unique = true, foreignKey = @ForeignKey(name = "fk_cliente_usuario"))
     private Usuario usuario;
 
     @Size(max = 20)
