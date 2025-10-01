@@ -19,10 +19,10 @@ public class MetodoPago {
     @Column(length = 50, nullable = false)
     private String nombre;
 
-    @OneToMany(mappedBy = "metodo_pago", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "metodoPago", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Compra> compras = new ArrayList<>();
 
-    @OneToMany(mappedBy = "metodo_pago", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "metodoPago", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Orden> ordenes = new ArrayList<>();
 
     public MetodoPago() {
