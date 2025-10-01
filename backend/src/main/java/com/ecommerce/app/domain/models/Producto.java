@@ -45,10 +45,10 @@ public class Producto {
     private Categoria categoria;
 
     @OneToMany(mappedBy = "producto", fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Compra> compras = new ArrayList<>();
+    private List<CompraDetails> compras = new ArrayList<>();
 
     @OneToMany(mappedBy = "producto", fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Orden> ordenes = new ArrayList<>();
+    private List<OrdenDetails> ordenes = new ArrayList<>();
 
     public Producto() {
     }
@@ -128,19 +128,19 @@ public class Producto {
         this.categoria = categoria;
     }
 
-    public List<Compra> getCompras() {
+    public List<CompraDetails> getCompras() {
         return compras;
     }
 
-    public void setCompras(List<Compra> compras) {
+    public void setCompras(List<CompraDetails> compras) {
         this.compras = compras;
     }
 
-    public List<Orden> getOrdenes() {
+    public List<OrdenDetails> getOrdenes() {
         return ordenes;
     }
 
-    public void setOrdenes(List<Orden> ordenes) {
+    public void setOrdenes(List<OrdenDetails> ordenes) {
         this.ordenes = ordenes;
     }
 }
