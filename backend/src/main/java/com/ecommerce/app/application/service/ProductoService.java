@@ -47,7 +47,7 @@ public class ProductoService {
 
     public ProductoResponse registrarProducto(ProductoRequest request) {
         Categoria categoria = categoriaRepository.findById(request.getCategoriaId())
-                .orElseThrow(() -> new IllegalArgumentException("No se encontró dicha categoría"));
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró la categoría con ID " + request.getCategoriaId()));
 
         Producto producto = ProductoMapper.toEntity(request, categoria);
         Producto productoGuardado = productoRepository.save((producto));
