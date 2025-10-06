@@ -40,8 +40,9 @@ public class ProductoService {
     }
 
     public ProductoResponse obtenerPorId(int id) {
-        Optional<Producto> producto = productoRepository.findById(id);
-        return producto.map(ProductoMapper::toResponse).orElse(null);
+        Producto producto = productoRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado con ID " + id));
+        return ProductoMapper.toResponse(producto);
     }
 
     public ProductoResponse registrarProducto(ProductoRequest request) {
@@ -56,26 +57,21 @@ public class ProductoService {
     }
 
     public ProductoResponse editarProducto(ProductoRequest request) {
-        Optional<Producto> producto = productoRepository.findById(request.getId());
-        if (producto.isEmpty()) {
-            return null;
-        }
+        Producto producto = productoRepository.findById(request.getId())
+                .orElseThrow(() -> new EntityNotFoundException("No se encontró el producto con ID " + request.getId()));
 
-        Optional<Categoria> categoria = categoriaRepository.findById(request.getCategoriaId());
-        if (categoria.isEmpty()) {
-            return null;
-        }
+        Categoria categoria = categoriaRepository.findById(request.getCategoriaId())
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró la categoría con ID " + request.getCategoriaId()));
 
-        Producto p = producto.get();
-        p.setNombre(request.getNombre());
-        p.setDescripcion(request.getDescripcion());
-        p.setPrecio(request.getPrecio());
-        p.setStock(request.getStock());
-        p.setCategoria(categoria.get());
+        producto.setNombre(request.getNombre());
+        producto.setDescripcion(request.getDescripcion());
+        producto.setPrecio(request.getPrecio());
+        producto.setStock(request.getStock());
+        producto.setCategoria(categoria);
 
-        productoRepository.save(p);
+        productoRepository.save(producto);
 
-        return ProductoMapper.toResponse(p);
+        return ProductoMapper.toResponse(producto);
     }
 
     public void eliminarProducto(int id) {
