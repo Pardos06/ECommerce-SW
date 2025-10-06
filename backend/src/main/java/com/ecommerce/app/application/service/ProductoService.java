@@ -46,11 +46,10 @@ public class ProductoService {
     }
 
     public ProductoResponse registrarProducto(ProductoRequest request) {
-        Optional<Categoria> categoria = categoriaRepository.findById(request.getCategoriaId());
-        if (categoria.isEmpty())
-            return null;
+        Categoria categoria = categoriaRepository.findById(request.getCategoriaId())
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró dicha categoría"));
 
-        Producto producto = ProductoMapper.toEntity(request, categoria.get());
+        Producto producto = ProductoMapper.toEntity(request, categoria);
         Producto productoGuardado = productoRepository.save((producto));
 
         return ProductoMapper.toResponse(productoGuardado);
