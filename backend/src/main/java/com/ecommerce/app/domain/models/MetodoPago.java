@@ -16,7 +16,7 @@ public class MetodoPago {
 
     @NotNull
     @Size(max = 50)
-    @Column(length = 50, nullable = false)
+    @Column(length = 50, nullable = false, unique = true)
     private String nombre;
 
     @OneToMany(mappedBy = "metodoPago", fetch = FetchType.LAZY, orphanRemoval = true)

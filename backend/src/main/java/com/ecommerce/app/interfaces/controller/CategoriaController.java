@@ -53,7 +53,7 @@ public class CategoriaController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('Administrador')")
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Eliminar una categoría", description = "Elimina una categoría no relacionada con productos")
     public ResponseEntity<Void> eliminarCategoria(@PathVariable int id) {
         categoriaService.eliminarCategoria(id);
