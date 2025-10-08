@@ -1,11 +1,24 @@
 package com.ecommerce.app.domain.models;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Producto {
@@ -33,7 +46,12 @@ public class Producto {
     @Column(nullable = false)
     private int stock;
 
-    @Column(insertable = false, updatable = false)
+    @Size(max = 10)
+    @Column(length = 10,
+            insertable = false,
+            updatable = false,
+            columnDefinition = "VARCHAR(10) GENERATED ALWAYS AS (CASE WHEN stock > 0 THEN 'Disponible' ELSE 'Agotado' END) STORED"
+    )
     private String disponibilidad;
 
     @Size(max = 255)
