@@ -1,7 +1,7 @@
 package com.ecommerce.app.application.dto.request;
 
 public class EmpleadoRequest {
-    private int id;
+    private Integer id;
     private int usuarioId;
     private String area;
     private String cargo;
@@ -9,18 +9,18 @@ public class EmpleadoRequest {
     public EmpleadoRequest() {
     }
 
-    public EmpleadoRequest(int id, int usuarioId, String area, String cargo) {
+    public EmpleadoRequest(Integer id, int usuarioId, String area, String cargo) {
         this.id = id;
         this.usuarioId = usuarioId;
         this.area = area;
         this.cargo = cargo;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -1,22 +1,22 @@
 package com.ecommerce.app.application.dto.request;
 
 public class CategoriaRequest {
-    private int id;
+    private Integer id;
     private String nombre;
 
     public CategoriaRequest() {
     }
 
-    public CategoriaRequest(int id, String nombre) {
+    public CategoriaRequest(Integer id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

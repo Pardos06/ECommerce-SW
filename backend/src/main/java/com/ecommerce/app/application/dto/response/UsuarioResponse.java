@@ -6,13 +6,13 @@ public class UsuarioResponse {
     private String email;
     private String estado;
     private String rol;
-    private int clienteId;
-    private int empleadoId;
+    private Integer clienteId;
+    private Integer empleadoId;
 
     public UsuarioResponse() {
     }
 
-    public UsuarioResponse(int id, String nombre, String email, String estado, String rol, int clienteId, int empleadoId) {
+    public UsuarioResponse(int id, String nombre, String email, String estado, String rol, Integer clienteId, Integer empleadoId) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
@@ -62,19 +62,19 @@ public class UsuarioResponse {
         this.rol = rol;
     }
 
-    public int getClienteId() {
+    public Integer getClienteId() {
         return clienteId;
     }
 
-    public void setClienteId(int clienteId) {
+    public void setClienteId(Integer clienteId) {
         this.clienteId = clienteId;
     }
 
-    public int getEmpleadoId() {
+    public Integer getEmpleadoId() {
         return empleadoId;
     }
 
-    public void setEmpleadoId(int empleadoId) {
+    public void setEmpleadoId(Integer empleadoId) {
         this.empleadoId = empleadoId;
     }
 }

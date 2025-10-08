@@ -3,7 +3,7 @@ package com.ecommerce.app.application.dto.response;
 public class ProveedorResponse {
     private int id;
     private String nombre;
-    private int telefono;
+    private Integer telefono;
     private String email;
     private String direccion;
     private int tipoProveedorId;
@@ -11,7 +11,7 @@ public class ProveedorResponse {
     public ProveedorResponse() {
     }
 
-    public ProveedorResponse(int id, String nombre, int telefono, String email, String direccion, int tipoProveedorId) {
+    public ProveedorResponse(int id, String nombre, Integer telefono, String email, String direccion, int tipoProveedorId) {
         this.id = id;
         this.nombre = nombre;
         this.telefono = telefono;
@@ -36,11 +36,11 @@ public class ProveedorResponse {
         this.nombre = nombre;
     }
 
-    public int getTelefono() {
+    public Integer getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(Integer telefono) {
         this.telefono = telefono;
     }
 
