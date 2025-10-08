@@ -37,7 +37,7 @@ public class RolController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('Administrador')")
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Registrar un nuevo rol", description = "Registra un rol en la base de datos")
     public ResponseEntity<RolResponse> registrarRol(@RequestBody RolRequest request) {
         RolResponse rol = rolService.registrarRol(request);
@@ -45,7 +45,7 @@ public class RolController {
     }
 
     @PutMapping
-    @PreAuthorize("hasRole('Administrador')")
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Editar rol", description = "Actualiza los datos de un rol existente")
     public ResponseEntity<RolResponse> editarRol(@RequestBody RolRequest request) {
         RolResponse rol = rolService.editarRol(request);
@@ -53,7 +53,7 @@ public class RolController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('Administrador')")
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Eliminar un rol", description = "Elimina un rol no relacionado con usuarios")
     public ResponseEntity<Void> eliminarRol(@PathVariable int id) {
         rolService.eliminarRol(id);

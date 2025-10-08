@@ -51,7 +51,7 @@ public class CompraController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('Administrador')")
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Eliminar una compra", description = "Elimina una compra no relacionada con detalles")
     public ResponseEntity<Void> eliminarCompra(@PathVariable int id) {
         compraService.eliminarCompra(id);

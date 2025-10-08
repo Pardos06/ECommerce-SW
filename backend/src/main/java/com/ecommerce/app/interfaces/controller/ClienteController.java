@@ -51,7 +51,7 @@ public class ClienteController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('Administrador')")
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Eliminar cliente", description = "Elimina un cliente no relacionado con usuarios")
     public ResponseEntity<Void> eliminarCliente(@PathVariable int id) {
         clienteService.eliminarCliente(id);

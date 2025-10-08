@@ -54,7 +54,7 @@ public class ProductoController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('Administrador')")
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Eliminar un producto", description = "Elimina un producto no relacionado con compras u órdenes")
     public ResponseEntity<Void> eliminarProducto(@PathVariable int id) {
         productoService.eliminarProducto(id);
@@ -62,7 +62,7 @@ public class ProductoController {
     }
 
     @PostMapping("/imagenes")
-    @PreAuthorize("hasRole('Administrador')")
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Subir imagen de producto", description = "Sube una imagen para un producto y devuelve su DTO de respuesta")
     public ResponseEntity<ProductoImagenResponse> subirImagen(@RequestParam("archivo") MultipartFile archivo) throws IOException {
         ProductoImagenResponse respuesta = productoService.subirImagen(archivo);
