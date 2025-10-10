@@ -33,8 +33,8 @@ public class UsuarioMapper {
                 usuario.getEmail(),
                 usuario.getEstado(),
                 usuario.getRol().getNombre(),
-                usuario.getCliente().getId(),
-                usuario.getEmpleado().getId()
+                usuario.getCliente() != null ? usuario.getCliente().getId() : null,
+                usuario.getEmpleado() != null ? usuario.getEmpleado().getId() : null
         );
     }
 }
