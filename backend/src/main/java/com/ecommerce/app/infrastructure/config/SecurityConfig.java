@@ -46,7 +46,7 @@ public class SecurityConfig {
             return User.builder()
                     .username(usuario.getEmail())
                     .password(usuario.getPasswordHash())
-                    .roles(usuario.getRol().getNombre().toUpperCase())
+                    .authorities(usuario.getRol().getNombre())
                     .build();
         };
     }
@@ -65,8 +65,8 @@ public class SecurityConfig {
                                 "/api/auth/login",
                                 "/api/auth/register"
                         ).permitAll()
-                        .requestMatchers("/admin/**").hasRole("Administrador")
-                        .requestMatchers("/cliente/**").hasRole("Cliente")
+                        .requestMatchers("/admin/**").hasAuthority("Administrador")
+                        .requestMatchers("/cliente/**").hasAuthority("Cliente")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
