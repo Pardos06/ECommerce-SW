@@ -33,7 +33,7 @@ public class ProveedorMapper {
                 proveedor.getTelefono(),
                 proveedor.getEmail(),
                 proveedor.getDireccion(),
-                proveedor.getTipoProveedor().getId()
+                proveedor.getTipoProveedor().getNombre()
         );
     }
 }
