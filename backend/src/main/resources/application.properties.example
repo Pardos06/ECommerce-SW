@@ -1,6 +1,6 @@
 spring.application.name=backend
 
-spring.datasource.url=jdbc:you_db_string_connection
+spring.datasource.url=jdbc:you_db_connection_string
 spring.datasource.username=your_db_username
 spring.datasource.password=your_db_password
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
