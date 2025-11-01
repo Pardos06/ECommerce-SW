@@ -6,9 +6,10 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-productos-page',
+  standalone: true,
   imports: [CommonModule],
-  templateUrl: './productos-page.html',
-  styleUrl: './productos-page.scss'
+  templateUrl: './productos.html',
+  styleUrl: './productos.scss'
 })
 export class ProductosPage implements OnInit {
   productos: Producto[] = [];

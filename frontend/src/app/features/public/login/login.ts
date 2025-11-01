@@ -29,36 +29,42 @@ export class LoginComponent {
     });
   }
 
-  login(): void {
-    if (this.form.invalid) return;
+ login(): void {
+  if (this.form.invalid) return;
 
-    const request: AuthRequest = this.form.value;
-    this.cargando = true;
-    this.errorMsg = '';
+  const request: AuthRequest = this.form.value;
+  this.cargando = true;
+  this.errorMsg = '';
 
-    this.authService.login(request).subscribe({
-  next: (res) => {
-    this.cargando = false;
-    console.log('LOGIN OK, response:', res);
-    this.authService.guardarToken(res.token);
-    this.authService.guardarRol(res.rol);
-    console.log('token guardado:', this.authService.obtenerToken());
-    console.log('rol guardado:', this.authService.obtenerRol());
-    localStorage.setItem('nombre', res.nombre);
+  this.authService.login(request).subscribe({
+    next: (res) => {
+      this.cargando = false;
+      console.log('LOGIN OK, response:', res);
 
-    setTimeout(() => {
-      if (res.rol === 'Administrador') {
-        this.router.navigate(['/admin']);
-      } else {
-        this.router.navigate(['/cliente']);
-      }
-    }, 100);
-  },
-  error: (err) => {
-    this.cargando = false;
-    this.errorMsg = err.error?.mensaje || 'Credenciales incorrectas.';
-  }
-});
+      // 🔹 Guarda datos y verifica inmediatamente
+      this.authService.guardarToken(res.token);
+      this.authService.guardarRol(res.rol);
+      localStorage.setItem('nombre', res.nombre);
 
-  }
+      console.log('Token en localStorage:', localStorage.getItem('jwt_token'));
+      console.log('Rol en localStorage:', localStorage.getItem('rol'));
+
+      // 🔹 Espera al siguiente ciclo del event loop (no microtask)
+      requestAnimationFrame(() => {
+        const rol = res.rol?.toUpperCase();
+        if (rol === 'ADMINISTRADOR' || rol === 'ADMIN') {
+          console.log('Navegando a /admin...');
+          this.router.navigate(['/admin']);
+        } else {
+          console.log('Navegando a /cliente...');
+          this.router.navigate(['/cliente']);
+        }
+      });
+    },
+    error: (err) => {
+      this.cargando = false;
+      this.errorMsg = err.error?.mensaje || 'Credenciales incorrectas.';
+    }
+  });
+}
 }
