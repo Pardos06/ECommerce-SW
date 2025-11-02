@@ -76,11 +76,11 @@ public class ProductoService {
         Producto producto = productoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Producto no encontrado"));
 
-        if (producto.getCompras() != null || !producto.getCompras().isEmpty()) {
+        if (producto.getCompras() != null && !producto.getCompras().isEmpty()) {
             throw new IllegalStateException("No se puede eliminar un producto asociado a una compra");
         }
 
-        if (producto.getOrdenes() != null || !producto.getOrdenes().isEmpty()) {
+        if (producto.getOrdenes() != null && !producto.getOrdenes().isEmpty()) {
             throw new IllegalStateException("No se puede eliminar un producto asociado a una orden");
         }
 

@@ -9,19 +9,21 @@ public class ProductoResponse {
     private BigDecimal precio;
     private int stock;
     private String disponibilidad;
+    private int categoriaId;
     private String categoria;
     private String imagenNombre;
 
     public ProductoResponse() {
     }
 
-    public ProductoResponse(int id, String nombre, String descripcion, BigDecimal precio, int stock, String disponibilidad, String categoria, String imagenNombre) {
+    public ProductoResponse(int id, String nombre, String descripcion, BigDecimal precio, int stock, String disponibilidad,int categoriaId, String categoria, String imagenNombre) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
         this.stock = stock;
         this.disponibilidad = disponibilidad;
+        this.categoriaId = categoriaId;
         this.categoria = categoria;
         this.imagenNombre = imagenNombre;
     }
@@ -73,7 +75,13 @@ public class ProductoResponse {
     public void setDisponibilidad(String disponibilidad) {
         this.disponibilidad = disponibilidad;
     }
+    public int getCategoriaId() {   
+        return categoriaId;
+    }
 
+    public void setCategoriaId(int categoriaId) {
+        this.categoriaId = categoriaId;
+    }
     public String getCategoria() {
         return categoria;
     }
