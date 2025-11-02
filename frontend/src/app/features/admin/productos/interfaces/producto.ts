@@ -5,6 +5,7 @@ export interface Producto {
   precio: number;
   stock: number;
   disponibilidad: string;
+  categoriaId?: number;  
   categoria: string;
   imagenNombre: string;
 }
