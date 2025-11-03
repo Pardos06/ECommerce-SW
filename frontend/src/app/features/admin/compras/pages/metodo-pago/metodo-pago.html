@@ -1,0 +1,44 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-3">Gestión de Métodos de Pago</h2>
+
+  <form (ngSubmit)="guardar()" class="mb-4">
+    <div class="form-group">
+      <label for="nombre">Nombre del método</label>
+      <input
+        type="text"
+        id="nombre"
+        class="form-control"
+        [(ngModel)]="metodo.nombre"
+        name="nombre"
+        required
+      />
+    </div>
+
+    <button class="btn btn-primary mt-2" type="submit">
+      {{ editando ? 'Actualizar' : 'Registrar' }}
+    </button>
+    <button *ngIf="editando" class="btn btn-secondary mt-2 ms-2" type="button" (click)="cancelar()">
+      Cancelar
+    </button>
+  </form>
+
+  <table class="table table-bordered text-center">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let m of metodos">
+        <td>{{ m.id }}</td>
+        <td>{{ m.nombre }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm me-2" (click)="editar(m)">Editar</button>
+          <button class="btn btn-danger btn-sm" (click)="eliminar(m.id!)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
