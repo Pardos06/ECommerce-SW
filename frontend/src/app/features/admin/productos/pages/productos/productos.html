@@ -15,7 +15,7 @@
           required
           minlength="3"
           #nombre="ngModel"
-          [ngClass]="{'is-invalid': nombre.invalid && nombre.touched}"
+          [ngClass]="{ 'is-invalid': nombre.invalid && nombre.touched }"
         />
         <div *ngIf="nombre.invalid && nombre.touched" class="invalid-feedback">
           <small *ngIf="nombre.errors?.['required']">El nombre es obligatorio.</small>
@@ -34,7 +34,7 @@
           name="descripcion"
           required
           #descripcion="ngModel"
-          [ngClass]="{'is-invalid': descripcion.invalid && descripcion.touched}"
+          [ngClass]="{ 'is-invalid': descripcion.invalid && descripcion.touched }"
         />
         <div *ngIf="descripcion.invalid && descripcion.touched" class="invalid-feedback">
           <small>La descripción es obligatoria.</small>
@@ -53,7 +53,7 @@
           required
           min="1"
           #precio="ngModel"
-          [ngClass]="{'is-invalid': precio.invalid && precio.touched}"
+          [ngClass]="{ 'is-invalid': precio.invalid && precio.touched }"
         />
         <div *ngIf="precio.invalid && precio.touched" class="invalid-feedback">
           <small *ngIf="precio.errors?.['required']">El precio es obligatorio.</small>
@@ -73,7 +73,7 @@
           required
           min="0"
           #stock="ngModel"
-          [ngClass]="{'is-invalid': stock.invalid && stock.touched}"
+          [ngClass]="{ 'is-invalid': stock.invalid && stock.touched }"
         />
         <div *ngIf="stock.invalid && stock.touched" class="invalid-feedback">
           <small>Debe ingresar un número válido.</small>
@@ -90,7 +90,7 @@
           name="disponibilidad"
           required
           #disponibilidad="ngModel"
-          [ngClass]="{'is-invalid': disponibilidad.invalid && disponibilidad.touched}"
+          [ngClass]="{ 'is-invalid': disponibilidad.invalid && disponibilidad.touched }"
         >
           <option value="">Seleccione una opción</option>
           <option value="Disponible">Disponible</option>
@@ -111,7 +111,7 @@
           name="categoriaId"
           required
           #categoria="ngModel"
-          [ngClass]="{'is-invalid': categoria.invalid && categoria.touched}"
+          [ngClass]="{ 'is-invalid': categoria.invalid && categoria.touched }"
         >
           <option value="">Seleccione una categoría</option>
           <option *ngFor="let c of categorias" [value]="c.id">
@@ -166,7 +166,7 @@
         <td>{{ p.id }}</td>
         <td>{{ p.nombre }}</td>
         <td>{{ p.descripcion }}</td>
-        <td>S/ {{ p.precio | number: '1.2-2' }}</td>
+        <td>S/ {{ p.precio | number : '1.2-2' }}</td>
         <td>{{ p.stock }}</td>
         <td>
           <span
@@ -179,10 +179,12 @@
             {{ p.disponibilidad }}
           </span>
         </td>
-         <td>{{ p.categoria }}</td>
+        <td>{{ p.categoria }}</td>
         <td>{{ p.imagenNombre || '-' }}</td>
         <td>
-          <button class="btn btn-warning btn-sm me-2" (click)="editar(p)">Editar</button>
+          <button class="btn btn-warning btn-sm me-2" (click)="editar(p)">
+            Editar
+          </button>
           <button class="btn btn-danger btn-sm" (click)="eliminar(p.id!)">Eliminar</button>
         </td>
       </tr>
