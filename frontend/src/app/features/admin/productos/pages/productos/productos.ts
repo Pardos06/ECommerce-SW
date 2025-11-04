@@ -5,20 +5,21 @@ import { Producto } from '../../interfaces/producto';
 import { Categoria } from '../../interfaces/categoria';
 import { ProductoService } from '../../services/producto';
 import { CategoriaService } from '../../services/categoria';
+import { ProductoForm } from '../../interfaces/producto-form';
 
 @Component({
   selector: 'app-productos-page',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './productos.html',
-  styleUrls: ['./productos.scss']
+  styleUrls: ['./productos.scss'],
 })
 export class ProductosPage implements OnInit {
-
   productos: Producto[] = [];
+  productosForm: ProductoForm[] = [];
   categorias: Categoria[] = [];
 
-  producto: Producto = {
+  producto: ProductoForm = {
     id: 0,
     nombre: '',
     descripcion: '',
@@ -26,8 +27,7 @@ export class ProductosPage implements OnInit {
     stock: 0,
     disponibilidad: '',
     categoriaId: 0,
-    categoria: '',
-    imagenNombre: ''
+    imagenNombre: '',
   };
 
   cargando = true;
@@ -52,14 +52,14 @@ export class ProductosPage implements OnInit {
       error: (err) => {
         console.error('Error al cargar productos:', err);
         this.cargando = false;
-      }
+      },
     });
   }
 
   cargarCategorias(): void {
     this.categoriaService.listarCategorias().subscribe({
       next: (data) => (this.categorias = data),
-      error: (err) => console.error('Error al cargar categorías:', err)
+      error: (err) => console.error('Error al cargar categorías:', err),
     });
   }
 
@@ -70,7 +70,7 @@ export class ProductosPage implements OnInit {
           this.cargarProductos();
           this.cancelar();
         },
-        error: (err) => console.error('Error al actualizar producto:', err)
+        error: (err) => console.error('Error al actualizar producto:', err),
       });
     } else {
       this.productoService.crearProducto(this.producto).subscribe({
@@ -78,13 +78,25 @@ export class ProductosPage implements OnInit {
           this.cargarProductos();
           this.cancelar();
         },
-        error: (err) => console.error('Error al crear producto:', err)
+        error: (err) => console.error('Error al crear producto:', err),
       });
     }
   }
 
-  editar(p: Producto): void {
-    this.producto = { ...p };
+  editar(producto: Producto): void {
+    const categoria = this.categorias.find((c) => c.nombre === producto.categoria);
+    const productoEditar: ProductoForm = {
+      id: producto.id,
+      nombre: producto.nombre,
+      descripcion: producto.descripcion,
+      precio: producto.precio,
+      stock: producto.stock,
+      disponibilidad: producto.disponibilidad,
+      categoriaId: categoria?.id || 0,
+      imagenNombre: producto.imagenNombre,
+    };
+
+    this.producto = productoEditar;
     this.editando = true;
   }
 
@@ -92,7 +104,7 @@ export class ProductosPage implements OnInit {
     if (confirm('¿Seguro que deseas eliminar este producto?')) {
       this.productoService.eliminarProducto(id).subscribe({
         next: () => this.cargarProductos(),
-        error: (err) => console.error('Error al eliminar producto:', err)
+        error: (err) => console.error('Error al eliminar producto:', err),
       });
     }
   }
@@ -106,8 +118,7 @@ export class ProductosPage implements OnInit {
       stock: 0,
       disponibilidad: '',
       categoriaId: 0,
-      categoria: '',
-      imagenNombre: ''
+      imagenNombre: '',
     };
     this.editando = false;
   }
