@@ -3,9 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Producto } from '../interfaces/producto';
 import { environment } from '../../../../environment/environment';
+import { ProductoForm } from '../interfaces/producto-form';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductoService {
   private apiUrl = environment.apiUrl + '/productos';
@@ -20,11 +21,11 @@ export class ProductoService {
     return this.http.get<Producto>(`${this.apiUrl}/${id}`);
   }
 
-  crearProducto(producto: Producto): Observable<Producto> {
-  return this.http.post<Producto>(this.apiUrl, producto);
+  crearProducto(producto: ProductoForm): Observable<Producto> {
+    return this.http.post<Producto>(this.apiUrl, producto);
   }
 
-  actualizarProducto(producto: Producto): Observable<Producto> {
+  actualizarProducto(producto: ProductoForm): Observable<Producto> {
     return this.http.put<Producto>(`${this.apiUrl}/${producto.id}`, producto);
   }
 
