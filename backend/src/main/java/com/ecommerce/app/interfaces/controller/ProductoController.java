@@ -41,17 +41,14 @@ public class ProductoController {
 
     @PostMapping
     @Operation(summary = "Registrar un nuevo producto", description = "Registra un nuevo producto en la base de datos")
-    public ResponseEntity<?> registrarProducto(@RequestBody ProductoRequest request) {
+    public ResponseEntity<ProductoResponse> registrarProducto(@RequestBody ProductoRequest request) {
         ProductoResponse producto = productoService.registrarProducto(request);
         return ResponseEntity.ok(producto);
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Editar producto", description = "Actualiza los datos de un producto existente")
-    public ResponseEntity<ProductoResponse> editarProducto(
-            @PathVariable int id, 
-            @RequestBody ProductoRequest request) {
-
+    public ResponseEntity<ProductoResponse> editarProducto(@PathVariable int id, @RequestBody ProductoRequest request) {
         request.setId(id); 
         ProductoResponse producto = productoService.editarProducto(request);
         return ResponseEntity.ok(producto);
