@@ -35,8 +35,7 @@ public class ProductoMapper {
                 producto.getPrecio(),
                 producto.getStock(),
                 (producto.getStock() > 0 ? "Disponible" : "Agotado"),
-                producto.getCategoria() != null ? producto.getCategoria().getId() : 0, 
-                producto.getCategoria() != null ? producto.getCategoria().getNombre() : null, 
+                producto.getCategoria() != null ? producto.getCategoria().getNombre() : null,
                 producto.getImagenNombre()
         );
     }
