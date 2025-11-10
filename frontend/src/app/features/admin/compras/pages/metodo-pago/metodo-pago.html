@@ -1,44 +1,95 @@
-<div class="container mt-4">
-  <h2 class="text-center mb-3">Gestión de Métodos de Pago</h2>
+<div class="p-card p-4 surface-card shadow-2 border-round-lg">
+  <h2 class="text-center mb-4 text-primary font-semibold">Gestión de Métodos de Pago</h2>
 
-  <form (ngSubmit)="guardar()" class="mb-4">
-    <div class="form-group">
-      <label for="nombre">Nombre del método</label>
-      <input
-        type="text"
-        id="nombre"
-        class="form-control"
-        [(ngModel)]="metodo.nombre"
-        name="nombre"
-        required
-      />
-    </div>
 
-    <button class="btn btn-primary mt-2" type="submit">
-      {{ editando ? 'Actualizar' : 'Registrar' }}
-    </button>
-    <button *ngIf="editando" class="btn btn-secondary mt-2 ms-2" type="button" (click)="cancelar()">
-      Cancelar
-    </button>
-  </form>
+  <div class="flex justify-content-end mb-3">
+    <p-button
+      label="Agregar Método de Pago"
+      icon="pi pi-plus"
+      (click)="showDialog()"
+      styleClass="p-button-success"
+    ></p-button>
+  </div>
 
-  <table class="table table-bordered text-center">
-    <thead class="table-dark">
+
+  <p-table
+    [value]="metodos"
+    [paginator]="true"
+    [rows]="5"
+    [rowsPerPageOptions]="[5,10,20]"
+    responsiveLayout="scroll"
+    [tableStyle]="{ 'min-width': '40rem' }"
+  >
+    <ng-template pTemplate="header">
       <tr>
         <th>ID</th>
         <th>Nombre</th>
         <th>Acciones</th>
       </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let m of metodos">
+    </ng-template>
+
+    <ng-template pTemplate="body" let-m>
+      <tr>
         <td>{{ m.id }}</td>
         <td>{{ m.nombre }}</td>
         <td>
-          <button class="btn btn-warning btn-sm me-2" (click)="editar(m)">Editar</button>
-          <button class="btn btn-danger btn-sm" (click)="eliminar(m.id!)">Eliminar</button>
+          <div class="flex justify-content-center gap-2">
+            <p-button
+              icon="pi pi-pencil"
+              label=""
+              severity="warn"
+              size="small"
+              (click)="editar(m)"
+            ></p-button>
+            <p-button
+              icon="pi pi-trash"
+              label=""
+              severity="danger"
+              size="small"
+              (click)="eliminar(m.id!)"
+            ></p-button>
+          </div>
         </td>
       </tr>
-    </tbody>
-  </table>
+    </ng-template>
+  </p-table>
+
+  
+  <p-dialog
+    header="{{ editando ? 'Editar Método de Pago' : 'Agregar Método de Pago' }}"
+    [(visible)]="visible"
+    [modal]="true"
+    [style]="{ width: '30rem' }"
+    [closable]="false"
+  >
+    <form (ngSubmit)="guardar()" class="p-fluid">
+      <div class="field mb-4">
+        <label for="nombre" class="font-semibold mb-2 block">Nombre del método</label>
+        <input
+          pInputText
+          id="nombre"
+          type="text"
+          [(ngModel)]="metodo.nombre"
+          name="nombre"
+          placeholder="Ej. Tarjeta, Yape, Transferencia"
+          required
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="flex justify-content-end gap-2 mt-4">
+        <p-button
+          label="Cancelar"
+          severity="secondary"
+          (click)="cancelar()"
+          type="button"
+        ></p-button>
+        <p-button
+          label="{{ editando ? 'Actualizar' : 'Guardar' }}"
+          icon="pi pi-check"
+          type="submit"
+        ></p-button>
+      </div>
+    </form>
+  </p-dialog>
 </div>
