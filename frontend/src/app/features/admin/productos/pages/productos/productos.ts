@@ -9,6 +9,8 @@ import { ProductoForm } from '../../interfaces/producto-form';
 
 import { PrimeImportsModule } from '../../../../../prime-imports';
 
+import { PrimeImportsModule } from '../../../../../prime-imports';
+
 @Component({
   selector: 'app-productos-page',
   standalone: true,

@@ -12,7 +12,10 @@ public class CategoriaMapper {
         }
 
         Categoria categoria = new Categoria();
-        categoria.setId(request.getId());
+        // Solo asignar el id si no es null (para actualizaciones)
+        if (request.getId() != null) {
+            categoria.setId(request.getId());
+        }
         categoria.setNombre(request.getNombre());
         return categoria;
     }

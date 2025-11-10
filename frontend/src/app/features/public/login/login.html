@@ -1,4 +1,6 @@
 <div class="login-wrapper">
+  <p-toast></p-toast>
+  
   <p-card class="login-card">
     <ng-template pTemplate="header">
       <div class="login-header">
@@ -26,12 +28,12 @@
             [ngClass]="{ 'ng-invalid': form.get('email')?.invalid && form.get('email')?.touched }"
           />
         </p-inputgroup>
-
-        <p-message
+        <small 
           *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
-          severity="error"
-          text="Ingrese un correo válido."
-        ></p-message>
+          class="p-error"
+        >
+          Ingrese un correo válido.
+        </small>
       </div>
 
       <!-- Campo Contraseña -->
@@ -48,18 +50,16 @@
             [feedback]="false"
             placeholder="Contraseña"
             inputStyleClass="w-full"
+            [ngClass]="{ 'ng-invalid': form.get('contrasena')?.invalid && form.get('contrasena')?.touched }"
           ></p-password>
         </p-inputgroup>
-
-        <p-message
+        <small 
           *ngIf="form.get('contrasena')?.invalid && form.get('contrasena')?.touched"
-          severity="error"
-          text="La contraseña es obligatoria."
-        ></p-message>
+          class="p-error"
+        >
+          La contraseña es obligatoria.
+        </small>
       </div>
-
-      <!-- Error general -->
-      <p-message *ngIf="errorMsg" severity="error" [text]="errorMsg"></p-message>
 
       <!-- Botón centrado -->
       <div class="button-container">
@@ -77,8 +77,8 @@
 
     <ng-template pTemplate="footer">
       <div class="login-footer">
-        <p>¿Olvidaste tu contraseña?</p>
-        <a routerLink="/recuperar">Recuperar acceso</a>
+        <p>¿No tienes una cuenta?</p>
+        <a routerLink="/register" class="register-link">Regístrate aquí</a>
       </div>
     </ng-template>
   </p-card>

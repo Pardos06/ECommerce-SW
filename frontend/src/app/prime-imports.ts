@@ -13,7 +13,6 @@ import { BadgeModule } from 'primeng/badge';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { BlockUIModule } from 'primeng/blockui';
 import { ButtonModule } from 'primeng/button';
-import { DatePickerModule } from 'primeng/datepicker';
 import { CarouselModule } from 'primeng/carousel';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
 import { ChartModule } from 'primeng/chart';
@@ -35,11 +34,9 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { FileUploadModule } from 'primeng/fileupload';
 import { FocusTrapModule } from 'primeng/focustrap';
 import { GalleriaModule } from 'primeng/galleria';
-import { IftaLabelModule } from 'primeng/iftalabel';
 import { InplaceModule } from 'primeng/inplace';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
-import { TextareaModule } from 'primeng/textarea';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
@@ -53,7 +50,6 @@ import { MenuModule } from 'primeng/menu';
 import { MenubarModule } from 'primeng/menubar';
 import { MessageModule } from 'primeng/message';
 import { MultiSelectModule } from 'primeng/multiselect';
-import { MeterGroupModule } from 'primeng/metergroup';
 import { OrganizationChartModule } from 'primeng/organizationchart';
 import { OrderListModule } from 'primeng/orderlist';
 import { PaginatorModule } from 'primeng/paginator';
@@ -95,10 +91,7 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
-import { DrawerModule } from 'primeng/drawer';
 import { KeyFilterModule } from 'primeng/keyfilter';
-
-
 
 @NgModule({
   imports: [
@@ -116,7 +109,6 @@ import { KeyFilterModule } from 'primeng/keyfilter';
     BreadcrumbModule,
     BlockUIModule,
     ButtonModule,
-    DatePickerModule,
     CarouselModule,
     CascadeSelectModule,
     ChartModule,
@@ -129,7 +121,6 @@ import { KeyFilterModule } from 'primeng/keyfilter';
     DataViewModule,
     DialogModule,
     DividerModule,
-    DrawerModule,
     DockModule,
     DragDropModule,
     SelectModule,
@@ -139,11 +130,9 @@ import { KeyFilterModule } from 'primeng/keyfilter';
     FileUploadModule,
     FocusTrapModule,
     GalleriaModule,
-    IftaLabelModule,
     InplaceModule,
     InputMaskModule,
     InputTextModule,
-    TextareaModule,
     InputNumberModule,
     InputGroupModule,
     InputGroupAddonModule,
@@ -157,7 +146,6 @@ import { KeyFilterModule } from 'primeng/keyfilter';
     MenubarModule,
     MessageModule,
     MultiSelectModule,
-    MeterGroupModule,
     OrganizationChartModule,
     OrderListModule,
     PaginatorModule,
@@ -216,7 +204,6 @@ import { KeyFilterModule } from 'primeng/keyfilter';
     BreadcrumbModule,
     BlockUIModule,
     ButtonModule,
-    DatePickerModule,
     CarouselModule,
     KeyFilterModule,
     CascadeSelectModule,
@@ -230,7 +217,6 @@ import { KeyFilterModule } from 'primeng/keyfilter';
     DataViewModule,
     DialogModule,
     DividerModule,
-    DrawerModule,
     DockModule,
     DragDropModule,
     SelectModule,
@@ -240,11 +226,9 @@ import { KeyFilterModule } from 'primeng/keyfilter';
     FileUploadModule,
     FocusTrapModule,
     GalleriaModule,
-    IftaLabelModule,
     InplaceModule,
     InputMaskModule,
     InputTextModule,
-    TextareaModule,
     InputNumberModule,
     InputGroupModule,
     InputGroupAddonModule,
@@ -258,7 +242,6 @@ import { KeyFilterModule } from 'primeng/keyfilter';
     MenubarModule,
     MessageModule,
     MultiSelectModule,
-    MeterGroupModule,
     OrganizationChartModule,
     OrderListModule,
     PaginatorModule,
