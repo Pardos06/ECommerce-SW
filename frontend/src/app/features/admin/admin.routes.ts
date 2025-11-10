@@ -9,10 +9,27 @@ export const ADMIN_ROUTES: Routes = [
     path: '',
     component: DashboardAdmin,
     children: [
-      { path: '', redirectTo: 'categorias', pathMatch: 'full' },
-      { path: 'productos', component: ProductosPage },
-      { path: 'categorias', component: CategoriaPage },
-      { path: 'metodos-pago', component: MetodoPagoPage },
+      { 
+        path: '',
+        redirectTo: 'categorias',
+        pathMatch: 'full' 
+      },
+
+      { 
+        path: 'productos',
+        component: ProductosPage
+      },
+
+      { 
+        path: 'categorias',
+        component: CategoriaPage
+      },
+
+      { 
+        path: 'metodos-pago',
+        component: MetodoPagoPage 
+      },
+      
     ],
   },
 ];

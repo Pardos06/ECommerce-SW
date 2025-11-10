@@ -7,10 +7,12 @@ import { ProductoService } from '../../services/producto';
 import { CategoriaService } from '../../services/categoria';
 import { ProductoForm } from '../../interfaces/producto-form';
 
+import { PrimeImportsModule } from '../../../../../prime-imports';
+
 @Component({
   selector: 'app-productos-page',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, PrimeImportsModule],
   templateUrl: './productos.html',
   styleUrls: ['./productos.scss'],
 })
@@ -32,6 +34,7 @@ export class ProductosPage implements OnInit {
 
   cargando = true;
   editando = false;
+  mostrarFormulario = false;
 
   constructor(
     private productoService: ProductoService,
@@ -98,6 +101,7 @@ export class ProductosPage implements OnInit {
 
     this.producto = productoEditar;
     this.editando = true;
+    this.mostrarFormulario = true;
   }
 
   eliminar(id: number): void {
@@ -121,5 +125,6 @@ export class ProductosPage implements OnInit {
       imagenNombre: '',
     };
     this.editando = false;
+    this.mostrarFormulario = false;
   }
 }

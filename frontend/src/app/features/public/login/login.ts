@@ -1,17 +1,35 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { Auth } from '../../../core/services/auth';
 import { AuthRequest } from '../../../core/interfaces/auth.request';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { PasswordModule } from 'primeng/password';
 
 
+// PrimeNG modules
+import { CardModule } from 'primeng/card';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'primeng/message';
+import { PrimeImportsModule } from '../../../prime-imports';
 @Component({
   selector: 'app-login',
+  standalone: true,
   templateUrl: './login.html',
   styleUrls: ['./login.scss'],
-  imports: [CommonModule, ReactiveFormsModule], 
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    CardModule,
+    InputTextModule,
+    InputGroupModule,
+    ButtonModule,
+    MessageModule,
+    PrimeImportsModule
+  ]
 })
 export class LoginComponent {
   form: FormGroup;
@@ -29,42 +47,33 @@ export class LoginComponent {
     });
   }
 
- login(): void {
-  if (this.form.invalid) return;
+  login(): void {
+    if (this.form.invalid) return;
 
-  const request: AuthRequest = this.form.value;
-  this.cargando = true;
-  this.errorMsg = '';
+    const request: AuthRequest = this.form.value;
+    this.cargando = true;
+    this.errorMsg = '';
 
-  this.authService.login(request).subscribe({
-    next: (res) => {
-      this.cargando = false;
-      console.log('LOGIN OK, response:', res);
+    this.authService.login(request).subscribe({
+      next: (res) => {
+        this.cargando = false;
+        this.authService.guardarToken(res.token);
+        this.authService.guardarRol(res.rol);
+        localStorage.setItem('nombre', res.nombre);
 
-      // 🔹 Guarda datos y verifica inmediatamente
-      this.authService.guardarToken(res.token);
-      this.authService.guardarRol(res.rol);
-      localStorage.setItem('nombre', res.nombre);
-
-      console.log('Token en localStorage:', localStorage.getItem('jwt_token'));
-      console.log('Rol en localStorage:', localStorage.getItem('rol'));
-
-      // 🔹 Espera al siguiente ciclo del event loop (no microtask)
-      requestAnimationFrame(() => {
-        const rol = res.rol?.toUpperCase();
-        if (rol === 'ADMINISTRADOR' || rol === 'ADMIN') {
-          console.log('Navegando a /admin...');
-          this.router.navigate(['/admin']);
-        } else {
-          console.log('Navegando a /cliente...');
-          this.router.navigate(['/cliente']);
-        }
-      });
-    },
-    error: (err) => {
-      this.cargando = false;
-      this.errorMsg = err.error?.mensaje || 'Credenciales incorrectas.';
-    }
-  });
-}
+        requestAnimationFrame(() => {
+          const rol = res.rol?.toUpperCase();
+          if (rol === 'ADMINISTRADOR' || rol === 'ADMIN') {
+            this.router.navigate(['/admin']);
+          } else {
+            this.router.navigate(['/cliente']);
+          }
+        });
+      },
+      error: (err) => {
+        this.cargando = false;
+        this.errorMsg = err.error?.mensaje || 'Credenciales incorrectas.';
+      }
+    });
+  }
 }

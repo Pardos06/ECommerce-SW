@@ -1,197 +1,105 @@
-<div class="container mt-4">
-  <h2 class="text-center mb-3">Gestión de Productos</h2>
+<div class="productos-container">
+  <h2 class="text-center mb-4">Gestión de Productos</h2>
 
-  <form #formProducto="ngForm" (ngSubmit)="guardar()" novalidate class="mb-4">
-    <div class="row">
-      <!-- Nombre -->
-      <div class="col-md-6 mb-3">
-        <label for="nombre" class="form-label">Nombre del producto</label>
-        <input
-          type="text"
-          id="nombre"
-          class="form-control"
-          [(ngModel)]="producto.nombre"
-          name="nombre"
-          required
-          minlength="3"
-          #nombre="ngModel"
-          [ngClass]="{ 'is-invalid': nombre.invalid && nombre.touched }"
-        />
-        <div *ngIf="nombre.invalid && nombre.touched" class="invalid-feedback">
-          <small *ngIf="nombre.errors?.['required']">El nombre es obligatorio.</small>
-          <small *ngIf="nombre.errors?.['minlength']">Debe tener al menos 3 caracteres.</small>
+  <!-- Botón para mostrar/ocultar formulario -->
+  <div class="d-flex justify-content-end mb-3">
+    <button pButton label="Nuevo Producto" icon="pi pi-plus" class="p-button-success" (click)="mostrarFormulario = !mostrarFormulario"></button>
+  </div>
+
+  <!-- Formulario -->
+  <div *ngIf="mostrarFormulario" class="p-card p-4 mb-4 shadow-2" style="border-radius: 12px; background: #f9f9f9;">
+    <h4 class="mb-4">{{ editando ? 'Editar Producto' : 'Registrar Producto' }}</h4>
+    <form #formProducto="ngForm" (ngSubmit)="guardar()" novalidate class="p-fluid">
+      <div class="grid p-fluid gap-3">
+        
+        <div class="col-12 field">
+          <label for="nombre" class="mb-2">Nombre</label>
+          <input id="nombre" type="text" pInputText [(ngModel)]="producto.nombre" name="nombre" required placeholder="Ejemplo: Zapatillas deportivas" />
+        </div>
+
+        <div class="col-12 field">
+          <label for="descripcion" class="mb-2">Descripción</label>
+          <textarea id="descripcion" pInputTextarea [(ngModel)]="producto.descripcion" name="descripcion" rows="3" autoResize="true" required placeholder="Calzado cómodo ideal para entrenar"></textarea>
+        </div>
+
+        <div class="col-6 field">
+          <label for="precio" class="mb-2">Precio (S/)</label>
+          <input id="precio" type="number" pInputText [(ngModel)]="producto.precio" name="precio" required min="1" placeholder="0.00" />
+        </div>
+
+        <div class="col-6 field">
+          <label for="stock" class="mb-2">Stock</label>
+          <input id="stock" type="number" pInputText [(ngModel)]="producto.stock" name="stock" required placeholder="Cantidad disponible" />
+        </div>
+
+        <div class="col-6 field">
+          <label for="disponibilidad" class="mb-2">Disponibilidad</label>
+          <select id="disponibilidad" [(ngModel)]="producto.disponibilidad" name="disponibilidad" class="p-inputtext" required>
+            <option value="" disabled>Seleccione</option>
+            <option value="Disponible">Disponible</option>
+            <option value="Agotado">Agotado</option>
+          </select>
+        </div>
+
+        <div class="col-6 field">
+          <label for="categoriaId" class="mb-2">Categoría</label>
+          <select id="categoriaId" [(ngModel)]="producto.categoriaId" name="categoriaId" class="p-inputtext" required>
+            <option value="" disabled>Seleccione una categoría</option>
+            <option *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.nombre }}</option>
+          </select>
+        </div>
+
+        <div class="col-12 field">
+          <label for="imagenNombre" class="mb-2">Nombre de la Imagen</label>
+          <input id="imagenNombre" type="text" pInputText [(ngModel)]="producto.imagenNombre" name="imagenNombre" placeholder="Ejemplo: zapatillas1.jpg" />
         </div>
       </div>
 
-      <!-- Descripción -->
-      <div class="col-md-6 mb-3">
-        <label for="descripcion" class="form-label">Descripción</label>
-        <input
-          type="text"
-          id="descripcion"
-          class="form-control"
-          [(ngModel)]="producto.descripcion"
-          name="descripcion"
-          required
-          #descripcion="ngModel"
-          [ngClass]="{ 'is-invalid': descripcion.invalid && descripcion.touched }"
-        />
-        <div *ngIf="descripcion.invalid && descripcion.touched" class="invalid-feedback">
-          <small>La descripción es obligatoria.</small>
-        </div>
+     
+      <div class="flex justify-content-center gap-3 mt-4">
+        <button pButton type="submit" [label]="editando ? 'Actualizar' : 'Guardar'" icon="pi pi-save" class="p-button-rounded p-button-success"></button>
+        <button pButton type="button" label="Cancelar" icon="pi pi-times" class="p-button-rounded p-button-secondary" (click)="cancelar(); mostrarFormulario = false"></button>
       </div>
+    </form>
+  </div>
 
-      <!-- Precio -->
-      <div class="col-md-4 mb-3">
-        <label for="precio" class="form-label">Precio (S/)</label>
-        <input
-          type="number"
-          id="precio"
-          class="form-control"
-          [(ngModel)]="producto.precio"
-          name="precio"
-          required
-          min="1"
-          #precio="ngModel"
-          [ngClass]="{ 'is-invalid': precio.invalid && precio.touched }"
-        />
-        <div *ngIf="precio.invalid && precio.touched" class="invalid-feedback">
-          <small *ngIf="precio.errors?.['required']">El precio es obligatorio.</small>
-          <small *ngIf="precio.errors?.['min']">Debe ser mayor que 0.</small>
-        </div>
-      </div>
-
-      <!-- Stock -->
-      <div class="col-md-4 mb-3">
-        <label for="stock" class="form-label">Stock</label>
-        <input
-          type="number"
-          id="stock"
-          class="form-control"
-          [(ngModel)]="producto.stock"
-          name="stock"
-          required
-          min="0"
-          #stock="ngModel"
-          [ngClass]="{ 'is-invalid': stock.invalid && stock.touched }"
-        />
-        <div *ngIf="stock.invalid && stock.touched" class="invalid-feedback">
-          <small>Debe ingresar un número válido.</small>
-        </div>
-      </div>
-
-      <!-- Disponibilidad -->
-      <div class="col-md-4 mb-3">
-        <label for="disponibilidad" class="form-label">Disponibilidad</label>
-        <select
-          id="disponibilidad"
-          class="form-select"
-          [(ngModel)]="producto.disponibilidad"
-          name="disponibilidad"
-          required
-          #disponibilidad="ngModel"
-          [ngClass]="{ 'is-invalid': disponibilidad.invalid && disponibilidad.touched }"
-        >
-          <option value="">Seleccione una opción</option>
-          <option value="Disponible">Disponible</option>
-          <option value="Agotado">Agotado</option>
-        </select>
-        <div *ngIf="disponibilidad.invalid && disponibilidad.touched" class="invalid-feedback">
-          <small>Seleccione una opción válida.</small>
-        </div>
-      </div>
-
-      <!-- Categoría -->
-      <div class="col-md-6 mb-3">
-        <label for="categoria" class="form-label">Categoría</label>
-        <select
-          id="categoria"
-          class="form-select"
-          [(ngModel)]="producto.categoriaId"
-          name="categoriaId"
-          required
-          #categoria="ngModel"
-          [ngClass]="{ 'is-invalid': categoria.invalid && categoria.touched }"
-        >
-          <option value="">Seleccione una categoría</option>
-          <option *ngFor="let c of categorias" [value]="c.id">
-            {{ c.nombre }}
-          </option>
-        </select>
-        <div *ngIf="categoria.invalid && categoria.touched" class="invalid-feedback">
-          <small>Seleccione una categoría válida.</small>
-        </div>
-      </div>
-
-      <!-- Imagen -->
-      <div class="col-md-6 mb-3">
-        <label for="imagenNombre" class="form-label">Nombre de la Imagen</label>
-        <input
-          type="text"
-          id="imagenNombre"
-          class="form-control"
-          [(ngModel)]="producto.imagenNombre"
-          name="imagenNombre"
-        />
-      </div>
-    </div>
-
-    <!-- BOTONES -->
-    <button class="btn btn-primary mt-2" type="submit" [disabled]="formProducto.invalid">
-      {{ editando ? 'Actualizar' : 'Registrar' }}
-    </button>
-    <button *ngIf="editando" class="btn btn-secondary mt-2 ms-2" type="button" (click)="cancelar()">
-      Cancelar
-    </button>
-  </form>
-
-  <!-- TABLA -->
-  <table class="table table-bordered text-center align-middle">
-    <thead class="table-dark">
+  
+  <p-table *ngIf="!mostrarFormulario" [value]="productos" [paginator]="true" [rows]="6" [tableStyle]="{ 'min-width': '65rem' }" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
       <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Descripción</th>
-        <th>Precio</th>
-        <th>Stock</th>
+        <th pSortableColumn="id">ID <p-sortIcon field="id" /></th>
+        <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre" /></th>
+        <th pSortableColumn="categoria">Categoría <p-sortIcon field="categoria" /></th>
+        <th pSortableColumn="precio">Precio (S/)<p-sortIcon field="precio" /></th>
+        <th pSortableColumn="stock">Stock <p-sortIcon field="stock" /></th>
         <th>Disponibilidad</th>
-        <th>Categoría</th>
         <th>Imagen</th>
         <th>Acciones</th>
       </tr>
-    </thead>
-
-    <tbody>
-      <tr *ngFor="let p of productos">
+    </ng-template>
+    <ng-template pTemplate="body" let-p>
+      <tr>
         <td>{{ p.id }}</td>
         <td>{{ p.nombre }}</td>
-        <td>{{ p.descripcion }}</td>
-        <td>S/ {{ p.precio | number : '1.2-2' }}</td>
+        <td>{{ p.categoria }}</td>
+        <td>S/ {{ p.precio | number: '1.2-2' }}</td>
         <td>{{ p.stock }}</td>
         <td>
-          <span
-            class="badge"
-            [ngClass]="{
-              'bg-success': p.disponibilidad === 'Disponible',
-              'bg-danger': p.disponibilidad === 'Agotado'
-            }"
-          >
+          <span class="badge" [ngClass]="{ 'bg-success': p.disponibilidad === 'Disponible', 'bg-danger': p.disponibilidad === 'Agotado' }">
             {{ p.disponibilidad }}
           </span>
         </td>
-        <td>{{ p.categoria }}</td>
         <td>{{ p.imagenNombre || '-' }}</td>
         <td>
-          <button class="btn btn-warning btn-sm me-2" (click)="editar(p)">
-            Editar
-          </button>
-          <button class="btn btn-danger btn-sm" (click)="eliminar(p.id!)">Eliminar</button>
+          <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-sm me-2" (click)="editar(p)"></button>
+          <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm" (click)="eliminar(p.id!)"></button>
         </td>
       </tr>
-
-      <tr *ngIf="productos.length === 0">
-        <td colspan="9" class="text-muted">No hay productos registrados</td>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="8" class="text-center text-muted">No hay productos registrados.</td>
       </tr>
-    </tbody>
-  </table>
+    </ng-template>
+  </p-table>
 </div>
