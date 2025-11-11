@@ -1,64 +1,107 @@
 <div class="productos-container">
+  <p-toast></p-toast>
+  <p-confirmDialog></p-confirmDialog>
+  
   <h2 class="text-center mb-4">Gestión de Productos</h2>
 
   <!-- Botón para mostrar/ocultar formulario -->
   <div class="d-flex justify-content-end mb-3">
-    <button pButton label="Nuevo Producto" icon="pi pi-plus" class="p-button-success" (click)="mostrarFormulario = !mostrarFormulario"></button>
+    <button pButton label="Nuevo Producto" icon="pi pi-plus" class="p-button-success" (click)="mostrarDialogo()"></button>
   </div>
 
   <!-- Formulario -->
   <div *ngIf="mostrarFormulario" class="p-card p-4 mb-4 shadow-2" style="border-radius: 12px; background: #f9f9f9;">
     <h4 class="mb-4">{{ editando ? 'Editar Producto' : 'Registrar Producto' }}</h4>
-    <form #formProducto="ngForm" (ngSubmit)="guardar()" novalidate class="p-fluid">
+    <form [formGroup]="form" (ngSubmit)="guardar()" class="p-fluid">
       <div class="grid p-fluid gap-3">
         
         <div class="col-12 field">
-          <label for="nombre" class="mb-2">Nombre</label>
-          <input id="nombre" type="text" pInputText [(ngModel)]="producto.nombre" name="nombre" required placeholder="Ejemplo: Zapatillas deportivas" />
+          <label for="nombre" class="mb-2">Nombre <span class="text-red-500">*</span></label>
+          <input id="nombre" type="text" pInputText formControlName="nombre" placeholder="Ejemplo: Discos 480 GB" 
+                 [class.ng-invalid]="form.get('nombre')?.invalid && form.get('nombre')?.touched"
+                 [class.ng-dirty]="form.get('nombre')?.touched" />
+          <small *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched" class="p-error">
+            <span *ngIf="form.get('nombre')?.errors?.['required']">El nombre es obligatorio</span>
+            <span *ngIf="form.get('nombre')?.errors?.['minlength']">El nombre debe tener al menos 3 caracteres</span>
+          </small>
         </div>
 
         <div class="col-12 field">
-          <label for="descripcion" class="mb-2">Descripción</label>
-          <textarea id="descripcion" pInputTextarea [(ngModel)]="producto.descripcion" name="descripcion" rows="3" autoResize="true" required placeholder="Calzado cómodo ideal para entrenar"></textarea>
+          <label for="descripcion" class="mb-2">Descripción <span class="text-red-500">*</span></label>
+          <textarea id="descripcion" pInputTextarea formControlName="descripcion" rows="3" autoResize="true" 
+                    placeholder="Especificaciones Técnicas"
+                    [class.ng-invalid]="form.get('descripcion')?.invalid && form.get('descripcion')?.touched"
+                    [class.ng-dirty]="form.get('descripcion')?.touched"></textarea>
+          <small *ngIf="form.get('descripcion')?.invalid && form.get('descripcion')?.touched" class="p-error">
+            <span *ngIf="form.get('descripcion')?.errors?.['required']">La descripción es obligatoria</span>
+            <span *ngIf="form.get('descripcion')?.errors?.['minlength']">La descripción debe tener al menos 10 caracteres</span>
+          </small>
         </div>
 
         <div class="col-6 field">
-          <label for="precio" class="mb-2">Precio (S/)</label>
-          <input id="precio" type="number" pInputText [(ngModel)]="producto.precio" name="precio" required min="1" placeholder="0.00" />
+          <label for="precio" class="mb-2">Precio (S/) <span class="text-red-500">*</span></label>
+          <input id="precio" type="number" pInputText formControlName="precio" placeholder="0.00" 
+                 [class.ng-invalid]="form.get('precio')?.invalid && form.get('precio')?.touched"
+                 [class.ng-dirty]="form.get('precio')?.touched" />
+          <small *ngIf="form.get('precio')?.invalid && form.get('precio')?.touched" class="p-error">
+            <span *ngIf="form.get('precio')?.errors?.['required']">El precio es obligatorio</span>
+            <span *ngIf="form.get('precio')?.errors?.['min']">El precio debe ser mayor a S/ 0.00</span>
+          </small>
         </div>
 
         <div class="col-6 field">
-          <label for="stock" class="mb-2">Stock</label>
-          <input id="stock" type="number" pInputText [(ngModel)]="producto.stock" name="stock" required placeholder="Cantidad disponible" />
+          <label for="stock" class="mb-2">Stock <span class="text-red-500">*</span></label>
+          <input id="stock" type="number" pInputText formControlName="stock" placeholder="Cantidad disponible" 
+                 [class.ng-invalid]="form.get('stock')?.invalid && form.get('stock')?.touched"
+                 [class.ng-dirty]="form.get('stock')?.touched" />
+          <small *ngIf="form.get('stock')?.invalid && form.get('stock')?.touched" class="p-error">
+            <span *ngIf="form.get('stock')?.errors?.['required']">El stock es obligatorio</span>
+            <span *ngIf="form.get('stock')?.errors?.['min']">El stock debe ser 0 o mayor</span>
+          </small>
         </div>
 
         <div class="col-6 field">
-          <label for="disponibilidad" class="mb-2">Disponibilidad</label>
-          <select id="disponibilidad" [(ngModel)]="producto.disponibilidad" name="disponibilidad" class="p-inputtext" required>
-            <option value="" disabled>Seleccione</option>
+          <label for="disponibilidad" class="mb-2">Disponibilidad <span class="text-red-500">*</span></label>
+          <select id="disponibilidad" formControlName="disponibilidad" class="p-inputtext"
+                  [class.ng-invalid]="form.get('disponibilidad')?.invalid && form.get('disponibilidad')?.touched"
+                  [class.ng-dirty]="form.get('disponibilidad')?.touched">
+            <option value="">Seleccione</option>
             <option value="Disponible">Disponible</option>
             <option value="Agotado">Agotado</option>
           </select>
+          <small *ngIf="form.get('disponibilidad')?.invalid && form.get('disponibilidad')?.touched" class="p-error">
+            La disponibilidad es obligatoria
+          </small>
         </div>
 
         <div class="col-6 field">
-          <label for="categoriaId" class="mb-2">Categoría</label>
-          <select id="categoriaId" [(ngModel)]="producto.categoriaId" name="categoriaId" class="p-inputtext" required>
-            <option value="" disabled>Seleccione una categoría</option>
+          <label for="categoriaId" class="mb-2">Categoría <span class="text-red-500">*</span></label>
+          <select id="categoriaId" formControlName="categoriaId" class="p-inputtext"
+                  [class.ng-invalid]="form.get('categoriaId')?.invalid && form.get('categoriaId')?.touched"
+                  [class.ng-dirty]="form.get('categoriaId')?.touched">
+            <option value="0">Seleccione una categoría</option>
             <option *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.nombre }}</option>
           </select>
+          <small *ngIf="form.get('categoriaId')?.invalid && form.get('categoriaId')?.touched" class="p-error">
+            La categoría es obligatoria
+          </small>
         </div>
 
         <div class="col-12 field">
           <label for="imagenNombre" class="mb-2">Nombre de la Imagen</label>
-          <input id="imagenNombre" type="text" pInputText [(ngModel)]="producto.imagenNombre" name="imagenNombre" placeholder="Ejemplo: zapatillas1.jpg" />
+          <input id="imagenNombre" type="text" pInputText formControlName="imagenNombre" placeholder="Ejemplo: zapatillas1.jpg" />
         </div>
       </div>
 
      
       <div class="flex justify-content-center gap-3 mt-4">
-        <button pButton type="submit" [label]="editando ? 'Actualizar' : 'Guardar'" icon="pi pi-save" class="p-button-rounded p-button-success"></button>
-        <button pButton type="button" label="Cancelar" icon="pi pi-times" class="p-button-rounded p-button-secondary" (click)="cancelar(); mostrarFormulario = false"></button>
+        <button pButton type="submit" [label]="editando ? 'Actualizar' : 'Guardar'" 
+                icon="pi pi-save" class="p-button-rounded p-button-success"
+                [disabled]="form.invalid || guardando" 
+                [loading]="guardando"></button>
+        <button pButton type="button" label="Cancelar" icon="pi pi-times" 
+                class="p-button-rounded p-button-secondary" 
+                (click)="cancelar()"></button>
       </div>
     </form>
   </div>
@@ -91,8 +134,8 @@
         </td>
         <td>{{ p.imagenNombre || '-' }}</td>
         <td>
-          <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-sm me-2" (click)="editar(p)"></button>
-          <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm" (click)="eliminar(p.id!)"></button>
+          <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-sm me-2" pTooltip="Editar" tooltipPosition="top" (click)="editar(p)"></button>
+          <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm" pTooltip="Eliminar" tooltipPosition="top" (click)="confirmarEliminar(p)"></button>
         </td>
       </tr>
     </ng-template>
