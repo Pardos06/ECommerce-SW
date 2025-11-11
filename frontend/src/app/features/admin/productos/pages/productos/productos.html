@@ -134,8 +134,8 @@
         </td>
         <td>{{ p.imagenNombre || '-' }}</td>
         <td>
-          <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-sm me-2" pTooltip="Editar" tooltipPosition="top" (click)="editar(p)"></button>
-          <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm" pTooltip="Eliminar" tooltipPosition="top" (click)="confirmarEliminar(p)"></button>
+          <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-sm me-2" (click)="editar(p)"></button>
+          <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm" (click)="confirmarEliminar(p)"></button>
         </td>
       </tr>
     </ng-template>
