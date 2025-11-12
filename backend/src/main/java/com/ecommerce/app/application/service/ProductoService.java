@@ -9,6 +9,8 @@ import com.ecommerce.app.domain.models.Producto;
 import com.ecommerce.app.domain.repository.CategoriaRepository;
 import com.ecommerce.app.domain.repository.ProductoRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -44,27 +46,30 @@ public class ProductoService {
         return ProductoMapper.toResponse(producto);
     }
 
+    @Transactional
     public ProductoResponse registrarProducto(ProductoRequest request) {
-        Categoria categoria = categoriaRepository.findById(request.getCategoriaId())
-                .orElseThrow(() -> new IllegalArgumentException("No se encontró la categoría con ID " + request.getCategoriaId()));
+        Categoria categoria = categoriaRepository.findById(request.categoriaId())
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró la categoría con ID " + request.categoriaId()));
 
         Producto producto = ProductoMapper.toEntity(request, categoria);
+        producto.setId(null);
         Producto productoGuardado = productoRepository.save((producto));
 
         return ProductoMapper.toResponse(productoGuardado);
     }
 
+    @Transactional
     public ProductoResponse editarProducto(ProductoRequest request) {
-        Producto producto = productoRepository.findById(request.getId())
-                .orElseThrow(() -> new EntityNotFoundException("No se encontró el producto con ID " + request.getId()));
+        Producto producto = productoRepository.findById(request.id())
+                .orElseThrow(() -> new EntityNotFoundException("No se encontró el producto con ID " + request.id()));
 
-        Categoria categoria = categoriaRepository.findById(request.getCategoriaId())
-                .orElseThrow(() -> new IllegalArgumentException("No se encontró la categoría con ID " + request.getCategoriaId()));
+        Categoria categoria = categoriaRepository.findById(request.categoriaId())
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró la categoría con ID " + request.categoriaId()));
 
-        producto.setNombre(request.getNombre());
-        producto.setDescripcion(request.getDescripcion());
-        producto.setPrecio(request.getPrecio());
-        producto.setStock(request.getStock());
+        producto.setNombre(request.nombre());
+        producto.setDescripcion(request.descripcion());
+        producto.setPrecio(request.precio());
+        producto.setStock(request.stock());
         producto.setCategoria(categoria);
 
         productoRepository.save(producto);
@@ -72,6 +77,7 @@ public class ProductoService {
         return ProductoMapper.toResponse(producto);
     }
 
+    @Transactional
     public void eliminarProducto(int id) {
         Producto producto = productoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Producto no encontrado"));

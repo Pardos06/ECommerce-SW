@@ -46,14 +46,15 @@ public class UsuarioService {
 
     @Transactional
     public UsuarioResponse registrarUsuario(UsuarioRequest request) {
-        Rol rol = rolRepository.findById(request.getRolId())
+        Rol rol = rolRepository.findById(request.rolId())
                 .orElseThrow(() -> new IllegalArgumentException("Rol no válido"));
 
         Usuario usuario = new Usuario();
-        usuario.setNombre(request.getNombre());
-        usuario.setEmail(request.getEmail());
-        usuario.setPasswordHash(passwordEncoder.encode(request.getPasswordHash()));
-        usuario.setEstado(request.getEstado());
+        usuario.setId(null);
+        usuario.setNombre(request.nombre());
+        usuario.setEmail(request.email());
+        usuario.setPasswordHash(passwordEncoder.encode(request.passwordHash()));
+        usuario.setEstado(request.estado());
         usuario.setRol(rol);
 
         usuarioRepository.save(usuario);
@@ -62,17 +63,17 @@ public class UsuarioService {
 
     @Transactional
     public UsuarioResponse editarUsuario(UsuarioRequest request) {
-        Usuario usuario = usuarioRepository.findById(request.getId())
+        Usuario usuario = usuarioRepository.findById(request.id())
                 .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
 
-        usuario.setNombre(request.getNombre());
-        usuario.setEmail(request.getEmail());
-        if (request.getPasswordHash() != null && !request.getPasswordHash().isBlank()) {
-            usuario.setPasswordHash(passwordEncoder.encode(request.getPasswordHash()));
+        usuario.setNombre(request.nombre());
+        usuario.setEmail(request.email());
+        if (request.passwordHash() != null && !request.passwordHash().isBlank()) {
+            usuario.setPasswordHash(passwordEncoder.encode(request.passwordHash()));
         }
-        usuario.setEstado(request.getEstado());
+        usuario.setEstado(request.estado());
 
-        Rol rol = rolRepository.findById(request.getRolId())
+        Rol rol = rolRepository.findById(request.rolId())
                 .orElseThrow(() -> new IllegalArgumentException("Rol no válido"));
         usuario.setRol(rol);
 
