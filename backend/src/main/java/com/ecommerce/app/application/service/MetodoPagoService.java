@@ -77,4 +77,11 @@ public class MetodoPagoService {
 
         metodoPagoRepository.delete(metodoPago);
     }
+
+    public List<MetodoPagoResponse> buscarPorNombre(String nombre) {
+        return metodoPagoRepository.findByNombreContainingIgnoreCase(nombre)
+        		.stream()
+                .map(MetodoPagoMapper::toResponse)
+                .toList();
+    }
 }

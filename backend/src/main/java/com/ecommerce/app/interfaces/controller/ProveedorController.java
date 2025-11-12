@@ -64,4 +64,11 @@ public class ProveedorController {
         proveedorService.eliminarProveedor(id);
         return ResponseEntity.noContent().build();
     }
+    
+    @GetMapping("/search/{tipoProveedor}")
+    @Operation(summary = "Busca un tipo de proveedor", description = "Busca el tipo de proveedor")
+    public ResponseEntity<List<ProveedorResponse>> buscarPorTipoProveedos(@PathVariable String tipoProveedor) {
+    	List<ProveedorResponse> proveedores = proveedorService.buscarPorTipoProveedor(tipoProveedor);
+    	return ResponseEntity.ok(proveedores);
+    }
 }

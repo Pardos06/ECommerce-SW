@@ -3,6 +3,7 @@ package com.ecommerce.app.interfaces.controller;
 import java.util.List;
 
 import com.ecommerce.app.application.dto.request.CategoriaRequest;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,8 @@ import com.ecommerce.app.application.service.CategoriaService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
+import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("api/categorias")
@@ -58,6 +61,13 @@ public class CategoriaController {
     public ResponseEntity<Void> eliminarCategoria(@PathVariable int id) {
         categoriaService.eliminarCategoria(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/search/{name}")
+    @Operation(summary = "Buscar una categoría por nombre", description = "Busca una categoría por su nombre")
+    public ResponseEntity<List<CategoriaResponse>> buscarPorNombre(@PathVariable String name) {
+        List<CategoriaResponse> categorias = categoriaService.buscarPorNombre(name);
+        return ResponseEntity.ok(categorias);
     }
     
 }

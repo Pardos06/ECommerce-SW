@@ -69,4 +69,11 @@ public class ProductoController {
         ProductoImagenResponse respuesta = productoService.subirImagen(archivo);
         return ResponseEntity.ok(respuesta);
     }
+    
+    @GetMapping("/search/{name}")
+    @Operation(summary = "Busca productos disponibles", description = "Busca los productos que estén disponibles")
+    public ResponseEntity<List<ProductoResponse>> buscarProductosDisponibles(@PathVariable String name) {
+    	List<ProductoResponse> productos = productoService.buscarProductosDisponibles(name);
+    	return ResponseEntity.ok(productos);
+    }
 }
