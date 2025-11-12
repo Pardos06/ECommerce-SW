@@ -46,10 +46,9 @@ public class ProductoController {
         return ResponseEntity.ok(producto);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     @Operation(summary = "Editar producto", description = "Actualiza los datos de un producto existente")
-    public ResponseEntity<ProductoResponse> editarProducto(@PathVariable int id, @RequestBody ProductoRequest request) {
-        request.setId(id); 
+    public ResponseEntity<ProductoResponse> editarProducto(@RequestBody ProductoRequest request) {
         ProductoResponse producto = productoService.editarProducto(request);
         return ResponseEntity.ok(producto);
     }
