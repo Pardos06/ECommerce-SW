@@ -13,9 +13,9 @@ public class EmpleadoMapper {
         }
 
         Empleado empleado = new Empleado();
-        empleado.setId(request.getId());
-        empleado.setArea(request.getArea());
-        empleado.setCargo(request.getCargo());
+        empleado.setId(request.id());
+        empleado.setArea(request.area());
+        empleado.setCargo(request.cargo());
         empleado.setUsuario(usuario);
 
         return empleado;
