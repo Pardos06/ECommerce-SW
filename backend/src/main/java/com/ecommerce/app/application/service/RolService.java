@@ -69,4 +69,11 @@ public class RolService {
 
         rolRepository.delete(rol);
     }
+
+    public List<RolResponse> buscarPorNombre(String nombre) {
+        return rolRepository.findByNombreContainingIgnoreCase(nombre)
+        	.stream()
+            .map(RolMapper::toResponse)
+            .toList();
+    }
 }
