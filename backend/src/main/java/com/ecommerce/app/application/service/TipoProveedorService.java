@@ -1,5 +1,11 @@
 package com.ecommerce.app.application.service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
 import com.ecommerce.app.application.dto.request.TipoProveedorRequest;
 import com.ecommerce.app.application.dto.response.TipoProveedorResponse;
 import com.ecommerce.app.application.mapper.TipoProveedorMapper;
@@ -10,9 +16,7 @@ import jakarta.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class TipoProveedorService {
@@ -73,5 +77,12 @@ public class TipoProveedorService {
         }
 
         tipoProveedorRepository.delete(tipoProveedor);
+    }
+
+    public List<TipoProveedorResponse> buscarPorNombre(String nombre) {
+        return tipoProveedorRepository.findByNombreContainingIgnoreCase(nombre)
+        		.stream()
+        		.map(TipoProveedorMapper::toResponse)
+        		.toList();
     }
 }

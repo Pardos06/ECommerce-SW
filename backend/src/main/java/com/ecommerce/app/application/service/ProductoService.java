@@ -108,4 +108,11 @@ public class ProductoService {
         String url = "/imagenes/" + nombreArchivo;
         return new ProductoImagenResponse(nombreArchivo, url);
     }
+    
+    public List<ProductoResponse> buscarProductosDisponibles(String nombre) {
+    	return productoRepository.buscarProductosDisponibles(nombre)
+    			.stream()
+    			.map(ProductoMapper::toResponse)
+    			.toList();
+    }
 }

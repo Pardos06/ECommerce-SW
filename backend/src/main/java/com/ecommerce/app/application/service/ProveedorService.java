@@ -83,4 +83,11 @@ public class ProveedorService {
 
         proveedorRepository.delete(proveedor);
     }
+    
+    public List<ProveedorResponse> buscarPorTipoProveedor(String tipoNombre) {
+    	return proveedorRepository.buscarPorTipoProveedor(tipoNombre)
+    			.stream()
+    			.map(ProveedorMapper::toResponse)
+    			.toList();
+    }
 }

@@ -75,4 +75,11 @@ public class CategoriaService {
 
         categoriaRepository.delete(categoria);
     }
+
+    public List<CategoriaResponse> buscarPorNombre(String nombre) {
+        return categoriaRepository.findByNombreContainingIgnoreCase(nombre)
+        		.stream()
+        		.map(CategoriaMapper::toResponse)
+        		.toList();
+    }
 }

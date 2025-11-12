@@ -55,4 +55,11 @@ public class MetodoPagoController {
         metodoPagoService.eliminarMetodoPago(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/search/{nombre}")
+    @Operation(summary = "Buscar métodos de pago por nombre", description = "Busca métodos de pago por su nombre")
+    public ResponseEntity<List<MetodoPagoResponse>> buscarPorNombre(@PathVariable String nombre) {
+        List<MetodoPagoResponse> metodosPago = metodoPagoService.buscarPorNombre(nombre);
+        return ResponseEntity.ok(metodosPago);
+    }
 }
