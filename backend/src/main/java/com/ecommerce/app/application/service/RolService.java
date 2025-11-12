@@ -6,6 +6,8 @@ import com.ecommerce.app.application.mapper.RolMapper;
 import com.ecommerce.app.domain.models.Rol;
 import com.ecommerce.app.domain.repository.RolRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,30 +37,34 @@ public class RolService {
         return RolMapper.toResponse(rol);
     }
 
+    @Transactional
     public RolResponse registrarRol(RolRequest request) {
-        Optional<Rol> rolExistente = rolRepository.findByNombre(request.getNombre());
+        Optional<Rol> rolExistente = rolRepository.findByNombre(request.nombre());
 
         if (rolExistente.isPresent()) {
-            throw new IllegalArgumentException("El rol con el nombre especificado ya existe: " + request.getNombre());
+            throw new IllegalArgumentException("El rol con el nombre especificado ya existe: " + request.nombre());
         }
 
         Rol rol = RolMapper.toEntity(request);
+        rol.setId(null);
         Rol rolGuardada = rolRepository.save(rol);
 
         return RolMapper.toResponse(rolGuardada);
     }
 
+    @Transactional
     public RolResponse editarRol(RolRequest request) {
-        Rol rol = rolRepository.findById(request.getId())
-                .orElseThrow(() -> new EntityNotFoundException("Rol no encontrado con ID: " + request.getId()));
+        Rol rol = rolRepository.findById(request.id())
+                .orElseThrow(() -> new EntityNotFoundException("Rol no encontrado con ID: " + request.id()));
 
-        rol.setNombre(request.getNombre());
+        rol.setNombre(request.nombre());
 
         rolRepository.save(rol);
 
         return RolMapper.toResponse(rol);
     }
 
+    @Transactional
     public void eliminarRol(int id) {
         Rol rol = rolRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Rol no encontrado"));

@@ -14,9 +14,9 @@ public class OrdenDetailsMapper {
         }
 
         OrdenDetails ordenDetails = new OrdenDetails();
-        ordenDetails.setId(request.getId());
-        ordenDetails.setCantidad(request.getCantidad());
-        ordenDetails.setPrecioUnitario(request.getPrecioUnitario());
+        ordenDetails.setId(request.id());
+        ordenDetails.setCantidad(request.cantidad());
+        ordenDetails.setPrecioUnitario(request.precioUnitario());
         ordenDetails.setOrden(orden);
         ordenDetails.setProducto(producto);
         return ordenDetails;

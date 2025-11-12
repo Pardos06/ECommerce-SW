@@ -13,11 +13,11 @@ public class UsuarioMapper {
         }
 
         Usuario usuario = new Usuario();
-        usuario.setId(request.getId());
-        usuario.setNombre(request.getNombre());
-        usuario.setEmail(request.getEmail());
-        usuario.setPasswordHash(request.getPasswordHash());
-        usuario.setEstado(request.getEstado());
+        usuario.setId(request.id());
+        usuario.setNombre(request.nombre());
+        usuario.setEmail(request.email());
+        usuario.setPasswordHash(request.passwordHash());
+        usuario.setEstado(request.estado());
         usuario.setRol(rol);
         return usuario;
     }

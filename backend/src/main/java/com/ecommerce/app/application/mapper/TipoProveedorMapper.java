@@ -12,8 +12,8 @@ public class TipoProveedorMapper {
         }
 
         TipoProveedor tipoProveedor = new TipoProveedor();
-        tipoProveedor.setId(request.getId());
-        tipoProveedor.setNombre(request.getNombre());
+        tipoProveedor.setId(request.id());
+        tipoProveedor.setNombre(request.nombre());
         return tipoProveedor;
     }
 

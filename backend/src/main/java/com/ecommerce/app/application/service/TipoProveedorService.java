@@ -11,6 +11,10 @@ import com.ecommerce.app.application.dto.response.TipoProveedorResponse;
 import com.ecommerce.app.application.mapper.TipoProveedorMapper;
 import com.ecommerce.app.domain.models.TipoProveedor;
 import com.ecommerce.app.domain.repository.TipoProveedorRepository;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
+
+import org.springframework.stereotype.Service;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -37,29 +41,33 @@ public class TipoProveedorService {
         return TipoProveedorMapper.toResponse(tipoProveedor);
     }
 
+    @Transactional
     public TipoProveedorResponse registrarTipoProveedor(TipoProveedorRequest request) {
-        Optional<TipoProveedor> tipoProveedorExistente = tipoProveedorRepository.findByNombre(request.getNombre());
+        Optional<TipoProveedor> tipoProveedorExistente = tipoProveedorRepository.findByNombre(request.nombre());
 
         if (tipoProveedorExistente.isPresent()) {
-            throw new IllegalArgumentException("El tipo de proveedor con el nombre especificado ya existe: " + request.getNombre());
+            throw new IllegalArgumentException("El tipo de proveedor con el nombre especificado ya existe: " + request.nombre());
         }
 
         TipoProveedor tipoProveedor = TipoProveedorMapper.toEntity(request);
+        tipoProveedor.setId(null);
         TipoProveedor TipoProveedorGuardado = tipoProveedorRepository.save(tipoProveedor);
 
         return TipoProveedorMapper.toResponse(TipoProveedorGuardado);
     }
-
+    
+    @Transactional
     public TipoProveedorResponse editarTipoProveedor(TipoProveedorRequest request) {
-        TipoProveedor tipoProveedor = tipoProveedorRepository.findById(request.getId())
-                .orElseThrow(() -> new EntityNotFoundException("Tipo de proveedor no encontrado con ID: " + request.getId()));
+        TipoProveedor tipoProveedor = tipoProveedorRepository.findById(request.id())
+                .orElseThrow(() -> new EntityNotFoundException("Tipo de proveedor no encontrado con ID: " + request.id()));
 
-        tipoProveedor.setNombre(request.getNombre());
+        tipoProveedor.setNombre(request.nombre());
         tipoProveedorRepository.save(tipoProveedor);
 
         return TipoProveedorMapper.toResponse(tipoProveedor);
     }
 
+     @Transactional
     public void eliminarTipoProveedor(int id) {
         TipoProveedor tipoProveedor = tipoProveedorRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Tipo de proveedor no encontrado"));

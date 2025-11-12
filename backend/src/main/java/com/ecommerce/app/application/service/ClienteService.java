@@ -41,7 +41,7 @@ public class ClienteService {
 
     @Transactional
     public ClienteResponse registrarCliente(ClienteRequest request) {
-        Usuario usuario = usuarioRepository.findById(request.getUsuarioId())
+        Usuario usuario = usuarioRepository.findById(request.usuarioId())
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado."));
 
         boolean clienteYaExiste = clienteRepository.findByUsuario(usuario).isPresent();
@@ -50,6 +50,7 @@ public class ClienteService {
         }
 
         Cliente cliente = ClienteMapper.toEntity(request, usuario);
+        cliente.setId(null);
         Cliente clienteGuardado = clienteRepository.save(cliente);
 
         return ClienteMapper.toResponse(clienteGuardado);
@@ -57,15 +58,15 @@ public class ClienteService {
 
     @Transactional
     public ClienteResponse editarCliente(ClienteRequest request) {
-        Cliente cliente = clienteRepository.findById(request.getId())
-                .orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado con ID " + request.getId()));
+        Cliente cliente = clienteRepository.findById(request.id())
+                .orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado con ID " + request.id()));
 
-        Usuario usuario = usuarioRepository.findById(request.getUsuarioId())
+        Usuario usuario = usuarioRepository.findById(request.usuarioId())
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado."));
 
         cliente.setUsuario(usuario);
-        cliente.setTelefono(request.getTelefono());
-        cliente.setDireccion(request.getDireccion());
+        cliente.setTelefono(request.telefono());
+        cliente.setDireccion(request.direccion());
 
         clienteRepository.save(cliente);
 

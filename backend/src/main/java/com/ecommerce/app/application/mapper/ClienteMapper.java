@@ -13,10 +13,10 @@ public class ClienteMapper {
         }
 
         Cliente cliente = new Cliente();
-        cliente.setId(request.getId());
+        cliente.setId(request.id());
         cliente.setUsuario(usuario);
-        cliente.setTelefono(request.getTelefono());
-        cliente.setDireccion(request.getDireccion());
+        cliente.setTelefono(request.telefono());
+        cliente.setDireccion(request.direccion());
 
         return cliente;
     }

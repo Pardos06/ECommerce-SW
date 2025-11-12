@@ -12,7 +12,7 @@ public class CompraDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @NotNull
     @Min(0)
@@ -35,7 +35,7 @@ public class CompraDetails {
     private Compra compra;
 
     public CompraDetails() {}
-    public CompraDetails(int id, int cantidad, BigDecimal precioUnitario, Producto producto,
+    public CompraDetails(Integer id, int cantidad, BigDecimal precioUnitario, Producto producto,
             Compra compra) {
         this.id = id;
         this.cantidad = cantidad;
@@ -44,11 +44,11 @@ public class CompraDetails {
         this.compra = compra;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

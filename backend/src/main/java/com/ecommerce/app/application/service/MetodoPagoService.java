@@ -37,25 +37,28 @@ public class MetodoPagoService {
 
         return MetodoPagoMapper.toResponse(metodoPago);
     }
-
+    
+    @Transactional
     public MetodoPagoResponse registrarNetodoPago(MetodoPagoRequest request) {
-        Optional<MetodoPago> metodoPagoExistente = metodoPagoRepository.findByNombre(request.getNombre());
+        Optional<MetodoPago> metodoPagoExistente = metodoPagoRepository.findByNombre(request.nombre());
 
         if (metodoPagoExistente.isPresent()) {
-            throw new IllegalArgumentException("El método de pago con el nombre especificado ya existe: " + request.getNombre());
+            throw new IllegalArgumentException("El método de pago con el nombre especificado ya existe: " + request.nombre());
         }
 
         MetodoPago metodoPago = MetodoPagoMapper.toEntity(request);
+        metodoPago.setId(null);
         MetodoPago metodoPagoGuardada = metodoPagoRepository.save(metodoPago);
 
         return MetodoPagoMapper.toResponse(metodoPagoGuardada);
     }
 
+    @Transactional
     public MetodoPagoResponse editarMetodoPago(MetodoPagoRequest request) {
-        MetodoPago metodoPago = metodoPagoRepository.findById(request.getId())
-                .orElseThrow(() -> new EntityNotFoundException("Método de pago no encontrado con ID: " + request.getId()));
+        MetodoPago metodoPago = metodoPagoRepository.findById(request.id())
+                .orElseThrow(() -> new EntityNotFoundException("Método de pago no encontrado con ID: " + request.id()));
 
-        metodoPago.setNombre(request.getNombre());
+        metodoPago.setNombre(request.nombre());
 
         metodoPagoRepository.save(metodoPago);
 

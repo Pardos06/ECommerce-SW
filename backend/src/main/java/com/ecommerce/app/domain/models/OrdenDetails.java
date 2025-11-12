@@ -10,7 +10,7 @@ public class OrdenDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @NotNull
     @Min(0)
@@ -35,7 +35,7 @@ public class OrdenDetails {
 
     public OrdenDetails() {}
 
-    public OrdenDetails(int id, int cantidad, BigDecimal precioUnitario, Orden orden, Producto producto) {
+    public OrdenDetails(Integer id, int cantidad, BigDecimal precioUnitario, Orden orden, Producto producto) {
         this.id = id;
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
@@ -43,11 +43,11 @@ public class OrdenDetails {
         this.producto = producto;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

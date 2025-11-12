@@ -24,7 +24,7 @@ import jakarta.validation.constraints.Size;
 public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @NotNull
     @Size(max = 150)
@@ -71,7 +71,7 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(int id, String nombre, String descripcion, BigDecimal precio, int stock, String disponibilidad, String imagenNombre, Categoria categoria) {
+    public Producto(Integer id, String nombre, String descripcion, BigDecimal precio, int stock, String disponibilidad, String imagenNombre, Categoria categoria) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -82,11 +82,11 @@ public class Producto {
         this.categoria = categoria;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

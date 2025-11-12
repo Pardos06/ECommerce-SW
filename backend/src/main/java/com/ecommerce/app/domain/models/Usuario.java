@@ -9,7 +9,7 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @NotNull
     @Size(max = 100)
@@ -46,7 +46,7 @@ public class Usuario {
 
     public Usuario() {}
 
-    public Usuario(int id, String nombre, String email, String passwordHash, String estado, Cliente cliente, Empleado empleado, Rol rol) {
+    public Usuario(Integer id, String nombre, String email, String passwordHash, String estado, Cliente cliente, Empleado empleado, Rol rol) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
@@ -57,11 +57,11 @@ public class Usuario {
         this.rol = rol;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -41,7 +41,7 @@ public class EmpleadoService {
 
     @Transactional
     public EmpleadoResponse registrarEmpleado(EmpleadoRequest request) {
-        Usuario usuario = usuarioRepository.findById(request.getUsuarioId())
+        Usuario usuario = usuarioRepository.findById(request.usuarioId())
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado."));
 
         boolean empleadoExiste = empleadoRepository.findByUsuario(usuario).isPresent();
@@ -51,6 +51,7 @@ public class EmpleadoService {
         }
 
         Empleado empleado = EmpleadoMapper.toEntity(request, usuario);
+        empleado.setId(null);
         Empleado empleadoGuardado = empleadoRepository.save(empleado);
 
         return EmpleadoMapper.toResponse(empleadoGuardado);
@@ -58,15 +59,15 @@ public class EmpleadoService {
 
     @Transactional
     public EmpleadoResponse editarempleado(EmpleadoRequest request) {
-        Empleado empleado = empleadoRepository.findById(request.getId())
-                .orElseThrow(() -> new EntityNotFoundException("Empleado no encontrado con ID " + request.getId()));
+        Empleado empleado = empleadoRepository.findById(request.id())
+                .orElseThrow(() -> new EntityNotFoundException("Empleado no encontrado con ID " + request.id()));
 
-        Usuario usuario = usuarioRepository.findById(request.getUsuarioId())
+        Usuario usuario = usuarioRepository.findById(request.usuarioId())
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
 
         empleado.setUsuario(usuario);
-        empleado.setArea(request.getArea());
-        empleado.setCargo(request.getCargo());
+        empleado.setArea(request.area());
+        empleado.setCargo(request.cargo());
 
         empleadoRepository.save(empleado);
 

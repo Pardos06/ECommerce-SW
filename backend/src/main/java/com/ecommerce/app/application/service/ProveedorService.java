@@ -41,27 +41,30 @@ public class ProveedorService {
         return ProveedorMapper.toResponse(proveedor);
     }
 
+    @Transactional
     public ProveedorResponse registrarProveedor(ProveedorRequest request) {
-        TipoProveedor tipoProveedor = tipoProveedorRepository.findById(request.getTipoProveedorId())
+        TipoProveedor tipoProveedor = tipoProveedorRepository.findById(request.tipoProveedorId())
                 .orElseThrow(() -> new IllegalArgumentException("El tipo de proveedor especificado no existe"));
 
         Proveedor proveedor = ProveedorMapper.toEntity(request, tipoProveedor);
+        proveedor.setId(null);
         Proveedor proveedorGuardado = proveedorRepository.save((proveedor));
 
         return ProveedorMapper.toResponse(proveedorGuardado);
     }
 
+    @Transactional
     public ProveedorResponse editarProveedor(ProveedorRequest request) {
-        Proveedor proveedor = proveedorRepository.findById(request.getId())
-                .orElseThrow(() -> new EntityNotFoundException("Proveedor no encontrado con id: " + request.getId()));
+        Proveedor proveedor = proveedorRepository.findById(request.id())
+                .orElseThrow(() -> new EntityNotFoundException("Proveedor no encontrado con id: " + request.id()));
 
-        TipoProveedor tipoProveedor = tipoProveedorRepository.findById(request.getTipoProveedorId())
-                .orElseThrow(() -> new IllegalArgumentException("El tipo de proveedor especificado no existe: " + request.getTipoProveedorId()));
+        TipoProveedor tipoProveedor = tipoProveedorRepository.findById(request.tipoProveedorId())
+                .orElseThrow(() -> new IllegalArgumentException("El tipo de proveedor especificado no existe: " + request.tipoProveedorId()));
 
-        proveedor.setNombre(request.getNombre());
-        proveedor.setEmail(request.getEmail());
-        proveedor.setTelefono(request.getTelefono());
-        proveedor.setDireccion(request.getDireccion());
+        proveedor.setNombre(request.nombre());
+        proveedor.setEmail(request.email());
+        proveedor.setTelefono(request.telefono());
+        proveedor.setDireccion(request.direccion());
         proveedor.setTipoProveedor(tipoProveedor);
 
         proveedorRepository.save(proveedor);

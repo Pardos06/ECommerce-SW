@@ -8,7 +8,7 @@ public class Empleado {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, unique = true, foreignKey = @ForeignKey(name = "fk_empleado_usuario"))
@@ -23,17 +23,17 @@ public class Empleado {
     private String cargo;
 
     public Empleado() {}
-    public Empleado(int id, Usuario usuario, String area, String cargo) {
+    public Empleado(Integer id, Usuario usuario, String area, String cargo) {
         this.id = id;
         this.usuario = usuario;
         this.area = area;
         this.cargo = cargo;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     public Usuario getUsuario() {
