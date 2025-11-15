@@ -39,7 +39,7 @@ public class UsuarioService {
 
     public UsuarioResponse obtenerPorId(int id) {
         Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado con ID " + id));
 
         return UsuarioMapper.toResponse(usuario);
     }
