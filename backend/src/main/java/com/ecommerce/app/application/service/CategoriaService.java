@@ -32,9 +32,10 @@ public class CategoriaService {
     }
 
     public CategoriaResponse obtenerPorId(int id) {
-        return categoriaRepository.findById(id)
-            .map(CategoriaMapper::toResponse)
-            .orElse(null);
+        Categoria categoria = categoriaRepository.findById(id)
+        		.orElseThrow(() -> new EntityNotFoundException("Categoría no encontrada con ID " +id));
+    	
+    	return CategoriaMapper.toResponse(categoria);
     }
 
     @Transactional
