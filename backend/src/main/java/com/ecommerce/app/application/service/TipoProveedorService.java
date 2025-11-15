@@ -14,10 +14,6 @@ import com.ecommerce.app.domain.repository.TipoProveedorRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
-import org.springframework.stereotype.Service;
-
-import jakarta.persistence.EntityNotFoundException;
-
 @Service
 public class TipoProveedorService {
 
