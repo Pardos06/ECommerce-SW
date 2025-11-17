@@ -12,8 +12,8 @@ public class RolMapper {
         }
 
         Rol rol = new Rol();
-        rol.setId(request.getId());
-        rol.setNombre(request.getNombre());
+        rol.setId(request.id());
+        rol.setNombre(request.nombre());
         return rol;
     }
 

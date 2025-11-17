@@ -3,8 +3,10 @@ package com.ecommerce.app.interfaces.controller;
 import com.ecommerce.app.application.dto.request.RolRequest;
 import com.ecommerce.app.application.dto.response.RolResponse;
 import com.ecommerce.app.application.service.RolService;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -58,5 +60,12 @@ public class RolController {
     public ResponseEntity<Void> eliminarRol(@PathVariable int id) {
         rolService.eliminarRol(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/search/{name}")
+    @Operation(summary = "Buscar un rol por nombre", description = "Busca un rol por su nombre")
+    public ResponseEntity<List<RolResponse>> buscarPorNombre(@PathVariable String name) {
+        List<RolResponse> roles = rolService.buscarPorNombre(name);
+        return ResponseEntity.ok(roles);
     }
 }

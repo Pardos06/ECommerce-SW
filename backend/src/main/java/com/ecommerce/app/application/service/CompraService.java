@@ -49,17 +49,18 @@ public class CompraService {
 
     @Transactional
     public CompraResponse crearCompra(CompraRequest request) {
-        Empleado empleado = empleadoRepository.findById(request.getEmpleadoId())
-                .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado con ID " + request.getEmpleadoId()));
+        Empleado empleado = empleadoRepository.findById(request.empleadoId())
+                .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado con ID " + request.empleadoId()));
 
-        MetodoPago metodoPago = metodoPagoRepository.findById(request.getMetodoPagoId())
-                .orElseThrow(() -> new IllegalArgumentException("Método pago no encontrado con ID " + request.getMetodoPagoId()));
+        MetodoPago metodoPago = metodoPagoRepository.findById(request.metodoPagoId())
+                .orElseThrow(() -> new IllegalArgumentException("Método pago no encontrado con ID " + request.metodoPagoId()));
 
-        Proveedor proveedor = proveedorRepository.findById(request.getProveedorId())
-                .orElseThrow(() -> new IllegalArgumentException("Proveedor no encontrado con ID " + request.getProveedorId()));
+        Proveedor proveedor = proveedorRepository.findById(request.proveedorId())
+                .orElseThrow(() -> new IllegalArgumentException("Proveedor no encontrado con ID " + request.proveedorId()));
 
 
         Compra compra = CompraMapper.toEntity(request, metodoPago, proveedor, empleado);
+        compra.setId(null);
         Compra compraGuardada = compraRepository.save(compra);
 
         return CompraMapper.toResponse(compraGuardada);
@@ -67,25 +68,25 @@ public class CompraService {
 
     @Transactional
     public CompraResponse editarCompra(CompraRequest request) {
-        Compra compra = compraRepository.findById(request.getId())
-                .orElseThrow(() -> new EntityNotFoundException("Compra no encontrada con ID " + request.getId()));
+        Compra compra = compraRepository.findById(request.id())
+                .orElseThrow(() -> new EntityNotFoundException("Compra no encontrada con ID " + request.id()));
 
-        Empleado empleado = empleadoRepository.findById(request.getEmpleadoId())
-                .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado con ID " + request.getEmpleadoId()));
+        Empleado empleado = empleadoRepository.findById(request.empleadoId())
+                .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado con ID " + request.empleadoId()));
 
-        MetodoPago metodoPago = metodoPagoRepository.findById(request.getMetodoPagoId())
-                .orElseThrow(() -> new IllegalArgumentException("Método pago no encontrado con ID " + request.getMetodoPagoId()));
+        MetodoPago metodoPago = metodoPagoRepository.findById(request.metodoPagoId())
+                .orElseThrow(() -> new IllegalArgumentException("Método pago no encontrado con ID " + request.metodoPagoId()));
 
-        Proveedor proveedor = proveedorRepository.findById(request.getProveedorId())
-                .orElseThrow(() -> new IllegalArgumentException("Proveedor no encontrado con ID " + request.getProveedorId()));
+        Proveedor proveedor = proveedorRepository.findById(request.proveedorId())
+                .orElseThrow(() -> new IllegalArgumentException("Proveedor no encontrado con ID " + request.proveedorId()));
 
         List<String> estadosValidos = List.of("Pendiente", "Pagada", "Cancelada");
-        if (!estadosValidos.contains(request.getEstado())) {
+        if (!estadosValidos.contains(request.estado())) {
             throw new IllegalArgumentException("Estado de compra no válido");
         }
 
-        compra.setFechaCompra(request.getFechaCompra());
-        compra.setEstado(request.getEstado());
+        compra.setFechaCompra(request.fechaCompra());
+        compra.setEstado(request.estado());
         compra.setEmpleado(empleado);
         compra.setProveedor(proveedor);
         compra.setMetodoPago(metodoPago);

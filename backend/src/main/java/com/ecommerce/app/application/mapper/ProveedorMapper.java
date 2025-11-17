@@ -13,11 +13,11 @@ public class ProveedorMapper {
         }
 
         Proveedor proveedor = new Proveedor();
-        proveedor.setId(request.getId());
-        proveedor.setNombre(request.getNombre());
-        proveedor.setEmail(request.getEmail());
-        proveedor.setTelefono(request.getTelefono());
-        proveedor.setDireccion(request.getDireccion());
+        proveedor.setId(request.id());
+        proveedor.setNombre(request.nombre());
+        proveedor.setEmail(request.email());
+        proveedor.setTelefono(request.telefono());
+        proveedor.setDireccion(request.direccion());
         proveedor.setTipoProveedor(tipoProveedor);
         return proveedor;
     }

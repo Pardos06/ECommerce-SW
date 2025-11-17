@@ -14,9 +14,9 @@ public class CompraDetailsMapper {
         }
 
         CompraDetails compraDetails = new CompraDetails();
-        compraDetails.setId(request.getId());
-        compraDetails.setCantidad(request.getCantidad());
-        compraDetails.setPrecioUnitario(request.getPrecioUnitario());
+        compraDetails.setId(request.id());
+        compraDetails.setCantidad(request.cantidad());
+        compraDetails.setPrecioUnitario(request.precioUnitario());
         compraDetails.setProducto(producto);
         compraDetails.setCompra(compra);
         return compraDetails;

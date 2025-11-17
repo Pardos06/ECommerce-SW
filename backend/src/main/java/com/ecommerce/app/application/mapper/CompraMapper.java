@@ -15,9 +15,9 @@ public class CompraMapper {
         }
 
         Compra compra = new Compra();
-        compra.setId(request.getId());
-        compra.setFechaCompra(request.getFechaCompra());
-        compra.setEstado(request.getEstado());
+        compra.setId(request.id());
+        compra.setFechaCompra(request.fechaCompra());
+        compra.setEstado(request.estado());
         compra.setMetodoPago(metodoPago);
         compra.setProveedor(proveedor);
         compra.setEmpleado(empleado);
