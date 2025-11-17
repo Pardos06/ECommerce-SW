@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MetodoPago } from '../../interfaces/metodo.pago';
-import { MetodoPagoService } from '../../services/metodo.pago';
+import { MetodoPagoService } from '../../services/metodo-pago.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PrimeImportsModule } from '../../../../../prime-imports';

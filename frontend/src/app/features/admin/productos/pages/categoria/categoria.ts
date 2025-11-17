@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Categoria } from '../../interfaces/categoria';
-import { CategoriaService } from '../../services/categoria';
+import { CategoriaService } from '../../services/categoria.service';
 import { CommonModule } from '@angular/common';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { PrimeImportsModule } from '../../../../../prime-imports';
