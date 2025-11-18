@@ -1,0 +1,11 @@
+@use "sass:color";
+
+$primary-color: #6A5ACD;
+$secondary-color: #FF6F61;
+$base-color: #f8f9fa;
+$background-color: #f8f9fa;
+
+
+$btn-hover-bg: color.scale($primary-color, $lightness: -15%);
+$btn-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+$btn-border-radius: 6px;

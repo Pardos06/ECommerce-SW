@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Auth } from '../../../core/services/auth';
 import { AuthRequest } from '../../../core/interfaces/auth.request';
 import { MessageService } from 'primeng/api';
-
+import { LucideAngularModule} from 'lucide-angular';
 // PrimeNG modules
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
@@ -24,6 +24,7 @@ import { PrimeImportsModule } from '../../../prime-imports';
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
+    LucideAngularModule,
     CardModule,
     InputTextModule,
     InputGroupModule,

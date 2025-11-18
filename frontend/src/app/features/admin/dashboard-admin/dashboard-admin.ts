@@ -6,6 +6,7 @@ import { PanelMenuModule } from 'primeng/panelmenu';
 import { ButtonModule } from 'primeng/button';
 import { MenuItem } from 'primeng/api';
 
+
 @Component({
   selector: 'app-dashboard-admin',
   standalone: true,
@@ -25,19 +26,11 @@ export class DashboardAdmin {
   menuItems: MenuItem[] = [
     { label: 'Dashboard', icon: 'pi pi-th-large', routerLink: ['/admin'] },
     {
-      label: 'Gestión de Productos',
+      label: 'Productos',
       icon: 'pi pi-tags',
       items: [
         { label: 'Lista de productos', icon: 'pi pi-list', routerLink: ['/admin/productos'] },
-        { label: 'Agregar producto', icon: 'pi pi-plus', routerLink: ['/admin/productos/nuevo'] }
-      ]
-    },
-    {
-      label: 'Categorías',
-      icon: 'pi pi-sitemap',
-      items: [
-        { label: 'Ver categorías', icon: 'pi pi-list', routerLink: ['/admin/categorias'] },
-        { label: 'Agregar categoría', icon: 'pi pi-plus', routerLink: ['/admin/categorias/nueva'] }
+        { label: 'Gestionar Categorías', icon: 'pi pi-list', routerLink: ['/admin/categorias'] }
       ]
     },
     { label: 'Métodos de Pago', icon: 'pi pi-credit-card', routerLink: ['/admin/metodos-pago'] },
@@ -53,13 +46,9 @@ export class DashboardAdmin {
       label: 'Proveedores',
       icon: 'pi pi-users',
       items: [
-        { label: 'Mayoristas', icon: 'pi pi-user', routerLink: ['/admin/usuarios/tipos'] },
-        { label: 'Minoristas', icon: 'pi pi-user', routerLink: ['/admin/usuarios'] },
-        { label: 'Fabricante', icon: 'pi pi-user', routerLink: ['/admin/usuarios'] }
+        { label: 'Tipo de Proveedor', icon: 'pi pi-user', routerLink: ['/admin/tipo-proveedor'] }
       ]
-    },
-    { label: 'Reportes', icon: 'pi pi-chart-line', routerLink: ['/admin/reportes'] },
-    { separator: true },
+    }
     
   ];
 

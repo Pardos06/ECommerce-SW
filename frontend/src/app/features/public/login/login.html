@@ -17,8 +17,9 @@
         <label for="email" class="label">Correo electrónico</label>
         <p-inputgroup>
           <p-inputgroup-addon>
-            <i class="pi pi-user"></i>
+            <lucide-icon name="user"></lucide-icon>
           </p-inputgroup-addon>
+
           <input
             id="email"
             type="email"
@@ -28,6 +29,7 @@
             [ngClass]="{ 'ng-invalid': form.get('email')?.invalid && form.get('email')?.touched }"
           />
         </p-inputgroup>
+
         <small 
           *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
           class="p-error"
@@ -39,10 +41,12 @@
       <!-- Campo Contraseña -->
       <div class="field">
         <label for="contrasena" class="label">Contraseña</label>
+
         <p-inputgroup>
           <p-inputgroup-addon>
-            <i class="pi pi-lock"></i>
+            <lucide-icon name="lock"></lucide-icon>
           </p-inputgroup-addon>
+
           <p-password
             id="contrasena"
             formControlName="contrasena"
@@ -53,6 +57,7 @@
             [ngClass]="{ 'ng-invalid': form.get('contrasena')?.invalid && form.get('contrasena')?.touched }"
           ></p-password>
         </p-inputgroup>
+
         <small 
           *ngIf="form.get('contrasena')?.invalid && form.get('contrasena')?.touched"
           class="p-error"
@@ -67,11 +72,12 @@
           pButton
           type="submit"
           label="Iniciar Sesión"
-          icon="pi pi-sign-in"
           [loading]="cargando"
           [disabled]="form.invalid || cargando"
           class="p-button-rounded p-button-primary w-full"
-        ></button>
+        >
+          <lucide-icon name="log-in" class="ml-2"></lucide-icon>
+        </button>
       </div>
     </form>
 

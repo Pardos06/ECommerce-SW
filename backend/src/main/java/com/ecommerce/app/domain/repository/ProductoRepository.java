@@ -12,9 +12,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductoRepository extends JpaRepository<Producto, Integer> {
 	@Query("""
-	        SELECT p 
-	        FROM Producto p 
-	        WHERE p.nombre LIKE LOWER(CONCAT('%', :nombre, '%')) AND p.disponibilidad = 'Disponible'
-	    """)
+			SELECT p 
+			FROM Producto p 
+			WHERE LOWER(p.nombre) LIKE LOWER(CONCAT('%', :nombre, '%')) 
+			AND p.disponibilidad = 'Disponible'
+		""")
 	List<Producto> buscarProductosDisponibles(@Param("nombre") String nombre);
 }
