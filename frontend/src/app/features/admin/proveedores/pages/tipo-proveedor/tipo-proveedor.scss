@@ -1,0 +1,113 @@
+.login-container {
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  min-height: 70vh;
+  max-width: 480px;
+  margin: 0 auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+
+  .header-section {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e5e7eb;
+
+    h2 {
+      margin: 0;
+      font-weight: 600;
+      color: #333;
+      font-size: 1.75rem;
+    }
+
+    p {
+      margin: 0;
+      color: #666;
+      font-size: 0.95rem;
+    }
+  }
+
+  .field {
+    margin-bottom: 1.5rem;
+
+    .label {
+      display: block;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .p-inputtext,
+    .p-password {
+      width: 100%;
+      border-radius: 6px;
+      border: 1px solid #d1d5db;
+      transition: all 0.2s ease;
+
+      &:focus {
+        border-color: var(--p-primary-color);
+        box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+      }
+
+      &.ng-invalid.ng-touched {
+        border-color: #ef4444;
+      }
+    }
+
+    .p-error {
+      color: #ef4444;
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+      display: block;
+    }
+  }
+
+  .action-section {
+    margin-top: 1rem;
+
+    .login-btn {
+      width: 100%;
+      padding: 0.9rem;
+      font-weight: 600;
+      border-radius: 8px;
+    }
+  }
+
+  ::ng-deep .p-toast {
+    .p-toast-message-success {
+      border-left: 4px solid var(--p-primary-color);
+    }
+
+    .p-toast-message-error {
+      border-left: 4px solid #ef4444;
+    }
+  }
+
+  // Iconos Lucide (si los usas dentro del input)
+  .input-icon {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      stroke: #555;
+    }
+  }
+
+  // Responsive
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+    max-width: 100%;
+
+    .header-section h2 {
+      font-size: 1.5rem;
+    }
+
+    .login-btn {
+      padding: 1rem;
+    }
+  }
+}

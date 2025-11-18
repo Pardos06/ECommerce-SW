@@ -1,30 +1,6 @@
 package com.ecommerce.app.application.dto.request;
 
-public class RolRequest {
-    private int id;
-    private String nombre;
-
-    public RolRequest() {
-    }
-
-    public RolRequest(int id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-}
+public record RolRequest (
+		Integer id,
+    	String nombre
+) {}

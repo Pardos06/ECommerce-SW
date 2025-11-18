@@ -16,7 +16,7 @@ public class Compra {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @NotNull
     @PastOrPresent
@@ -48,7 +48,7 @@ public class Compra {
 
 
     public Compra() {}
-    public Compra(int id, LocalDateTime fechaCompra, String estado, MetodoPago metodoPago,
+    public Compra(Integer id, LocalDateTime fechaCompra, String estado, MetodoPago metodoPago,
             Proveedor proveedor, Empleado empleado) {
         this.id = id;
         this.fechaCompra = fechaCompra;
@@ -58,11 +58,11 @@ public class Compra {
         this.empleado = empleado;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

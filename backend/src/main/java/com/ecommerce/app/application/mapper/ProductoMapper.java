@@ -13,12 +13,12 @@ public class ProductoMapper {
         }
 
         Producto producto = new Producto();
-        producto.setId(request.getId());
-        producto.setNombre(request.getNombre());
-        producto.setDescripcion(request.getDescripcion());
-        producto.setPrecio(request.getPrecio());
-        producto.setStock(request.getStock());
-        producto.setImagenNombre(request.getImagenNombre());
+        producto.setId(request.id());
+        producto.setNombre(request.nombre());
+        producto.setDescripcion(request.descripcion());
+        producto.setPrecio(request.precio());
+        producto.setStock(request.stock());
+        producto.setImagenNombre(request.imagenNombre());
         producto.setCategoria(categoria);
         return producto;
     }

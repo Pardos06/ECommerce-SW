@@ -1,0 +1,8 @@
+
+$font-main: 'Segoe UI', 'Segoe UI Web', 'Helvetica Neue', sans-serif;
+
+*,
+*::before,
+*::after {
+  font-family: $font-main !important;
+}

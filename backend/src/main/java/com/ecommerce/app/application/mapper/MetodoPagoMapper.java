@@ -12,8 +12,8 @@ public class MetodoPagoMapper {
         }
 
         MetodoPago metodoPago = new MetodoPago();
-        metodoPago.setId(request.getId());
-        metodoPago.setNombre(request.getNombre());
+        metodoPago.setId(request.id());
+        metodoPago.setNombre(request.nombre());
         return metodoPago;
     }
 

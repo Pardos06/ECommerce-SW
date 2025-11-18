@@ -47,20 +47,21 @@ public class OrdenDetailsService {
 
     @Transactional
     public OrdenDetailsResponse crearOrdenDetalle(OrdenDetailsRequest request) {
-        Orden orden = ordenRepository.findById(request.getOrdenId())
-                .orElseThrow(() -> new IllegalArgumentException("Orden no encontrada con ID " + request.getOrdenId()));
+        Orden orden = ordenRepository.findById(request.ordenId())
+                .orElseThrow(() -> new IllegalArgumentException("Orden no encontrada con ID " + request.ordenId()));
 
-        Producto producto = productoRepository.findById(request.getProductoId())
-                .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado con ID " + request.getProductoId()));
+        Producto producto = productoRepository.findById(request.productoId())
+                .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado con ID " + request.productoId()));
 
-        if (producto.getStock() < request.getCantidad()) {
+        if (producto.getStock() < request.cantidad()) {
             throw new IllegalArgumentException("No hay suficiente stock disponible.");
         }
 
-        producto.setStock(producto.getStock() - request.getCantidad());
+        producto.setStock(producto.getStock() - request.cantidad());
         productoRepository.save(producto);
 
         OrdenDetails ordenDetails = OrdenDetailsMapper.toEntity(request, orden, producto);
+        ordenDetails.setId(null);
         OrdenDetails ordenDetailsGuardado = ordenDetailsRepository.save(ordenDetails);
 
         return OrdenDetailsMapper.toResponse(ordenDetailsGuardado);
@@ -68,16 +69,16 @@ public class OrdenDetailsService {
 
     @Transactional
     public OrdenDetailsResponse editarOrdenDetalle(OrdenDetailsRequest request) {
-        OrdenDetails ordenDetails = ordenDetailsRepository.findById(request.getId())
+        OrdenDetails ordenDetails = ordenDetailsRepository.findById(request.id())
                 .orElseThrow(() -> new EntityNotFoundException("Detalle de orden no encontrado"));
 
-        Producto producto = productoRepository.findById(request.getProductoId())
-                .orElseThrow(() -> new EntityNotFoundException("Producto no encontrado con ID " + request.getProductoId()));
+        Producto producto = productoRepository.findById(request.productoId())
+                .orElseThrow(() -> new EntityNotFoundException("Producto no encontrado con ID " + request.productoId()));
 
-        Orden orden = ordenRepository.findById(request.getOrdenId())
-                .orElseThrow(() -> new EntityNotFoundException("Orden no encontrada con ID " + request.getOrdenId()));
+        Orden orden = ordenRepository.findById(request.ordenId())
+                .orElseThrow(() -> new EntityNotFoundException("Orden no encontrada con ID " + request.ordenId()));
 
-        int diferenciaCantidad = request.getCantidad() - ordenDetails.getCantidad();
+        int diferenciaCantidad = request.cantidad() - ordenDetails.getCantidad();
 
         if (diferenciaCantidad > 0 && producto.getStock() < diferenciaCantidad) {
             throw new IllegalArgumentException("No hay suficiente stock para aumentar la cantidad.");
@@ -86,8 +87,8 @@ public class OrdenDetailsService {
         producto.setStock(producto.getStock() - diferenciaCantidad);
         productoRepository.save(producto);
 
-        ordenDetails.setCantidad(request.getCantidad());
-        ordenDetails.setPrecioUnitario(request.getPrecioUnitario());
+        ordenDetails.setCantidad(request.cantidad());
+        ordenDetails.setPrecioUnitario(request.precioUnitario());
         ordenDetails.setProducto(producto);
         ordenDetails.setOrden(orden);
         ordenDetailsRepository.save(ordenDetails);

@@ -14,7 +14,7 @@ public class  Orden {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @NotNull
     @PastOrPresent
@@ -46,7 +46,7 @@ public class  Orden {
 
     public Orden() {}
 
-    public Orden(int id, LocalDateTime fechaOrden, String estado, String estadoEmail, Cliente cliente, MetodoPago metodoPago) {
+    public Orden(Integer id, LocalDateTime fechaOrden, String estado, String estadoEmail, Cliente cliente, MetodoPago metodoPago) {
         this.id = id;
         this.fechaOrden = fechaOrden;
         this.estado = estado;
@@ -55,11 +55,11 @@ public class  Orden {
         this.metodoPago = metodoPago;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

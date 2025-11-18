@@ -12,7 +12,7 @@ public class TipoProveedor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @NotNull
     @Size(max = 50)
@@ -23,15 +23,14 @@ public class TipoProveedor {
     private List<Proveedor> proveedores = new ArrayList<>();
 
     public TipoProveedor() {}
-    public TipoProveedor(int id, String nombre, List<Proveedor> proveedores) {
-        super();
+    public TipoProveedor(Integer id, String nombre, List<Proveedor> proveedores) {
         this.id = id;
         this.nombre = nombre;
     }
-    public int getId() {
+    public Integer getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     public String getNombre() {

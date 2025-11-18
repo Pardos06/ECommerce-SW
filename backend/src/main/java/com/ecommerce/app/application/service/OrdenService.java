@@ -45,13 +45,14 @@ public class OrdenService {
 
     @Transactional
     public OrdenResponse crearOrden(OrdenRequest request) {
-        Cliente cliente = clienteRepository.findById(request.getClienteId())
-                .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado con ID " + request.getClienteId()));
+        Cliente cliente = clienteRepository.findById(request.clienteId())
+                .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado con ID " + request.clienteId()));
 
-        MetodoPago metodoPago = metodoPagoRepository.findById(request.getMetodoPagoId())
-                .orElseThrow(() -> new IllegalArgumentException("Método pago no encontrado con ID " + request.getMetodoPagoId()));
+        MetodoPago metodoPago = metodoPagoRepository.findById(request.metodoPagoId())
+                .orElseThrow(() -> new IllegalArgumentException("Método pago no encontrado con ID " + request.metodoPagoId()));
 
         Orden orden = OrdenMapper.toEntity(request, cliente, metodoPago);
+        orden.setId(null);
         Orden ordenGuardada = ordenRepository.save(orden);
 
         return OrdenMapper.toResponse(ordenGuardada);
@@ -59,18 +60,18 @@ public class OrdenService {
 
     @Transactional
     public OrdenResponse editarOrden(OrdenRequest request) {
-        Orden orden = ordenRepository.findById(request.getId())
-                .orElseThrow(() -> new EntityNotFoundException("Orden no encontrada con ID " + request.getId()));
+        Orden orden = ordenRepository.findById(request.id())
+                .orElseThrow(() -> new EntityNotFoundException("Orden no encontrada con ID " + request.id()));
 
-        Cliente cliente = clienteRepository.findById(request.getClienteId())
-                .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado con ID " + request.getClienteId()));
+        Cliente cliente = clienteRepository.findById(request.clienteId())
+                .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado con ID " + request.clienteId()));
 
-        MetodoPago metodoPago = metodoPagoRepository.findById(request.getMetodoPagoId())
-                .orElseThrow(() -> new IllegalArgumentException("Método pago no encontrado con ID " + request.getMetodoPagoId()));
+        MetodoPago metodoPago = metodoPagoRepository.findById(request.metodoPagoId())
+                .orElseThrow(() -> new IllegalArgumentException("Método pago no encontrado con ID " + request.metodoPagoId()));
 
-        orden.setFechaOrden(request.getFechaOrden());
-        orden.setEstado(request.getEstado());
-        orden.setEstadoEmail(request.getEstadoEmail());
+        orden.setFechaOrden(request.fechaOrden());
+        orden.setEstado(request.estado());
+        orden.setEstadoEmail(request.estado());
         orden.setCliente(cliente);
         orden.setMetodoPago(metodoPago);
 

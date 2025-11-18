@@ -14,10 +14,10 @@ public class OrdenMapper {
         }
 
         Orden orden = new Orden();
-        orden.setId(request.getId());
-        orden.setFechaOrden(request.getFechaOrden());
-        orden.setEstado(request.getEstado());
-        orden.setEstadoEmail(request.getEstadoEmail());
+        orden.setId(request.id());
+        orden.setFechaOrden(request.fechaOrden());
+        orden.setEstado(request.estado());
+        orden.setEstadoEmail(request.estadoEmail());
         orden.setCliente(cliente);
         orden.setMetodoPago(metodoPago);
         return orden;

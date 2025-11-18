@@ -38,13 +38,13 @@ public class AuthService {
     public AuthResponse login(AuthRequest request) {
         authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.getEmail(), request.getContrasena()
+                        request.email(), request.contrasena()
                 )
         );
 
-        String token = jwtUtil.generateToken(request.getEmail());
+        String token = jwtUtil.generateToken(request.email());
 
-        Usuario usuario = usuarioRepository.findByEmail(request.getEmail())
+        Usuario usuario = usuarioRepository.findByEmail(request.email())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         return new AuthResponse(token, usuario.getRol().getNombre(), usuario.getNombre());
@@ -52,25 +52,25 @@ public class AuthService {
 
     @Transactional
     public AuthResponse registrarCliente(RegistrarClienteRequest request) {
-        if (usuarioRepository.findByEmail(request.getEmail()).isPresent()) {
-            throw new IllegalArgumentException("El email ya está registrado: " + request.getEmail());
+        if (usuarioRepository.findByEmail(request.email()).isPresent()) {
+            throw new IllegalArgumentException("El email ya está registrado: " + request.email());
         }
 
         Rol rolCliente = rolRepository.findByNombre("Cliente")
                 .orElseThrow(() -> new IllegalStateException("Rol 'Cliente' no encontrado"));
 
         Usuario nuevo = new Usuario();
-        nuevo.setNombre(request.getNombre());
-        nuevo.setEmail(request.getEmail());
-        nuevo.setPasswordHash(passwordEncoder.encode(request.getContrasena()));
+        nuevo.setNombre(request.nombre());
+        nuevo.setEmail(request.email());
+        nuevo.setPasswordHash(passwordEncoder.encode(request.contrasena()));
         nuevo.setEstado("Activo");
         nuevo.setRol(rolCliente);
 
         usuarioRepository.save(nuevo);
 
         Cliente cliente = new Cliente();
-        cliente.setTelefono(request.getTelefono());
-        cliente.setDireccion(request.getDireccion());
+        cliente.setTelefono(request.telefono());
+        cliente.setDireccion(request.direccion());
         cliente.setUsuario(nuevo);
 
         clienteRepository.save(cliente);

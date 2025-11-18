@@ -46,10 +46,9 @@ public class ProductoController {
         return ResponseEntity.ok(producto);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     @Operation(summary = "Editar producto", description = "Actualiza los datos de un producto existente")
-    public ResponseEntity<ProductoResponse> editarProducto(@PathVariable int id, @RequestBody ProductoRequest request) {
-        request.setId(id); 
+    public ResponseEntity<ProductoResponse> editarProducto(@RequestBody ProductoRequest request) {
         ProductoResponse producto = productoService.editarProducto(request);
         return ResponseEntity.ok(producto);
     }
@@ -68,5 +67,12 @@ public class ProductoController {
     public ResponseEntity<ProductoImagenResponse> subirImagen(@RequestParam("archivo") MultipartFile archivo) throws IOException {
         ProductoImagenResponse respuesta = productoService.subirImagen(archivo);
         return ResponseEntity.ok(respuesta);
+    }
+    
+    @GetMapping("/search/{name}")
+    @Operation(summary = "Busca productos disponibles", description = "Busca los productos que estén disponibles")
+    public ResponseEntity<List<ProductoResponse>> buscarProductosDisponibles(@PathVariable String name) {
+    	List<ProductoResponse> productos = productoService.buscarProductosDisponibles(name);
+    	return ResponseEntity.ok(productos);
     }
 }

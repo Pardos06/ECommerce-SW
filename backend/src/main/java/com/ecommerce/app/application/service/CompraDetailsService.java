@@ -45,18 +45,19 @@ public class CompraDetailsService {
 
     @Transactional
     public CompraDetailsResponse crearCompraDetalle(CompraDetailsRequest request) {
-        Producto producto = productoRepository.findById(request.getProductoId())
+        Producto producto = productoRepository.findById(request.productoId())
                 .orElseThrow(() -> new IllegalArgumentException("Producto inválido."));
 
-        Compra compra = compraRepository.findById(request.getCompraId())
+        Compra compra = compraRepository.findById(request.compraId())
                 .orElseThrow(() -> new IllegalArgumentException("Compra inválida."));
 
-        producto.setStock(producto.getStock() + request.getCantidad());
+        producto.setStock(producto.getStock() + request.cantidad());
         productoRepository.save(producto);
 
         CompraDetails compraDetails = new CompraDetails();
-        compraDetails.setCantidad(request.getCantidad());
-        compraDetails.setPrecioUnitario(request.getPrecioUnitario());
+        compraDetails.setId(null);
+        compraDetails.setCantidad(request.cantidad());
+        compraDetails.setPrecioUnitario(request.precioUnitario());
         compraDetails.setProducto(producto);
         compraDetails.setCompra(compra);
 
@@ -67,21 +68,21 @@ public class CompraDetailsService {
 
     @Transactional
     public CompraDetailsResponse editarCompraDetalle(CompraDetailsRequest request) {
-        CompraDetails compraDetails = compraDetailsRepository.findById(request.getId())
-                .orElseThrow(() -> new EntityNotFoundException("Detalle de compra no encontrado con id: " + request.getId()));
+        CompraDetails compraDetails = compraDetailsRepository.findById(request.id())
+                .orElseThrow(() -> new EntityNotFoundException("Detalle de compra no encontrado con id: " + request.id()));
 
-        Producto producto = productoRepository.findById(request.getProductoId())
+        Producto producto = productoRepository.findById(request.productoId())
                 .orElseThrow(() -> new IllegalArgumentException("Producto inválido."));
 
-        Compra compra = compraRepository.findById(request.getCompraId())
+        Compra compra = compraRepository.findById(request.compraId())
                 .orElseThrow(() -> new IllegalArgumentException("Compra inválida."));
 
-        int diferenciaCantidad = request.getCantidad() - compraDetails.getCantidad();
+        int diferenciaCantidad = request.cantidad() - compraDetails.getCantidad();
         producto.setStock(producto.getStock() + diferenciaCantidad);
         productoRepository.save(producto);
 
-        compraDetails.setCantidad(request.getCantidad());
-        compraDetails.setPrecioUnitario(request.getPrecioUnitario());
+        compraDetails.setCantidad(request.cantidad());
+        compraDetails.setPrecioUnitario(request.precioUnitario());
         compraDetails.setProducto(producto);
         compraDetails.setCompra(compra);
 

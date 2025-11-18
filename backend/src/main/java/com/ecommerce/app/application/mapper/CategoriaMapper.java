@@ -12,8 +12,8 @@ public class CategoriaMapper {
         }
 
         Categoria categoria = new Categoria();
-        categoria.setId(request.getId());
-        categoria.setNombre(request.getNombre());
+        categoria.setId(request.id());
+        categoria.setNombre(request.nombre());
         return categoria;
     }
 

@@ -11,7 +11,7 @@ import java.util.List;
 public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @NotNull
     @Size(max = 50)
@@ -24,16 +24,16 @@ public class Categoria {
     public Categoria() {
     }
 
-    public Categoria(int id, String nombre) {
+    public Categoria(Integer id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

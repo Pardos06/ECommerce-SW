@@ -3,6 +3,7 @@ package com.ecommerce.app.interfaces.controller;
 import java.util.List;
 
 import com.ecommerce.app.application.dto.request.TipoProveedorRequest;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,4 +59,10 @@ public class TipoProveedorController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/search/{name}")
+    @Operation(summary = "Buscar un tipo de proveedor por nombre", description = "Busca un tipo de proveedor por su nombre")
+    public ResponseEntity<List<TipoProveedorResponse>> buscarTipoProveedorPorNombre(@PathVariable String name) {
+        List<TipoProveedorResponse> tipoProveedor = tipoProveedorService.buscarPorNombre(name);
+        return ResponseEntity.ok(tipoProveedor);
+    }
 }

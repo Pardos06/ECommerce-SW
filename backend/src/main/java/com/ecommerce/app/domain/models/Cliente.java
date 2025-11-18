@@ -12,7 +12,7 @@ public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @NotNull
     @OneToOne(fetch = FetchType.LAZY)
@@ -32,16 +32,16 @@ public class Cliente {
 
     public Cliente() {}
 
-    public Cliente(int id, Usuario usuario, String telefono, String direccion) {
+    public Cliente(Integer id, Usuario usuario, String telefono, String direccion) {
         this.id = id;
         this.usuario = usuario;
         this.telefono = telefono;
         this.direccion = direccion;
     }
-    public int getId() {
+    public Integer getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     public Usuario getUsuario() {

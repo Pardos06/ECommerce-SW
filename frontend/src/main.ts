@@ -7,6 +7,7 @@ import { importProvidersFrom } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { routes } from './app/app.routes';
 import { authInterceptor } from './app/core/interceptors/auth.interceptor';
+import { LucideAngularModule, User, Lock, LogIn } from 'lucide-angular';
 
 const config = {
   ...appConfig,
@@ -14,6 +15,10 @@ const config = {
     provideRouter(routes),
     provideHttpClient(withInterceptors([authInterceptor])),
     importProvidersFrom(FormsModule),
+    importProvidersFrom(
+      LucideAngularModule.pick({ User, Lock, LogIn })
+    ),
+
     ...(appConfig.providers ?? []),
   ],
 };
