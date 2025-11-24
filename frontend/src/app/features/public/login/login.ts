@@ -35,7 +35,7 @@ import { PrimeImportsModule } from '../../../prime-imports';
   ],
   providers: [MessageService]
 })
-export class LoginComponent {
+export class LoginPage {
   form: FormGroup;
   cargando = false;
   errorMsg = '';

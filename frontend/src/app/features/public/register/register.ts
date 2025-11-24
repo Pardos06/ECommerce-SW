@@ -34,7 +34,7 @@ import { PrimeImportsModule } from '../../../prime-imports';
   templateUrl: './register.html',
   styleUrl: './register.scss'
 })
-export class RegisterComponent {
+export class RegisterPage {
   form: FormGroup;
   cargando = false;
   errorMsg = '';

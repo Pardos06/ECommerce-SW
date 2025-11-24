@@ -1,15 +1,16 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './features/public/login/login';
-import { RegisterComponent } from './features/public/register/register';
+import { LoginPage } from './features/public/login/login';
+import { RegisterPage } from './features/public/register/register';
 import { AuthGuard } from './core/guards/auth.guard';
 import { AdminGuard } from './core/guards/admin.guard';
 import { ClientGuard } from './core/guards/client.guard';
+import { HomePage } from './features/public/home/home';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomePage },
+  { path: 'login', component: LoginPage },
+  { path: 'register', component: RegisterPage },
 
   {
     path: 'admin',

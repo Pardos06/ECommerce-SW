@@ -13,7 +13,7 @@ export class ProductoService {
   private apiUrl = environment.apiUrl + '/productos';
 
   constructor(private http: HttpClient) {}
-  
+
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('jwt_token') || '';
     return new HttpHeaders({
@@ -36,16 +36,29 @@ export class ProductoService {
   buscarProductosDisponibles(nombre: string): Observable<Producto[]> {
     return this.http.get<Producto[]>(`${this.apiUrl}/search/${nombre}`, { headers: this.getAuthHeaders() });
   }
+
   crearProducto(producto: ProductoForm): Observable<Producto> {
-  return this.http.post<Producto>(this.apiUrl, producto, { headers: this.getAuthHeaders() });
+    return this.http.post<Producto>(this.apiUrl, producto, { headers: this.getAuthHeaders() });
   }
 
   actualizarProducto(producto: ProductoForm): Observable<Producto> {
     return this.http.put<Producto>(`${this.apiUrl}`, producto, { headers: this.getAuthHeaders() });
   }
-    subirImagen(archivo: File): Observable<ProductoImagenResponse> {
+
+  subirImagen(archivo: File): Observable<ProductoImagenResponse> {
     const formData = new FormData();
     formData.append('archivo', archivo);
-    return this.http.post<ProductoImagenResponse>(`${this.apiUrl}/imagenes`, formData, { headers: this.getAuthHeaders() });
+
+    // No se usa Content-Type manualmente
+    return this.http.post<ProductoImagenResponse>(
+      `${this.apiUrl}/imagenes`,
+      formData,
+      { headers: this.getAuthHeaders() }
+    );
+  }
+
+  obtenerUrlImagen(nombreArchivo: string): string {
+    if (!nombreArchivo) return '';
+    return `${environment.imageUrl}/${nombreArchivo}`;
   }
 }
