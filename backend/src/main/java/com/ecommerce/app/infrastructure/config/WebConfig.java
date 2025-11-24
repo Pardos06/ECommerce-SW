@@ -13,11 +13,11 @@ public class WebConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         String rutaImagenes = "file:" + Paths.get(
                 System.getProperty("user.dir"),
-                "backend", "wwwroot", "imagenes"
+                 "wwwroot", "imagenes"
         ).toString() + "/";
 
         registry.addResourceHandler("/imagenes/**")
                 .addResourceLocations(rutaImagenes)
-                .setCachePeriod(3600);
+                .setCachePeriod(0);
     }
 }

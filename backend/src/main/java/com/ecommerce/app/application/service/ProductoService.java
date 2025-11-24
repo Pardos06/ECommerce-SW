@@ -26,7 +26,7 @@ public class ProductoService {
 
     private final ProductoRepository productoRepository;
     private final CategoriaRepository categoriaRepository;
-    private final String CARPETA_IMAGENES = Paths.get(System.getProperty("user.dir"), "backend","wwwroot", "imagenes").toString();
+    private final String CARPETA_IMAGENES = Paths.get(System.getProperty("user.dir"), "wwwroot", "imagenes").toString();
 
     public ProductoService(ProductoRepository productoRepository, CategoriaRepository categoriaRepository) {
         this.productoRepository = productoRepository;
