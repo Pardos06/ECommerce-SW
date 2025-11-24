@@ -26,7 +26,7 @@ public class ProductoService {
 
     private final ProductoRepository productoRepository;
     private final CategoriaRepository categoriaRepository;
-    private final String CARPETA_IMAGENES = Paths.get(System.getProperty("user.dir"), "wwwroot", "imagenes").toString();
+    private final String CARPETA_IMAGENES = Paths.get(System.getProperty("user.dir"), "backend","wwwroot", "imagenes").toString();
 
     public ProductoService(ProductoRepository productoRepository, CategoriaRepository categoriaRepository) {
         this.productoRepository = productoRepository;
@@ -101,13 +101,31 @@ public class ProductoService {
         File dir = new File(CARPETA_IMAGENES);
         if (!dir.exists()) dir.mkdirs();
 
-        String nombreArchivo = UUID.randomUUID() + "-" + archivo.getOriginalFilename();
+        String nombreOriginal = archivo.getOriginalFilename();
+        if (nombreOriginal == null || nombreOriginal.isEmpty()) {
+            throw new IllegalArgumentException("Nombre de archivo inválido");
+        }
+
+        String extension = "";
+        int i = nombreOriginal.lastIndexOf('.');
+        if (i > 0) {
+            extension = nombreOriginal.substring(i); 
+            nombreOriginal = nombreOriginal.substring(0, i);
+        }
+
+        nombreOriginal = nombreOriginal.toLowerCase()
+            .replaceAll("\\s+", "_")
+            .replaceAll("[^a-z0-9_-]", "");
+
+        String nombreArchivo = UUID.randomUUID() + "-" + nombreOriginal + extension;
+
         String rutaCompleta = Paths.get(CARPETA_IMAGENES, nombreArchivo).toString();
         archivo.transferTo(new File(rutaCompleta));
 
         String url = "/imagenes/" + nombreArchivo;
         return new ProductoImagenResponse(nombreArchivo, url);
     }
+
     
     public List<ProductoResponse> buscarProductosDisponibles(String nombre) {
     	return productoRepository.buscarProductosDisponibles(nombre)

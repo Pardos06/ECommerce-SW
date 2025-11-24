@@ -19,6 +19,8 @@ target/
 *.iml
 *.ipr
 
+wwwroot/imagenes/
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
