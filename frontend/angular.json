@@ -30,7 +30,6 @@
               }
             ],
             "styles": [
-              "node_modules/primeicons/primeicons.css",
               "src/styles.css",
               "src/app/styles/main.scss"
             ],
@@ -93,7 +92,6 @@
               }
             ],
             "styles": [
-              "node_modules/primeicons/primeicons.css",
               "src/styles.css",
               "src/app/styles/main.scss"
             ]

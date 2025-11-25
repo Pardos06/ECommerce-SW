@@ -46,6 +46,7 @@ export class DashboardAdmin {
       label: 'Proveedores',
       icon: 'pi pi-users',
       items: [
+        { label: 'Proveedor', icon: 'pi pi-user', routerLink: ['/admin/proveedor'] },
         { label: 'Tipo de Proveedor', icon: 'pi pi-user', routerLink: ['/admin/tipo-proveedor'] }
       ]
     }
