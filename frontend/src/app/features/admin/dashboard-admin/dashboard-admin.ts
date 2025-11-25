@@ -33,7 +33,14 @@ export class DashboardAdmin {
         { label: 'Gestionar Categorías', icon: 'pi pi-list', routerLink: ['/admin/categorias'] }
       ]
     },
-    { label: 'Métodos de Pago', icon: 'pi pi-credit-card', routerLink: ['/admin/metodos-pago'] },
+    {
+      label: 'Compras',
+      icon: 'pi pi-users',
+      items: [
+        { label: 'Métodos de Pago', icon: 'pi pi-credit-card', routerLink: ['/admin/metodos-pago'] },
+      ]
+    },
+    
     {
       label: 'Usuarios',
       icon: 'pi pi-users',
@@ -43,10 +50,10 @@ export class DashboardAdmin {
       ]
     },
     {
-      label: 'Proveedores',
+      label: 'Proveedor',
       icon: 'pi pi-users',
       items: [
-        { label: 'Proveedor', icon: 'pi pi-user', routerLink: ['/admin/proveedor'] },
+        { label: 'Proveedores', icon: 'pi pi-user', routerLink: ['/admin/proveedor'] },
         { label: 'Tipo de Proveedor', icon: 'pi pi-user', routerLink: ['/admin/tipo-proveedor'] }
       ]
     }
