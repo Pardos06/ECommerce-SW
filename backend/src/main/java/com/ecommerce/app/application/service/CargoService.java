@@ -57,7 +57,7 @@ public class CargoService {
 				.orElseThrow(() -> new EntityNotFoundException("Cargo no encontrado con ID " + request.id()));
 		
 		cargo.setNombre(request.nombre());
-		cargo.setDescripcion(request.descrippcion());
+		cargo.setDescripcion(request.descripcion());
 		
 		cargoRepository.save(cargo);
 		
@@ -69,7 +69,7 @@ public class CargoService {
 		Cargo cargo = cargoRepository.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException("Cargo no encontrado con ID " + id));
 		
-		if (cargo.getEmpleados() != null || !cargo.getEmpleados().isEmpty()) {
+		if (cargo.getEmpleados() != null && !cargo.getEmpleados().isEmpty()) {
 			throw new IllegalStateException("No se puede eliminar un cargo asociado a un empleado.");
 		}
 		

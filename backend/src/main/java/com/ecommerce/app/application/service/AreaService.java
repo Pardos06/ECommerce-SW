@@ -69,7 +69,7 @@ public class AreaService {
 		Area area = areaRepository.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException("Área no encontrada con ID " + id));
 		
-		if (area.getEmpleados() != null || !area.getEmpleados().isEmpty()) {
+		if (area.getEmpleados() != null && !area.getEmpleados().isEmpty()) {
 			throw new IllegalStateException("No se puede eliminar un cargo asociado a un empleado.");
 		}
 		

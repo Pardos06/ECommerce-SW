@@ -13,7 +13,7 @@ public class CargoMapper {
 		Cargo cargo = new Cargo();
 		cargo.setId(request.id());
 		cargo.setNombre(request.nombre());
-		cargo.setDescripcion(request.descrippcion());
+		cargo.setDescripcion(request.descripcion());
 		
 		return cargo;
 	}
