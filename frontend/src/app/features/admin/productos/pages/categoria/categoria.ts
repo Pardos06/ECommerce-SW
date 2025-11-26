@@ -85,7 +85,6 @@ export class CategoriaPage implements OnInit {
     const categoria: Categoria = this.form.value;
 
     if (this.editando) {
-      // Actualizar categoría existente
       this.categoriaService.editarCategoria(categoria).subscribe({
         next: () => {
           this.guardando = false;
@@ -109,7 +108,6 @@ export class CategoriaPage implements OnInit {
         }
       });
     } else {
-      // Crear nueva categoría
       this.categoriaService.registrarCategoria(categoria).subscribe({
         next: () => {
           this.guardando = false;
