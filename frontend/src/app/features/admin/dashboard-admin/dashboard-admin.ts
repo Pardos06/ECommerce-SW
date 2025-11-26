@@ -46,7 +46,7 @@ export class DashboardAdmin {
       icon: 'pi pi-users',
       items: [
         { label: 'Usuarios', icon: 'pi pi-user', routerLink: ['/admin/usuarios/tipos'] },
-        { label: 'Lista de Clientes', icon: 'pi pi-list', routerLink: ['/admin/usuarios'] }
+        { label: 'Gestión de Roles', icon: 'pi pi-list', routerLink: ['/admin/roles'] }
       ]
     },
     {
@@ -55,6 +55,14 @@ export class DashboardAdmin {
       items: [
         { label: 'Proveedores', icon: 'pi pi-user', routerLink: ['/admin/proveedor'] },
         { label: 'Tipo de Proveedor', icon: 'pi pi-user', routerLink: ['/admin/tipo-proveedor'] }
+      ]
+    },
+    {
+      label: 'Recursos Humanos',
+      icon: 'pi pi-users',
+      items: [
+        { label: 'Áreas', icon: 'pi pi-user', routerLink: ['/admin/areas'] },
+        { label: 'Cargos', icon: 'pi pi-user', routerLink: ['/admin/cargos'] }
       ]
     }
     

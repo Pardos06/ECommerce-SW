@@ -5,6 +5,9 @@ import { CategoriaPage } from './productos/pages/categoria/categoria';
 import { MetodoPagoPage } from './compras/pages/metodo-pago/metodo-pago';
 import { ProveedorPage } from './proveedores/pages/proveedor/proveedor';
 import { TipoProveedorPage } from './proveedores/pages/tipo-proveedor/tipo-proveedor';
+import { RolPage } from './usuarios/pages/rol/rol';
+import { AreaPage } from './rr_hh/pages/area/area';
+import { CargoPage } from './rr_hh/pages/cargo/cargo';
 
 export const ADMIN_ROUTES: Routes = [
   {
@@ -38,6 +41,18 @@ export const ADMIN_ROUTES: Routes = [
       {
         path: 'tipo-proveedor',
         component: TipoProveedorPage
+      },
+      {
+        path: 'roles',
+        component: RolPage
+      },
+       {
+        path: 'areas',
+        component: AreaPage
+      },
+      {
+        path: 'cargos',
+        component: CargoPage  
       }
       
     ],
