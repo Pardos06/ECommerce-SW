@@ -6,6 +6,7 @@ import com.ecommerce.app.application.service.MetodoPagoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class MetodoPagoController {
     }
 
     @GetMapping
+    @PreAuthorize("isAuthenticated()")
     @Operation(summary = "Obtener lista de métodos de pago", description = "Devuelve todas los métodos de pago disponibles")
     public ResponseEntity<List<MetodoPagoResponse>> listarMetodosPago() {
         List<MetodoPagoResponse> metodosPago = metodoPagoService.listarMetodosPago();
@@ -29,6 +31,7 @@ public class MetodoPagoController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("isAuthenticated()")
     @Operation(summary = "Obtener método de pago por ID", description = "Devuelve un método de pago específico según su ID")
     public ResponseEntity<MetodoPagoResponse> obtenerPorId(@PathVariable int id) {
         MetodoPagoResponse metodoPago = metodoPagoService.obtenerPorId(id);
@@ -36,6 +39,7 @@ public class MetodoPagoController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Registrar un nuevo método de pago", description = "Registra un método de pago en la base de datos")
     public ResponseEntity<MetodoPagoResponse> registrarNetodoPago(@RequestBody MetodoPagoRequest request) {
         MetodoPagoResponse metodoPago = metodoPagoService.registrarNetodoPago(request);
@@ -43,6 +47,7 @@ public class MetodoPagoController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Editar método de pago", description = "Actualiza los datos de un método de pago existente")
     public ResponseEntity<MetodoPagoResponse> editarMetodoPago(@RequestBody MetodoPagoRequest request) {
         MetodoPagoResponse metodoPago = metodoPagoService.editarMetodoPago(request);
@@ -50,6 +55,7 @@ public class MetodoPagoController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Eliminar un método de pago", description = "Elimina un método de pago no relacionada con compras u órdenes")
     public ResponseEntity<Void> eliminarMetodoPago(@PathVariable int id) {
         metodoPagoService.eliminarMetodoPago(id);
@@ -57,6 +63,7 @@ public class MetodoPagoController {
     }
 
     @GetMapping("/search/{nombre}")
+    @PreAuthorize("isAuthenticated()")
     @Operation(summary = "Buscar métodos de pago por nombre", description = "Busca métodos de pago por su nombre")
     public ResponseEntity<List<MetodoPagoResponse>> buscarPorNombre(@PathVariable String nombre) {
         List<MetodoPagoResponse> metodosPago = metodoPagoService.buscarPorNombre(nombre);

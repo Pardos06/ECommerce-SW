@@ -23,6 +23,7 @@ public class ClienteController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Obtener lista de clientes", description = "Devuelve la lista de todos los clientes registrados")
     public ResponseEntity<List<ClienteResponse>> listarClientes() {
         List<ClienteResponse> clientes = clienteService.listarClientes();
@@ -30,6 +31,7 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Obtener cliente por ID", description = "Devuelve un cliente según su ID")
     public ResponseEntity<ClienteResponse> obtenerPorId(@PathVariable int id) {
         ClienteResponse cliente = clienteService.obtenerPorId(id);
@@ -37,6 +39,7 @@ public class ClienteController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Registrar un nuevo cliente", description = "Registra un nuevo cliente en la base de datos")
     public ResponseEntity<ClienteResponse> registrarCliente(@RequestBody ClienteRequest request) {
         ClienteResponse cliente = clienteService.registrarCliente(request);
@@ -44,6 +47,7 @@ public class ClienteController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Editar cliente", description = "Actualiza los datos de un cliente existente")
     public ResponseEntity<ClienteResponse> editarCliente(@RequestBody ClienteRequest request) {
         ClienteResponse cliente = clienteService.editarCliente(request);
