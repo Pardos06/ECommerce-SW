@@ -34,18 +34,25 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         if (header != null && header.startsWith("Bearer ")) {
             token = header.substring(7);
-            nombreUsuario = jwtUtil.getUsernameFromToken(token);
+            try {
+            	nombreUsuario = jwtUtil.getUsernameFromToken(token);
+            } catch (Exception e) {
+            	logger.warn("Token JWT inválido - formato inorrecto: " + e.getMessage());
+            }
         }
 
         if (nombreUsuario != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userDetailsService.loadUserByUsername(nombreUsuario);
-
-            if (jwtUtil.validateToken(token)) {
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null,userDetails.getAuthorities());
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-                SecurityContextHolder.getContext().setAuthentication(authToken);
-            }
+        	try {
+        		UserDetails userDetails = userDetailsService.loadUserByUsername(nombreUsuario);
+        		if (jwtUtil.validateToken(token)) {
+        			UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null,userDetails.getAuthorities());
+        			authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        			
+        			SecurityContextHolder.getContext().setAuthentication(authToken);
+        		}
+        	} catch (Exception e) {
+        		logger.warn("Error en autenticación JWT para usuario '" + nombreUsuario + "': " + e.getMessage());
+        	}
         }
         filterChain.doFilter(request, response);
     }
