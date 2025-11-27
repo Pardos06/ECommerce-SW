@@ -28,7 +28,6 @@ public class ClienteService {
     public List<ClienteResponse> listarClientes() {
         return clienteRepository.findAll()
                 .stream()
-                .filter(cliente -> "Cliente".equals(cliente.getUsuario().getNombre()))
                 .map(ClienteMapper::toResponse)
                 .collect(Collectors.toList());
     }
