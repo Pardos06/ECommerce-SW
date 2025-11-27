@@ -5,6 +5,7 @@ import java.util.List;
 import com.ecommerce.app.application.dto.request.TipoProveedorRequest;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.ecommerce.app.application.dto.response.TipoProveedorResponse;
@@ -25,6 +26,7 @@ public class TipoProveedorController {
     }
 
     @GetMapping
+    @PreAuthorize("isAuthenticated()")
     @Operation(summary = "Obtener lista de tipos de proveedor", description = "Devuelve todos los tipos de proveedor disponibles")
     public ResponseEntity<List<TipoProveedorResponse>> listarTiposProveedor() {
         List<TipoProveedorResponse> tiposProveedor = tipoProveedorService.listarTipoProveedores();
@@ -32,6 +34,7 @@ public class TipoProveedorController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("isAuthenticated()")
     @Operation(summary = "Obtener tipo de proveedor por ID", description = "Devuelve un tipo de proveedor específico según su ID")
     public ResponseEntity<TipoProveedorResponse> obtenerPorId(@PathVariable int id) {
         TipoProveedorResponse tipoProveedor = tipoProveedorService.obtenerPorId(id);
@@ -39,6 +42,7 @@ public class TipoProveedorController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Registrar un nuevo tipo de proveedor", description = "Registra un tipo de proveedor en la base de datos")
     public ResponseEntity<TipoProveedorResponse> registrarTipoProveedor(@RequestBody TipoProveedorRequest request) {
         TipoProveedorResponse tipoProveedor = tipoProveedorService.registrarTipoProveedor(request);

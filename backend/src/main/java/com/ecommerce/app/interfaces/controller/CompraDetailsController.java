@@ -6,6 +6,7 @@ import com.ecommerce.app.application.service.CompraDetailsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class CompraDetailsController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('Administrador')")
     @Operation(summary = "Obtener lista de detalle de compras", description = "Devuelve todos los detalles de compras registrados en el sistema")
     public ResponseEntity<List<CompraDetailsResponse>> listarDetallesCompra() {
         List<CompraDetailsResponse> compraDetails = compraDetailsService.listarDetallesCompra();
@@ -29,6 +31,7 @@ public class CompraDetailsController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('Administrador')")
     @Operation(summary = "Obtener detalle de compra por ID", description = "Devuelve un detalle de compra según su ID")
     public ResponseEntity<CompraDetailsResponse> obtenerPorId(@PathVariable int id) {
         CompraDetailsResponse compraDetails = compraDetailsService.obtenerPorId(id);
@@ -36,6 +39,7 @@ public class CompraDetailsController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('Administrador')")
     @Operation(summary = "Registrar detalle de compra", description = "Crea un detalle de compra y descuenta stock del producto")
     public ResponseEntity<CompraDetailsResponse> crearDetalle(@RequestBody CompraDetailsRequest request) {
         CompraDetailsResponse response = compraDetailsService.crearCompraDetalle(request);
@@ -43,6 +47,7 @@ public class CompraDetailsController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('Administrador')")
     @Operation(summary = "Editar detalle de compra", description = "Edita un detalle existente y ajusta el stock del producto")
     public ResponseEntity<CompraDetailsResponse> editarDetalle(@RequestBody CompraDetailsRequest request) {
         CompraDetailsResponse response = compraDetailsService.editarCompraDetalle(request);
@@ -50,6 +55,7 @@ public class CompraDetailsController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Eliminar una compra", description = "Elimina una compra no relacionado con detalles")
     public ResponseEntity<Void> eliminarCompraDetalle(@PathVariable int id) {
         compraDetailsService.eliminarCompraDetalle(id);

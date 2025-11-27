@@ -26,7 +26,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
     private final UsuarioRepository usuarioRepository;
 
@@ -64,7 +64,9 @@ public class SecurityConfig {
                                 "/scalar/**",
                                 "/api/auth/login",
                                 "/api/auth/register",
-                                "/imagenes/**"
+                                "/imagenes/**",
+                                "/api/productos",
+                                "/api/productos/**"  
                         ).permitAll()
                         .requestMatchers("/admin/**").hasAuthority("Administrador")
                         .requestMatchers("/cliente/**").hasAuthority("Cliente")

@@ -6,6 +6,7 @@ import com.ecommerce.app.application.service.OrdenService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class OrdenController {
     }
 
     @GetMapping
+    @PreAuthorize("isAuthenticated()")
     @Operation(summary = "Obtener lista de órdenes", description = "Devuelve todas las órdenes registradas en el sistema")
     public ResponseEntity<List<OrdenResponse>> listarOrdenes() {
         List<OrdenResponse> ordenes = ordenService.listarOrdenes();
@@ -28,6 +30,7 @@ public class OrdenController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("isAuthenticated()")
     @Operation(summary = "Obtener orden por ID", description = "Devuelve una orden según su ID")
     public ResponseEntity<OrdenResponse> obtenerPorId(@PathVariable int id) {
         OrdenResponse orden = ordenService.obtenerPorId(id);
@@ -35,6 +38,7 @@ public class OrdenController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Registrar una nueva orden", description = "Registra una nueva orden producto en la base de datos")
     public ResponseEntity<OrdenResponse> crearOrden(@RequestBody OrdenRequest request) {
         OrdenResponse orden = ordenService.crearOrden(request);
@@ -42,6 +46,7 @@ public class OrdenController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Editar orden", description = "Actualiza los datos de una orden existente")
     public ResponseEntity<OrdenResponse> editarOrden(@RequestBody OrdenRequest request) {
         OrdenResponse orden = ordenService.editarOrden(request);
@@ -49,6 +54,7 @@ public class OrdenController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Eliminar una orden", description = "Elimina una orden no relacionado con detalles")
     public ResponseEntity<Void> eliminarOrden(@PathVariable int id) {
         ordenService.eliminarOrden(id);
@@ -56,12 +62,14 @@ public class OrdenController {
     }
 
     @GetMapping("/por-cliente/{clienteId}")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<OrdenResponse>> listarOrdenesPorCliente(@PathVariable int clienteId) {
         List<OrdenResponse> ordenes = ordenService.obtenerOrdenPorCliente(clienteId);
         return ResponseEntity.ok(ordenes);
     }
 
     @PutMapping("/actualizar-estado/{id}")
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Actualizar estado de una orden", description = "Actualiza el estado de una orden existente")
     public ResponseEntity<OrdenResponse> actualizarEstado(@PathVariable int id, @RequestBody String nuevoEstado) {
         OrdenResponse orden = ordenService.actualizarEstado(id, nuevoEstado);

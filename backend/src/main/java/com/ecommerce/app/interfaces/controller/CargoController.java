@@ -32,13 +32,15 @@ public class CargoController {
 	}
 	
 	@GetMapping
+    @PreAuthorize("isAuthenticated()")
     @Operation(summary = "Obtener lista de cargos", description = "Devuelve todos los cargos de empleados disponibles")
     public ResponseEntity<List<CargoResponse>> listarCargos() {
         List<CargoResponse> cargos = cargoService.listarCargos();
         return ResponseEntity.ok(cargos);
     }
 
-    @GetMapping("/{id}")    
+    @GetMapping("/{id}")
+    @PreAuthorize("isAuthenticated()")
     @Operation(summary = "Obtener cargo por ID", description = "Devuelve un cargo específico según su ID")
     public ResponseEntity<CargoResponse> obtenerPorId(@PathVariable int id) {
     	CargoResponse cargo = cargoService.obtenerPorId(id);
@@ -46,6 +48,7 @@ public class CargoController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Registrar un nuevo cargo", description = "Registra un cargo en la base de datos")
     public ResponseEntity<CargoResponse> registrarCargo(@RequestBody CargoRequest request) {
         CargoResponse cargo = cargoService.registrarCargo(request);
@@ -53,6 +56,7 @@ public class CargoController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Editar cargo", description = "Actualiza los datos de un cargo existente")
     public ResponseEntity<CargoResponse> editarCargo(@RequestBody CargoRequest request) {
         CargoResponse cargo = cargoService.editarCargo(request);
