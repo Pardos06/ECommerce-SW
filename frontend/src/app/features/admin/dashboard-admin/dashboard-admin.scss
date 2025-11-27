@@ -9,6 +9,7 @@
   display: flex;
   flex: 1;
   position: relative;
+  min-height: calc(100vh - 200px);
 }
 
 .menu-toggle {
@@ -27,8 +28,9 @@
   padding: 1rem;
   position: fixed;
   top: 80px;
-  bottom: 0;
+  bottom: auto;
   left: 0;
+  max-height: calc(100vh - 280px);
   overflow-y: auto;
   transition: transform 0.3s ease-in-out;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
@@ -44,7 +46,7 @@
   margin-left: 260px;
   padding: 2rem;
   transition: margin-left 0.3s ease;
-  min-height: calc(100vh - 80px);
+  width: 100%;
 }
 
 .content.expanded {

@@ -6,6 +6,7 @@ import { PanelMenuModule } from 'primeng/panelmenu';
 import { ButtonModule } from 'primeng/button';
 import { MenuItem } from 'primeng/api';
 import { Header } from '../../../shared/components/header/header';
+import { Footer } from '../../../shared/components/footer/footer';
 
 
 @Component({
@@ -17,7 +18,8 @@ import { Header } from '../../../shared/components/header/header';
     MenubarModule,
     PanelMenuModule,
     ButtonModule,
-    Header
+    Header,
+    Footer
   ],
   templateUrl: './dashboard-admin.html',
   styleUrls: ['./dashboard-admin.scss']
