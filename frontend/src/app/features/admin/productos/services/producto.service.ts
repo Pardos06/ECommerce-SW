@@ -22,7 +22,7 @@ export class ProductoService {
   }
 
   listarProductos(): Observable<Producto[]> {
-    return this.http.get<Producto[]>(this.apiUrl, { headers: this.getAuthHeaders() });
+    return this.http.get<Producto[]>(this.apiUrl);
   }
 
   obtenerProductoPorId(id: number): Observable<Producto> {
@@ -34,7 +34,7 @@ export class ProductoService {
   }
 
   buscarProductosDisponibles(nombre: string): Observable<Producto[]> {
-    return this.http.get<Producto[]>(`${this.apiUrl}/search/${nombre}`, { headers: this.getAuthHeaders() });
+    return this.http.get<Producto[]>(`${this.apiUrl}/search/${nombre}`);
   }
 
   crearProducto(producto: ProductoForm): Observable<Producto> {

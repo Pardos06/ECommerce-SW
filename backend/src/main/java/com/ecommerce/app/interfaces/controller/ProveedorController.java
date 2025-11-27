@@ -3,6 +3,7 @@ package com.ecommerce.app.interfaces.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,7 @@ public class ProveedorController {
     }
 
     @GetMapping
+    @PreAuthorize("isAuthenticated()")
     @Operation(summary = "Obtener lista de proveedores", description = "Devuelve todos los proveedores registrados en el sistema")
     public ResponseEntity<List<ProveedorResponse>> listarProveedoress() {
         List<ProveedorResponse> proveedores = proveedorService.listarProveedoress();
@@ -38,6 +40,7 @@ public class ProveedorController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("isAuthenticated()")
     @Operation(summary = "Obtener proveedor por ID", description = "Devuelve un producto según su ID")
     public ResponseEntity<ProveedorResponse> obtenerPorId(@PathVariable int id) {
         ProveedorResponse proveedor = proveedorService.obtenerPorId(id);
@@ -45,6 +48,7 @@ public class ProveedorController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Registrar un nuevo proveedor", description = "Registra un nuevo proveedor en la base de datos")
     public ResponseEntity<ProveedorResponse> registrarProveedor(@RequestBody ProveedorRequest request) {
         ProveedorResponse proveedor = proveedorService.registrarProveedor(request);
@@ -52,6 +56,7 @@ public class ProveedorController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Editar proveedor", description = "Actualiza los datos de un proveedor existente")
     public ResponseEntity<ProveedorResponse> editarProveedor(@RequestBody ProveedorRequest request) {
         ProveedorResponse proveedor = proveedorService.editarProveedor(request);
@@ -59,6 +64,7 @@ public class ProveedorController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Eliminar un proveedor", description = "Elimina un proveedor no relacionado con compras")
     public ResponseEntity<Void> eliminarProveedor(@PathVariable int id) {
         proveedorService.eliminarProveedor(id);
@@ -66,6 +72,7 @@ public class ProveedorController {
     }
     
     @GetMapping("/search/{tipoProveedor}")
+    @PreAuthorize("isAuthenticated()")
     @Operation(summary = "Busca un tipo de proveedor", description = "Busca el tipo de proveedor")
     public ResponseEntity<List<ProveedorResponse>> buscarPorTipoProveedos(@PathVariable String tipoProveedor) {
     	List<ProveedorResponse> proveedores = proveedorService.buscarPorTipoProveedor(tipoProveedor);

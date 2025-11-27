@@ -26,6 +26,7 @@ public class ProductoController {
     }
 
     @GetMapping
+    @PreAuthorize("permitAll()") 
     @Operation(summary = "Obtener lista de productos", description = "Devuelve todos los productos registrados en el sistema")
     public ResponseEntity<List<ProductoResponse>> listarProductos() {
         List<ProductoResponse> productos = productoService.listarProductos();
@@ -33,6 +34,7 @@ public class ProductoController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("permitAll()")
     @Operation(summary = "Obtener producto por ID", description = "Devuelve un producto según su identificador único")
     public ResponseEntity<ProductoResponse> obtenerPorId(@PathVariable int id) {
         ProductoResponse producto = productoService.obtenerPorId(id);
@@ -40,6 +42,7 @@ public class ProductoController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Registrar un nuevo producto", description = "Registra un nuevo producto en la base de datos")
     public ResponseEntity<ProductoResponse> registrarProducto(@RequestBody ProductoRequest request) {
         ProductoResponse producto = productoService.registrarProducto(request);
@@ -47,6 +50,7 @@ public class ProductoController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Editar producto", description = "Actualiza los datos de un producto existente")
     public ResponseEntity<ProductoResponse> editarProducto(@RequestBody ProductoRequest request) {
         ProductoResponse producto = productoService.editarProducto(request);
@@ -70,6 +74,7 @@ public class ProductoController {
     }
     
     @GetMapping("/search/{name}")
+    @PreAuthorize("permitAll()") 
     @Operation(summary = "Busca productos disponibles", description = "Busca los productos que estén disponibles")
     public ResponseEntity<List<ProductoResponse>> buscarProductosDisponibles(@PathVariable String name) {
     	List<ProductoResponse> productos = productoService.buscarProductosDisponibles(name);

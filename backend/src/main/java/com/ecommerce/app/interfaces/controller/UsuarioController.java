@@ -6,6 +6,7 @@ import com.ecommerce.app.application.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class UsuarioController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Obtener lista de usuarios", description = "Devuelve todos los usuarios registrados en el sistema")
     public ResponseEntity<List<UsuarioResponse>> listarUsuarios() {
         List<UsuarioResponse> usuarios = usuarioService.listarUsuarios();
@@ -29,6 +31,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Obtener usuario por ID", description = "Devuelve un usuario según su ID")
     public ResponseEntity<UsuarioResponse> obtenerPorId(@PathVariable int id) {
         UsuarioResponse usuario = usuarioService.obtenerPorId(id);
@@ -36,6 +39,7 @@ public class UsuarioController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Registrar un nuevo usuario", description = "Registra un nuevo usuario en la base de datos")
     public ResponseEntity<UsuarioResponse> registrarUsuario(@RequestBody UsuarioRequest request) {
         UsuarioResponse usuario = usuarioService.registrarUsuario(request);
@@ -43,6 +47,7 @@ public class UsuarioController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Editar usuario", description = "Actualiza los datos de un usuario existente")
     public ResponseEntity<UsuarioResponse> editarUsuario(@RequestBody UsuarioRequest request) {
         UsuarioResponse usuario = usuarioService.editarUsuario(request);
@@ -50,6 +55,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Eliminar un usuario", description = "Elimina un usuario no relacionado con clientes")
     public ResponseEntity<Void> eliminarUsuario(@PathVariable int id) {
         usuarioService.eliminarUsuario(id);

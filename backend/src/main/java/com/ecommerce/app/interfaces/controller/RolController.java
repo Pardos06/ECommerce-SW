@@ -25,6 +25,7 @@ public class RolController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Obtener lista de roles", description = "Devuelve todos los roles de usuarios disponibles")
     public ResponseEntity<List<RolResponse>> listarRoles() {
         List<RolResponse> roles = rolService.listarRoles();

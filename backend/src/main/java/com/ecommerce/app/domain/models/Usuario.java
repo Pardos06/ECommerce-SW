@@ -31,13 +31,11 @@ public class Usuario {
     @Column(nullable = false, length = 50)
     private String estado = "Activo";
 
-    @ManyToOne
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_usuario_cliente"))
+    @OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY)
     private Cliente cliente;
 
-    @ManyToOne
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_usuario_empleado"))
-    private Empleado empleado;
+    @OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY)
+    private Empleado empleado;    
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)

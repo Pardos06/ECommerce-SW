@@ -6,6 +6,7 @@ import com.ecommerce.app.application.service.EmpleadoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class EmpleadoController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Obtener lista de empleados", description = "Devuelve la lista de todos los empleados registrados")
     public ResponseEntity<List<EmpleadoResponse>> listarEmpleados() {
         List<EmpleadoResponse> empleados = empleadoService.listarEmpleados();
@@ -29,6 +31,7 @@ public class EmpleadoController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Obtener empleado por ID", description = "Devuelve un empleado según su ID")
     public ResponseEntity<EmpleadoResponse> obtenerPorId(@PathVariable int id) {
         EmpleadoResponse empleado = empleadoService.obtenerPorId(id);
@@ -36,6 +39,7 @@ public class EmpleadoController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Registrar un nuevo empleado", description = "Registra un nuevo empleado en la base de datos")
     public ResponseEntity<EmpleadoResponse> registrarEmpleado(@RequestBody EmpleadoRequest request) {
         EmpleadoResponse empleado = empleadoService.registrarEmpleado(request);
@@ -43,6 +47,7 @@ public class EmpleadoController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Editar empleado", description = "Actualiza los datos de un empleado existente")
     public ResponseEntity<EmpleadoResponse> editarEmpleado(@RequestBody EmpleadoRequest request) {
         EmpleadoResponse empleado = empleadoService.editarempleado(request);
@@ -50,6 +55,7 @@ public class EmpleadoController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Eliminar empleado", description = "Elimina un empleado no relacionado con usuarios")
     public ResponseEntity<Void> eliminarEmpleado(@PathVariable int id) {
         empleadoService.eliminarEmpleado(id);

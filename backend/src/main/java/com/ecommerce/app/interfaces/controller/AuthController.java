@@ -7,6 +7,7 @@ import com.ecommerce.app.application.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,12 +23,14 @@ public class AuthController {
     }
 
     @PostMapping("/login")
+    @PreAuthorize("permitAll()")
     @Operation(summary = "Iniciar sesión", description = "Autentica al usuario y devuelve un JWT válido")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
         return ResponseEntity.ok(authService.login(request));
     }
 
     @PostMapping("/register")
+    @PreAuthorize("permitAll()")
     @Operation(summary = "Registrar un nuevo cliente", description = "Registra un cliente en el sistema creando su usuario y datos")
     public ResponseEntity<AuthResponse>  registrarCliente(@RequestBody RegistrarClienteRequest request) {
         return ResponseEntity.ok(authService.registrarCliente(request));

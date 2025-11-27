@@ -32,13 +32,15 @@ public class AreaController {
 	}
 	
 	@GetMapping
+	@PreAuthorize("isAuthenticated()")
     @Operation(summary = "Obtener lista de áreas", description = "Devuelve todas las áreas de empleados disponibles")
     public ResponseEntity<List<AreaResponse>> listarAreas() {
         List<AreaResponse> areas = areaService.listarAreas();
         return ResponseEntity.ok(areas);
     }
 
-    @GetMapping("/{id}")    
+    @GetMapping("/{id}")
+    @PreAuthorize("isAuthenticated()")
     @Operation(summary = "Obtener área por ID", description = "Devuelve un área específica según su ID")
     public ResponseEntity<AreaResponse> obtenerPorId(@PathVariable int id) {
     	AreaResponse cargo = areaService.obtenerPorId(id);
@@ -46,6 +48,7 @@ public class AreaController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Registrar una nueva área", description = "Registra un área en la base de datos")
     public ResponseEntity<AreaResponse> registrarArea(@RequestBody AreaRequest request) {
         AreaResponse cargo = areaService.registrarArea(request);
@@ -53,6 +56,7 @@ public class AreaController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Editar área", description = "Actualiza los datos de un área existente")
     public ResponseEntity<AreaResponse> editarArea(@RequestBody AreaRequest request) {
         AreaResponse cargo = areaService.editarArea(request);

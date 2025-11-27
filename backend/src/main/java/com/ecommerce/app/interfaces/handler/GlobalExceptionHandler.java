@@ -2,6 +2,7 @@ package com.ecommerce.app.interfaces.handler;
 
 import java.nio.file.AccessDeniedException;
 import java.security.SignatureException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.http.HttpStatus;
@@ -79,5 +80,14 @@ public class GlobalExceptionHandler {
                 "Token JWT inválido o manipulado."
         );
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
+    }
+    
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public ResponseEntity<ApiErrorResponse> handleSqlConstraintViolation(SQLIntegrityConstraintViolationException ex) {
+    	ApiErrorResponse error = new ApiErrorResponse(
+    			HttpStatus.CONFLICT.value(),
+    			"Ya existe un registro con esa información."
+    	);
+    	return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
 }

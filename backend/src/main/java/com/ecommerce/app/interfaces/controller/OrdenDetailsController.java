@@ -3,6 +3,7 @@ package com.ecommerce.app.interfaces.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,7 @@ public class OrdenDetailsController {
     }
 
     @GetMapping
+    @PreAuthorize("isAuthenticated()")
     @Operation(summary = "Obtener lista de detalle de órdenes", description = "Devuelve todos los detalles de órdenes registrados en el sistema")
     public ResponseEntity<List<OrdenDetailsResponse>> listarDetallesOrden() {
         List<OrdenDetailsResponse> ordenDetails = ordenDetailsService.listarDetallesOrden();
@@ -38,6 +40,7 @@ public class OrdenDetailsController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("isAuthenticated()")
     @Operation(summary = "Obtener detalle de orden por ID", description = "Devuelve un detalle de orden según su ID")
     public ResponseEntity<OrdenDetailsResponse> obtenerPorId(@PathVariable int id) {
         OrdenDetailsResponse ordenDetails = ordenDetailsService.obtenerPorId(id);
@@ -45,6 +48,7 @@ public class OrdenDetailsController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Registrar detalle de orden", description = "Crea un detalle de orden y descuenta stock del producto")
     public ResponseEntity<OrdenDetailsResponse> crearDetalle(@RequestBody OrdenDetailsRequest request) {
         OrdenDetailsResponse response = ordenDetailsService.crearOrdenDetalle(request);
@@ -52,6 +56,7 @@ public class OrdenDetailsController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Editar detalle de orden", description = "Edita un detalle existente y ajusta el stock del producto")
     public ResponseEntity<OrdenDetailsResponse> editarDetalle(@RequestBody OrdenDetailsRequest request) {
         OrdenDetailsResponse response = ordenDetailsService.editarOrdenDetalle(request);
@@ -59,6 +64,7 @@ public class OrdenDetailsController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Eliminar una orden", description = "Elimina una orden no relacionado con detalles")
     public ResponseEntity<Void> eliminarOrdenDetalle(@PathVariable int id) {
         ordenDetailsService.eliminarOrdenDetalle(id);
