@@ -39,7 +39,7 @@ export class UsuariosPage implements OnInit {
       id: [0],
       nombre: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      password: [''], // password opcional al editar
+      password: ['', [Validators.required, Validators.minLength(6)]], // Obligatorio al crear, se ajustará al editar
       estado: ['', Validators.required],
       rolId: [0, Validators.required]
     });
@@ -83,6 +83,9 @@ export class UsuariosPage implements OnInit {
   mostrarDialogo(): void {
     this.editando = false;
     this.form.reset({ id: 0, nombre: '', email: '', password: '', estado: '', rolId: 0 });
+    // Al crear, el password es obligatorio
+    this.form.get('password')?.setValidators([Validators.required, Validators.minLength(6)]);
+    this.form.get('password')?.updateValueAndValidity();
     this.mostrarFormulario = true;
   }
 
@@ -109,10 +112,23 @@ export class UsuariosPage implements OnInit {
 
         await firstValueFrom(this.usuarioService.actualizarUsuario(usuarioForm));
       } else {
+        // Validar que el password no esté vacío al crear
+        const password = this.form.value.password?.trim();
+        if (!password) {
+          this.guardando = false;
+          this.messageService.add({ 
+            severity: 'warn', 
+            summary: 'Contraseña requerida', 
+            detail: 'La contraseña es obligatoria para crear un usuario', 
+            life: 3000 
+          });
+          return;
+        }
+
         const usuarioData: UsuarioCreateForm = {
-          nombre: this.form.value.nombre,
-          email: this.form.value.email,
-          password: this.form.value.password,
+          nombre: this.form.value.nombre.trim(),
+          email: this.form.value.email.trim(),
+          passwordHash: password, // Enviar como passwordHash que el backend espera
           estado: this.form.value.estado,
           rolId: this.form.value.rolId
         };
@@ -162,6 +178,9 @@ export class UsuariosPage implements OnInit {
       estado: usuario.estado,
       rolId: this.buscarRolIdPorNombre(usuario.rol)
     });
+    // Al editar, el password es opcional
+    this.form.get('password')?.clearValidators();
+    this.form.get('password')?.updateValueAndValidity();
     this.editando = true;
     this.mostrarFormulario = true;
   }
