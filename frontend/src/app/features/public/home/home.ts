@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 import { ProductoService } from '../../../features/admin/productos/services/producto.service';
 import { Producto } from '../../../features/admin/productos/interfaces/producto';
 import { Header } from '../../../shared/components/header/header';
+import { Footer } from '../../../shared/components/footer/footer';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, Header],
+  imports: [CommonModule, Header, Footer],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })
