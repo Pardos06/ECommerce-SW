@@ -5,6 +5,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { ButtonModule } from 'primeng/button';
 import { MenuItem } from 'primeng/api';
+import { Header } from '../../../shared/components/header/header';
 
 
 @Component({
@@ -15,7 +16,8 @@ import { MenuItem } from 'primeng/api';
     RouterOutlet,
     MenubarModule,
     PanelMenuModule,
-    ButtonModule
+    ButtonModule,
+    Header
   ],
   templateUrl: './dashboard-admin.html',
   styleUrls: ['./dashboard-admin.scss']

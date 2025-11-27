@@ -1,25 +1,16 @@
 <div class="dashboard-container">
- 
-  <header class="header">
-    <div class="header-left">
-      <img src="logo.png" alt="" width="150" height="auto" />
-    </div>
+  <!-- Header compartido -->
+  <app-header></app-header>
 
-    <div class="header-right">
-      <button
-        pButton
-        icon="pi pi-bars"
-        class="p-button-text p-button-rounded menu-toggle"
-        (click)="toggleSidebar()"
-      ></button>
-      <button
-        pButton
-        icon="pi pi-sign-out"
-        class="p-button-rounded p-button-danger"
-        (click)="logout()"
-      ></button>
-    </div>
-  </header>
+  <!-- Contenedor del dashboard con sidebar -->
+  <div class="dashboard-content">
+    <button
+      pButton
+      icon="pi pi-bars"
+      class="p-button-text p-button-rounded menu-toggle"
+      (click)="toggleSidebar()"
+      title="Alternar menú"
+    ></button>
 
   
   <aside class="sidebar" [class.hidden]="!sidebarVisible">
@@ -27,7 +18,8 @@
   </aside>
 
 
-  <main class="content" [class.expanded]="!sidebarVisible">
-    <router-outlet></router-outlet>
-  </main>
+    <main class="content" [class.expanded]="!sidebarVisible">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
 </div>
