@@ -8,6 +8,7 @@ import { TipoProveedorPage } from './proveedores/pages/tipo-proveedor/tipo-prove
 import { RolPage } from './usuarios/pages/rol/rol';
 import { AreaPage } from './rr_hh/pages/area/area';
 import { CargoPage } from './rr_hh/pages/cargo/cargo';
+import { UsuariosPage } from './usuarios/pages/usuario/usuario';
 
 export const ADMIN_ROUTES: Routes = [
   {
@@ -53,6 +54,10 @@ export const ADMIN_ROUTES: Routes = [
       {
         path: 'cargos',
         component: CargoPage  
+      },
+      {
+        path: 'usuarios',
+        component: UsuariosPage
       }
       
     ],

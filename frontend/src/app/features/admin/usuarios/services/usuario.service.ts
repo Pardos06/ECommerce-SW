@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environment/environment';
 import { Usuario } from '../interfaces/usuario';
+import { UsuarioCreateForm } from '../interfaces/usuario-create-form';
+import { UsuarioForm } from '../interfaces/usuario-form';
 
 @Injectable({
   providedIn: 'root'
@@ -11,41 +13,28 @@ export class UsuarioService {
   private http = inject(HttpClient);
   private apiUrl = environment.apiUrl;
 
+  // Listar todos los usuarios
   listarUsuarios(): Observable<Usuario[]> {
-
     return this.http.get<Usuario[]>(`${this.apiUrl}/usuarios`);
   }
+
+  // Obtener usuario por ID
   obtenerUsuarioPorId(id: number): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.apiUrl}/usuarios/${id}`);
   }
-  obtenerUsuarioPorEmail(email: string): Observable<Usuario> {
-    return this.http.get<Usuario>(`${this.apiUrl}/usuarios/email/${email}`);
-  }
-  crearUsuario(usuario: Partial<Usuario>): Observable<Usuario> {
+
+  // Crear usuario (nuevo)
+  crearUsuario(usuario: UsuarioCreateForm): Observable<Usuario> {
     return this.http.post<Usuario>(`${this.apiUrl}/usuarios`, usuario);
   }
 
-  actualizarUsuario(usuario: Usuario): Observable<Usuario> {
+  // Actualizar usuario existente
+  actualizarUsuario(usuario: UsuarioForm): Observable<Usuario> {
     return this.http.put<Usuario>(`${this.apiUrl}/usuarios/${usuario.id}`, usuario);
   }
 
-  cambiarEstadoUsuario(id: number, estado: string): Observable<Usuario> {
-    return this.http.patch<Usuario>(`${this.apiUrl}/usuarios/${id}/estado`, { estado });
-  }
-
-  cambiarRolUsuario(id: number, rol: string): Observable<Usuario> {
-    return this.http.patch<Usuario>(`${this.apiUrl}/usuarios/${id}/rol`, { rol });
-  }
-
+  // Eliminar usuario
   eliminarUsuario(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/usuarios/${id}`);
-  }
-
-  listarUsuariosPorRol(rol: string): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(`${this.apiUrl}/usuarios/rol/${rol}`);
-  }
-
-  listarUsuariosPorEstado(estado: string): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(`${this.apiUrl}/usuarios/estado/${estado}`);
   }
 }

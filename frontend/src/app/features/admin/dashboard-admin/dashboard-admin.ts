@@ -45,7 +45,7 @@ export class DashboardAdmin {
       label: 'Usuarios',
       icon: 'pi pi-users',
       items: [
-        { label: 'Usuarios', icon: 'pi pi-user', routerLink: ['/admin/usuarios/tipos'] },
+        { label: 'Usuarios', icon: 'pi pi-user', routerLink: ['/admin/usuarios'] },
         { label: 'Gestión de Roles', icon: 'pi pi-list', routerLink: ['/admin/roles'] }
       ]
     },
