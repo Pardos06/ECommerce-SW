@@ -1,10 +1,10 @@
 package com.ecommerce.app.application.dto.request;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public record CompraRequest (
         Integer id,
-        LocalDateTime fechaCompra,
+        LocalDate fechaCompra,
         String estado,
         int metodoPagoId,
         int proveedorId,

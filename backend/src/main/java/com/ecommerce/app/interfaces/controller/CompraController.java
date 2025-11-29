@@ -23,7 +23,7 @@ public class CompraController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('Administrador')")
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Obtener lista de compras", description = "Devuelve todas las compras registradas en el sistema")
     public ResponseEntity<List<CompraResponse>> listarCompras() {
         List<CompraResponse> compras = compraService.listarCompras();
@@ -31,7 +31,7 @@ public class CompraController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('Administrador')")
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Obtener compra por ID", description = "Devuelve una compra según su ID")
     public ResponseEntity<CompraResponse> obtenerPorId(@PathVariable int id) {
         CompraResponse compra = compraService.obtenerPorId(id);
@@ -39,7 +39,7 @@ public class CompraController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('Administrador')")
+    @PreAuthorize("hasAuthority('Administrador')")
     @Operation(summary = "Registrar una nueva compra", description = "Registra una nueva compra en la base de datos")
     public ResponseEntity<CompraResponse> crearCompra(@RequestBody CompraRequest request) {
         CompraResponse compra = compraService.crearCompra(request);

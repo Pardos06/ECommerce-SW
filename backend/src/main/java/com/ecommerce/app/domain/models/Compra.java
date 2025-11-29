@@ -3,7 +3,7 @@ package com.ecommerce.app.domain.models;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +19,9 @@ public class Compra {
     private Integer id;
 
     @NotNull
-    @PastOrPresent
+    @PastOrPresent(message = "La fecha de compra no puede ser futura")
     @Column(nullable = false)
-    private LocalDateTime fechaCompra = LocalDateTime.now();
+    private LocalDate fechaCompra = LocalDate.now();
 
     @NotNull
     @Size(max = 50)
@@ -48,7 +48,7 @@ public class Compra {
 
 
     public Compra() {}
-    public Compra(Integer id, LocalDateTime fechaCompra, String estado, MetodoPago metodoPago,
+    public Compra(Integer id, LocalDate fechaCompra, String estado, MetodoPago metodoPago,
             Proveedor proveedor, Empleado empleado) {
         this.id = id;
         this.fechaCompra = fechaCompra;
@@ -66,11 +66,11 @@ public class Compra {
         this.id = id;
     }
 
-    public LocalDateTime getFechaCompra() {
+    public LocalDate getFechaCompra() {
         return fechaCompra;
     }
 
-    public void setFechaCompra(LocalDateTime fechaCompra) {
+    public void setFechaCompra(LocalDate fechaCompra) {
         this.fechaCompra = fechaCompra;
     }
 
