@@ -9,6 +9,7 @@ import { RolPage } from './usuarios/pages/rol/rol';
 import { AreaPage } from './rr_hh/pages/area/area';
 import { CargoPage } from './rr_hh/pages/cargo/cargo';
 import { UsuariosPage } from './usuarios/pages/usuario/usuario';
+import { EmpleadoPage } from './usuarios/pages/empleado/empleado';
 
 export const ADMIN_ROUTES: Routes = [
   {
@@ -58,6 +59,10 @@ export const ADMIN_ROUTES: Routes = [
       {
         path: 'usuarios',
         component: UsuariosPage
+      },
+      {
+        path: 'empleados',
+        component: EmpleadoPage
       }
       
     ],

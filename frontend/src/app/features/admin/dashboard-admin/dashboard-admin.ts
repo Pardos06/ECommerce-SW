@@ -52,6 +52,7 @@ export class DashboardAdmin implements OnInit, OnDestroy {
       icon: 'pi pi-users',
       items: [
         { label: 'Usuarios', icon: 'pi pi-user', routerLink: ['/admin/usuarios'] },
+        { label: 'Empleados', icon: 'pi pi-id-card', routerLink: ['/admin/empleados'] },
         { label: 'Gestión de Roles', icon: 'pi pi-list', routerLink: ['/admin/roles'] }
       ]
     },
