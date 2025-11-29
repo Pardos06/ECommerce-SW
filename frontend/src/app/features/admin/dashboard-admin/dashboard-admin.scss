@@ -20,7 +20,6 @@
   top: 90px; // Justo después del header fijo
   left: 15px;
   z-index: 1001; // Por encima de todo
-  background: #ffffff !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
 
@@ -30,7 +29,6 @@
   }
 
   &.mobile-toggle {
-    background: linear-gradient(135deg, #6A5ACD 0%, #5a4ab8 100%) !important;
     color: white !important;
 
     ::ng-deep .p-button-icon {
@@ -64,7 +62,7 @@
   width: 260px;
   background: #ffffff;
   border-right: 1px solid #dcdcdc;
-  padding: 0;
+  padding:  0 10px 0 10px;
   position: absolute; // Cambiado de fixed a absolute
   top: 0;
   left: 0;
@@ -102,6 +100,7 @@
     padding: 1rem 1.5rem;
     background: linear-gradient(135deg, #6A5ACD 0%, #5a4ab8 100%);
     border-bottom: 2px solid #FF6F61;
+    border-radius: 5px;
 
     h3 {
       margin: 0;
