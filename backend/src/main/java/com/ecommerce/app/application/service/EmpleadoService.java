@@ -52,10 +52,10 @@ public class EmpleadoService {
         Usuario usuario = usuarioRepository.findById(request.usuarioId())
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado."));
         
-        Area area = areaRepository.findById(request.cargoId())
+        Area area = areaRepository.findById(request.areaId())
         		.orElseThrow(() -> new IllegalArgumentException("Área no encontrada."));
         
-        Cargo cargo = cargoRepository.findById(request.areaId())
+        Cargo cargo = cargoRepository.findById(request.cargoId())
         		.orElseThrow(() -> new IllegalArgumentException("Cargo no encontrado."));
 
         boolean empleadoExiste = empleadoRepository.findByUsuario(usuario).isPresent();
@@ -79,10 +79,10 @@ public class EmpleadoService {
         Usuario usuario = usuarioRepository.findById(request.usuarioId())
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
         
-        Area area = areaRepository.findById(request.cargoId())
+        Area area = areaRepository.findById(request.areaId())
         		.orElseThrow(() -> new IllegalArgumentException("Área no encontrada."));
         
-        Cargo cargo = cargoRepository.findById(request.areaId())
+        Cargo cargo = cargoRepository.findById(request.cargoId())
         		.orElseThrow(() -> new IllegalArgumentException("Cargo no encontrado."));
 
         empleado.setUsuario(usuario);
