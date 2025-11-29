@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { MenubarModule } from 'primeng/menubar';
@@ -24,8 +24,10 @@ import { Footer } from '../../../shared/components/footer/footer';
   templateUrl: './dashboard-admin.html',
   styleUrls: ['./dashboard-admin.scss']
 })
-export class DashboardAdmin {
-    sidebarVisible = true; 
+export class DashboardAdmin implements OnInit, OnDestroy {
+  sidebarVisible = true;
+  isMobile = false;
+  isTablet = false; 
 
   menuItems: MenuItem[] = [
     { label: 'Dashboard', icon: 'pi pi-th-large', routerLink: ['/admin'] },
@@ -72,11 +74,44 @@ export class DashboardAdmin {
     
   ];
 
-  toggleSidebar() {
+  ngOnInit(): void {
+    this.checkScreenSize();
+  }
+
+  ngOnDestroy(): void {
+    // Cleanup si es necesario
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any): void {
+    this.checkScreenSize();
+  }
+
+  checkScreenSize(): void {
+    const width = window.innerWidth;
+    this.isMobile = width < 768;
+    this.isTablet = width >= 768 && width < 992;
+    
+    // En móviles y tablets, el sidebar inicia oculto
+    if (this.isMobile || this.isTablet) {
+      this.sidebarVisible = false;
+    } else {
+      this.sidebarVisible = true;
+    }
+  }
+
+  toggleSidebar(): void {
     this.sidebarVisible = !this.sidebarVisible;
   }
 
-  logout() {
+  closeSidebar(): void {
+    // Cerrar sidebar al hacer click en el overlay (solo en móviles/tablets)
+    if (this.isMobile || this.isTablet) {
+      this.sidebarVisible = false;
+    }
+  }
+
+  logout(): void {
     localStorage.removeItem('token');
     window.location.href = '/login';
   }

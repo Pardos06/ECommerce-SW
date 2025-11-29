@@ -4,21 +4,46 @@
 
   <!-- Contenedor del dashboard con sidebar -->
   <div class="dashboard-content">
+    <!-- Botón Toggle Sidebar -->
     <button
       pButton
       icon="pi pi-bars"
       class="p-button-text p-button-rounded menu-toggle"
+      [class.mobile-toggle]="isMobile || isTablet"
       (click)="toggleSidebar()"
-      title="Alternar menú"
+      [title]="sidebarVisible ? 'Ocultar menú' : 'Mostrar menú'"
     ></button>
 
-  
-  <aside class="sidebar" [class.hidden]="!sidebarVisible">
-    <p-panelMenu [model]="menuItems" [style.width]="'100%'"></p-panelMenu>
-  </aside>
+    <!-- Overlay/Backdrop para móviles y tablets -->
+    <div 
+      class="sidebar-overlay" 
+      [class.active]="sidebarVisible && (isMobile || isTablet)"
+      (click)="closeSidebar()"
+    ></div>
 
+    <!-- Sidebar -->
+    <aside 
+      class="sidebar" 
+      [class.visible]="sidebarVisible"
+      [class.mobile]="isMobile"
+      [class.tablet]="isTablet"
+    >
+      <div class="sidebar-header">
+        <h3>Menú</h3>
+        <button
+          *ngIf="isMobile || isTablet"
+          pButton
+          icon="pi pi-times"
+          class="p-button-text p-button-rounded close-sidebar"
+          (click)="closeSidebar()"
+          title="Cerrar menú"
+        ></button>
+      </div>
+      <p-panelMenu [model]="menuItems" [style.width]="'100%'"></p-panelMenu>
+    </aside>
 
-    <main class="content" [class.expanded]="!sidebarVisible">
+    <!-- Contenido Principal -->
+    <main class="content" [class.expanded]="!sidebarVisible" [class.mobile]="isMobile">
       <router-outlet></router-outlet>
     </main>
   </div>
