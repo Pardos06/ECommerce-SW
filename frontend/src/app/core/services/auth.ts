@@ -30,12 +30,13 @@ export class Auth {
 
   guardarRol(rol: string): void {
     if (!rol) return;
-    localStorage.setItem('rol', rol.toString().toUpperCase());
+    // Normalizar a formato con primera letra mayúscula: "Administrador" o "Cliente"
+    const normalizado = rol.charAt(0).toUpperCase() + rol.slice(1).toLowerCase();
+    localStorage.setItem('rol', normalizado);
   }
 
   obtenerRol(): string | null {
-    const r = localStorage.getItem('rol');
-    return r ? r.toUpperCase() : null;
+    return localStorage.getItem('rol');
   }
 
   cerrarSesion(): void {
