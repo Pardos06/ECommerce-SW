@@ -3,6 +3,8 @@ import { DashboardAdmin } from './dashboard-admin/dashboard-admin';
 import { ProductosPage } from './productos/pages/productos/productos';
 import { CategoriaPage } from './productos/pages/categoria/categoria';
 import { MetodoPagoPage } from './compras/pages/metodo-pago/metodo-pago';
+import { CompraPage } from './compras/pages/compra/compra';
+import { CompraDetailsPage } from './compras/pages/compra-details/compra-details';
 import { ProveedorPage } from './proveedores/pages/proveedor/proveedor';
 import { TipoProveedorPage } from './proveedores/pages/tipo-proveedor/tipo-proveedor';
 import { RolPage } from './usuarios/pages/rol/rol';
@@ -35,6 +37,14 @@ export const ADMIN_ROUTES: Routes = [
       { 
         path: 'metodos-pago',
         component: MetodoPagoPage 
+      },
+      {
+        path: 'compras',
+        component: CompraPage
+      },
+      {
+        path: 'compra-detalles',
+        component: CompraDetailsPage
       },
       {
         path: 'proveedor',

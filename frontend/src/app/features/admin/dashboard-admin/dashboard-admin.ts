@@ -41,9 +41,11 @@ export class DashboardAdmin implements OnInit, OnDestroy {
     },
     {
       label: 'Compras',
-      icon: 'pi pi-users',
+      icon: 'pi pi-shopping-cart',
       items: [
-        { label: 'Métodos de Pago', icon: 'pi pi-credit-card', routerLink: ['/admin/metodos-pago'] },
+        { label: 'Gestión de Compras', icon: 'pi pi-list', routerLink: ['/admin/compras'] },
+        { label: 'Detalles de Compras', icon: 'pi pi-file-edit', routerLink: ['/admin/compra-detalles'] },
+        { label: 'Métodos de Pago', icon: 'pi pi-credit-card', routerLink: ['/admin/metodos-pago'] }
       ]
     },
     
