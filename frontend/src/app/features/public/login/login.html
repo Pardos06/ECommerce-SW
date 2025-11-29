@@ -66,15 +66,24 @@
         </small>
       </div>
 
-      <!-- Botón centrado -->
+      <!-- Botones de acción -->
       <div class="button-container">
+        <button
+          pButton
+          type="button"
+          icon="pi pi-arrow-left" 
+          label="Volver al inicio"
+          class="p-button-rounded p-button-secondary"
+          routerLink="/home"
+        ></button>
+        
         <button
           pButton
           type="submit"
           label="Iniciar Sesión"
           [loading]="cargando"
           [disabled]="form.invalid || cargando"
-          class="p-button-rounded p-button-primary w-full"
+          class="p-button-rounded p-button-primary"
         >
           <lucide-icon name="log-in" class="ml-2"></lucide-icon>
         </button>

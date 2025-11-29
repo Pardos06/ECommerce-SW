@@ -121,9 +121,14 @@
 
   .button-container {
     margin-top: 0.5rem;
-    text-align: center;
+    display: flex;
+    gap: 0.75rem;
+    justify-content: space-between;
+    
     button {
       @include btn-styles;
+      flex: 1;
+      
       &:hover:not(:disabled) {
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
