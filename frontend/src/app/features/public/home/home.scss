@@ -1,7 +1,13 @@
 // Compensación para el header fijo
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   padding-top: 80px;
+}
+
+.container {
+  flex: 1;
 }
 
 .product-card {

@@ -1,3 +1,26 @@
 /* Tailwind base */
 @import 'tailwindcss';
 @import 'tailwindcss-primeui';
+
+/* Sticky Footer Layout */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+router-outlet + * {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
