@@ -10,8 +10,8 @@ import { UsuarioForm } from '../interfaces/usuario-form';
   providedIn: 'root'
 })
 export class UsuarioService {
-  private http = inject(HttpClient);
-  private apiUrl = environment.apiUrl;
+  private readonly http = inject(HttpClient);
+  private readonly apiUrl = environment.apiUrl;
 
   // Listar todos los usuarios
   listarUsuarios(): Observable<Usuario[]> {
@@ -30,7 +30,7 @@ export class UsuarioService {
 
   // Actualizar usuario existente
   actualizarUsuario(usuario: UsuarioForm): Observable<Usuario> {
-    return this.http.put<Usuario>(`${this.apiUrl}/usuarios/${usuario.id}`, usuario);
+    return this.http.put<Usuario>(`${this.apiUrl}/usuarios`, usuario);
   }
 
   // Eliminar usuario
