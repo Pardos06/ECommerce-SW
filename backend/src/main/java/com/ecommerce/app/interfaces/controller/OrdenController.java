@@ -1,5 +1,6 @@
 package com.ecommerce.app.interfaces.controller;
 
+import com.ecommerce.app.application.dto.request.OrdenCompletaRequest;
 import com.ecommerce.app.application.dto.request.OrdenRequest;
 import com.ecommerce.app.application.dto.response.OrdenResponse;
 import com.ecommerce.app.application.service.OrdenService;
@@ -13,8 +14,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/ordenes")
-@Tag(name = "Orden", description = "Operaciones relacionadas con ordenes")
+@Tag(name = "Orden", description = "Operaciones relacionadas con órdenes")
 public class OrdenController {
+
     private final OrdenService ordenService;
 
     public OrdenController(OrdenService ordenService) {
@@ -38,10 +40,10 @@ public class OrdenController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('Administrador')")
-    @Operation(summary = "Registrar una nueva orden", description = "Registra una nueva orden producto en la base de datos")
-    public ResponseEntity<OrdenResponse> crearOrden(@RequestBody OrdenRequest request) {
-        OrdenResponse orden = ordenService.crearOrden(request);
+    @PreAuthorize("hasAnyAuthority('Administrador', 'Cliente')")
+    @Operation(summary = "Registrar una nueva orden completa", description = "Registra una orden junto con sus detalles en una sola transacción")
+    public ResponseEntity<OrdenResponse> crearOrdenCompleta(@RequestBody OrdenCompletaRequest request) {
+        OrdenResponse orden = ordenService.crearOrdenCompleta(request);
         return ResponseEntity.ok(orden);
     }
 
@@ -55,7 +57,7 @@ public class OrdenController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('Administrador')")
-    @Operation(summary = "Eliminar una orden", description = "Elimina una orden no relacionado con detalles")
+    @Operation(summary = "Eliminar una orden", description = "Elimina una orden no relacionada con detalles")
     public ResponseEntity<Void> eliminarOrden(@PathVariable int id) {
         ordenService.eliminarOrden(id);
         return ResponseEntity.noContent().build();
