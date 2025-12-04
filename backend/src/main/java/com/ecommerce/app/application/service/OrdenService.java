@@ -150,13 +150,11 @@ public class OrdenService {
         Cliente cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado con ID " + clienteId));
 
-        // Carga las órdenes (sin detalles aún)
         List<Orden> ordenes = ordenRepository.findByCliente(cliente);
 
-        // Aquí el servicio ENSAMBLA la respuesta completa
         return ordenes.stream()
                 .map(o -> {
-                        // Aquí, como estamos dentro de una @Transactional, LAZY funciona normal
+                
                         List<OrdenDetailsResponse> detalles = o.getDetails()
                                 .stream()
                                 .map(OrdenDetailsMapper::toResponse)
@@ -178,16 +176,25 @@ public class OrdenService {
         }
 
     @Transactional
-    public OrdenResponse actualizarEstado(int id, String nuevoEstado) {
+        public OrdenResponse actualizarEstado(int id, String nuevoEstado) {
         Orden orden = ordenRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Orden no encontrada con ID " + id));
 
         if ("Completado".equalsIgnoreCase(orden.getEstado())) {
-            throw new IllegalArgumentException("No se puede modificar una orden ya completada.");
+                throw new IllegalArgumentException("No se puede modificar una orden ya completada.");
+        }
+
+        if ("Cancelado".equalsIgnoreCase(nuevoEstado)) {
+                orden.getDetails().forEach(d -> {
+                Producto p = d.getProducto();
+                p.setStock(p.getStock() + d.getCantidad());  
+                productoRepository.save(p);
+                });
         }
 
         orden.setEstado(nuevoEstado);
         ordenRepository.save(orden);
+
         return OrdenMapper.toResponse(orden);
-    }
+        }
 }

@@ -48,13 +48,20 @@ export class DashboardAdmin implements OnInit, OnDestroy {
         { label: 'Métodos de Pago', icon: 'pi pi-credit-card', routerLink: ['/admin/metodos-pago'] }
       ]
     },
-    
+    {
+      label: 'Ventas',
+      icon: 'pi pi-users',
+      items: [
+        { label: 'Ventas', icon: 'pi pi-user', routerLink: ['/admin/ventas'] },
+      ]
+    },
     {
       label: 'Usuarios',
       icon: 'pi pi-users',
       items: [
         { label: 'Usuarios', icon: 'pi pi-user', routerLink: ['/admin/usuarios'] },
         { label: 'Empleados', icon: 'pi pi-id-card', routerLink: ['/admin/empleados'] },
+        { label: 'Clientes', icon: 'pi pi-list', routerLink: ['/admin/clientes'] },
         { label: 'Gestión de Roles', icon: 'pi pi-list', routerLink: ['/admin/roles'] }
       ]
     },

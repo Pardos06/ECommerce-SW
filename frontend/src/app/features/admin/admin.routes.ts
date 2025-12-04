@@ -12,6 +12,8 @@ import { AreaPage } from './rr_hh/pages/area/area';
 import { CargoPage } from './rr_hh/pages/cargo/cargo';
 import { UsuariosPage } from './usuarios/pages/usuario/usuario';
 import { EmpleadoPage } from './usuarios/pages/empleado/empleado';
+import { OrdenesAdminPage } from './ordenes/pages/ordenes/ordenes';
+import { ClientePage } from './usuarios/pages/clientes/clientes';
 
 export const ADMIN_ROUTES: Routes = [
   {
@@ -73,6 +75,14 @@ export const ADMIN_ROUTES: Routes = [
       {
         path: 'empleados',
         component: EmpleadoPage
+      },
+      {
+        path: 'ventas',
+        component: OrdenesAdminPage
+      },
+      {
+        path: 'clientes',
+        component: ClientePage
       }
       
     ],

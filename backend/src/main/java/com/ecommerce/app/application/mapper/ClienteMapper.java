@@ -28,9 +28,9 @@ public class ClienteMapper {
 
         return new ClienteResponse(
                 cliente.getId(),
+                cliente.getUsuario().getNombre(),
                 cliente.getTelefono(),
                 cliente.getDireccion(),
-                cliente.getUsuario().getNombre(),
                 cliente.getUsuario().getEmail()
         );
     }
