@@ -26,7 +26,14 @@ public class AuthService {
     private final RolRepository rolRepository;
     private final ClienteRepository clienteRepository;
 
-    public AuthService(AuthenticationManager authManager, JwtUtil jwtUtil, UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder, RolRepository rolRepository, ClienteRepository clienteRepository) {
+    public AuthService(
+            AuthenticationManager authManager,
+            JwtUtil jwtUtil,
+            UsuarioRepository usuarioRepository,
+            PasswordEncoder passwordEncoder,
+            RolRepository rolRepository,
+            ClienteRepository clienteRepository
+    ) {
         this.authManager = authManager;
         this.jwtUtil = jwtUtil;
         this.usuarioRepository = usuarioRepository;
@@ -36,26 +43,40 @@ public class AuthService {
     }
 
     public AuthResponse login(AuthRequest request) {
+
         authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.email(), request.contrasena()
                 )
         );
 
-        
         Usuario usuario = usuarioRepository.findByEmail(request.email())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-                
-        String token = jwtUtil.generateToken(
-                        usuario.getEmail(),
-                        usuario.getRol().getNombre()
-                );
 
-        return new AuthResponse(token, usuario.getRol().getNombre(), usuario.getNombre());
+        // Obtener el clienteId si aplica
+        Integer clienteId = null;
+        if ("Cliente".equalsIgnoreCase(usuario.getRol().getNombre())) {
+            Cliente cliente = clienteRepository.findByUsuario(usuario)
+                    .orElseThrow(() -> new RuntimeException("Cliente asociado no encontrado"));
+            clienteId = cliente.getId();
+        }
+
+        String token = jwtUtil.generateToken(
+                usuario.getEmail(),
+                usuario.getRol().getNombre()
+        );
+
+        return new AuthResponse(
+                token,
+                usuario.getRol().getNombre(),
+                usuario.getNombre(),
+                clienteId
+        );
     }
 
     @Transactional
     public AuthResponse registrarCliente(RegistrarClienteRequest request) {
+
         if (usuarioRepository.findByEmail(request.email()).isPresent()) {
             throw new IllegalArgumentException("El email ya está registrado: " + request.email());
         }
@@ -84,6 +105,11 @@ public class AuthService {
                 nuevo.getRol().getNombre()
         );
 
-        return new AuthResponse(token, nuevo.getRol().getNombre(), nuevo.getNombre());
+        return new AuthResponse(
+                token,
+                nuevo.getRol().getNombre(),
+                nuevo.getNombre(),
+                cliente.getId()
+        );
     }
 }

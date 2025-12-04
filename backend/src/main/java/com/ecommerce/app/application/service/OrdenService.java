@@ -3,7 +3,9 @@ package com.ecommerce.app.application.service;
 import com.ecommerce.app.application.dto.request.OrdenCompletaRequest;
 import com.ecommerce.app.application.dto.request.OrdenDetailsRequest;
 import com.ecommerce.app.application.dto.request.OrdenRequest;
+import com.ecommerce.app.application.dto.response.OrdenDetailsResponse;
 import com.ecommerce.app.application.dto.response.OrdenResponse;
+import com.ecommerce.app.application.mapper.OrdenDetailsMapper;
 import com.ecommerce.app.application.mapper.OrdenMapper;
 import com.ecommerce.app.domain.models.Cliente;
 import com.ecommerce.app.domain.models.MetodoPago;
@@ -142,15 +144,38 @@ public class OrdenService {
         ordenRepository.deleteById(id);
     }
 
-    public List<OrdenResponse> obtenerOrdenPorCliente(int clienteId) {
+    @Transactional
+        public List<OrdenResponse> obtenerOrdenPorCliente(int clienteId) {
+
         Cliente cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado con ID " + clienteId));
 
-        return ordenRepository.findByCliente(cliente)
-                .stream()
-                .map(OrdenMapper::toResponse)
-                .collect(Collectors.toList());
-    }
+        // Carga las órdenes (sin detalles aún)
+        List<Orden> ordenes = ordenRepository.findByCliente(cliente);
+
+        // Aquí el servicio ENSAMBLA la respuesta completa
+        return ordenes.stream()
+                .map(o -> {
+                        // Aquí, como estamos dentro de una @Transactional, LAZY funciona normal
+                        List<OrdenDetailsResponse> detalles = o.getDetails()
+                                .stream()
+                                .map(OrdenDetailsMapper::toResponse)
+                                .toList();
+
+                        return new OrdenResponse(
+                                o.getId(),
+                                o.getEstado(),
+                                o.getEstadoEmail(),
+                                o.getCliente().getUsuario().getNombre(),
+                                o.getMetodoPago().getNombre(),
+                                o.getFechaOrden(),
+                                o.getCliente().getId(),
+                                o.getMetodoPago().getId(),
+                                detalles
+                        );
+                })
+                .toList();
+        }
 
     @Transactional
     public OrdenResponse actualizarEstado(int id, String nuevoEstado) {
