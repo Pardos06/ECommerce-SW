@@ -73,7 +73,9 @@ export class LoginPage {
         this.authService.guardarToken(res.token);
         this.authService.guardarRol(res.rol);
         localStorage.setItem('nombre', res.nombre);
-
+        if (res.clienteId) {
+          this.authService.guardarClienteId(res.clienteId);
+        }
         this.messageService.add({
           severity: 'success',
           summary: '¡Bienvenido!',
@@ -85,9 +87,9 @@ export class LoginPage {
           const rol = res.rol?.toUpperCase();
           setTimeout(() => {
             if (rol === 'ADMINISTRADOR' || rol === 'ADMIN') {
-              this.router.navigate(['/admin']);
+              this.router.navigate(['/admin/productos']);
             } else {
-              this.router.navigate(['/cliente']);
+              this.router.navigate(['/cliente/productos']);
             }
           }, 1000);
         });

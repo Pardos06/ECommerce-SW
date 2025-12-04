@@ -19,7 +19,7 @@ export class HomePage implements OnInit {
   cargando = true;
 
   constructor(
-    public productoService: ProductoService, // ⭐ Cambiar de private a public
+    public productoService: ProductoService,
     private router: Router
   ) {}
 
@@ -45,9 +45,8 @@ export class HomePage implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  // ⭐ Método auxiliar para manejar errores de imagen
   onImageError(event: any): void {
-    event.target.src = 'assets/images/no-image.png'; // Imagen por defecto
+    event.target.src = 'assets/images/no-image.png';
     event.target.style.opacity = '0.5';
   }
 }

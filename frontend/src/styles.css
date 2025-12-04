@@ -2,6 +2,7 @@
 @import 'tailwindcss';
 @import 'tailwindcss-primeui';
 
+
 /* Sticky Footer Layout */
 html, body {
   height: 100%;

@@ -1,23 +1,26 @@
+import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { HttpInterceptorFn, HttpRequest, HttpHandlerFn, HttpEvent } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { Auth } from '../services/auth';
 
-export const authInterceptor: HttpInterceptorFn = (
-  req: HttpRequest<any>,
-  next: HttpHandlerFn
-): Observable<HttpEvent<any>> => {
-  const authService = inject(Auth);
-  const token = authService.obtenerToken();
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  const auth = inject(Auth);
+  const token = auth.obtenerToken();
+
+  console.log("🔥 INTERCEPTOR EJECUTADO");
+  console.log("🔥 TOKEN OBTENIDO:", token);
 
   if (token) {
     const cloned = req.clone({
       setHeaders: {
-        Authorization: `Bearer ${token}`,
-      },
+        Authorization: `Bearer ${token}`
+      }
     });
+
+    console.log("🔥 HEADERS ENVIADOS:", cloned.headers);
+
     return next(cloned);
   }
 
+  console.warn("⚠️ NO HAY TOKEN → petición se envía sin Authorization");
   return next(req);
 };

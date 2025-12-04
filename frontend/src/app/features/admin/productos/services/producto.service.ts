@@ -48,8 +48,7 @@ export class ProductoService {
   subirImagen(archivo: File): Observable<ProductoImagenResponse> {
     const formData = new FormData();
     formData.append('archivo', archivo);
-
-    // No se usa Content-Type manualmente
+    
     return this.http.post<ProductoImagenResponse>(
       `${this.apiUrl}/imagenes`,
       formData,

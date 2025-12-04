@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MetodoPago } from '../../interfaces/metodo.pago';
+import { MetodoPago } from '../../interfaces/metodo-pago';
 import { MetodoPagoService } from '../../services/metodo-pago.service';
 import { CommonModule } from '@angular/common';
 import { MessageService, ConfirmationService } from 'primeng/api';

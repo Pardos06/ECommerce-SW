@@ -21,11 +21,11 @@ export class Auth {
   }
 
   guardarToken(token: string): void {
-    localStorage.setItem('jwt_token', token);
+    localStorage.setItem('token', token);
   }
 
   obtenerToken(): string | null {
-    return localStorage.getItem('jwt_token');
+    return localStorage.getItem('token');
   }
 
   guardarRol(rol: string): void {
@@ -39,8 +39,19 @@ export class Auth {
     return localStorage.getItem('rol');
   }
 
-  cerrarSesion(): void {
-    localStorage.removeItem('jwt_token');
-    localStorage.removeItem('rol');
+  guardarClienteId(id: number): void {
+    localStorage.setItem('clienteId', String(id));
   }
+
+  obtenerClienteId(): number | null {
+    const id = localStorage.getItem('clienteId');
+    return id ? Number(id) : null;
+  }
+    cerrarSesion(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('rol');
+    localStorage.removeItem('clienteId');
+    localStorage.removeItem('nombre');
+  }
+  
 }

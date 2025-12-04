@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { MetodoPago } from '../interfaces/metodo.pago';
+import { MetodoPago } from '../interfaces/metodo-pago';
 import { environment } from '../../../../environment/environment';
 
 @Injectable({

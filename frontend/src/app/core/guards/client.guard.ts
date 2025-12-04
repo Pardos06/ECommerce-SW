@@ -7,11 +7,15 @@ export class ClientGuard implements CanActivate {
   constructor(private auth: Auth, private router: Router) {}
 
   canActivate(): boolean {
-    const rol = localStorage.getItem('rol');
+    const rol = localStorage.getItem('rol')?.toUpperCase();
+    console.log('[ClientGuard] Rol detectado:', rol);
+
     if (rol !== 'CLIENTE') {
-      this.router.navigate(['/admin']);
+      console.warn('[ClientGuard] Acceso denegado, redirigiendo a login');
+      this.router.navigate(['/login']);
       return false;
     }
+
     return true;
-  }
+}
 }
